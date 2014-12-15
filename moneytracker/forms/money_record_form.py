@@ -199,17 +199,22 @@ class MoneyRecordForm(forms.Form):
     def clean(self):
         cleaned_data = super(MoneyRecordForm, self).clean()
 
-        allocations_toggle = self.cleaned_data['allocations_toggle']
-        assert allocations_toggle in ('0', '1', '2')
+
 
         if self.record_type == 'expense':
-            allocations = cleaned_data.get('allocations')
-            if len(allocations) < 1:
-                self.add_error('allocations', 'Must select at least one')
 
             expense_amount = cleaned_data.get('amount')
             if expense_amount and expense_amount == 0:
                 self.add_error('amount', 'Must be non-zero')
+
+            allocations_toggle = self.cleaned_data['allocations_toggle']
+            assert allocations_toggle in ('0', '1', '2')
+
+            if allocations_toggle == '1':
+                # equal allocation amounts
+                allocations = cleaned_data.get('allocations')
+                if len(allocations) < 1:
+                    self.add_error('allocations', 'Must select at least one')
 
             if allocations_toggle == '2':
                 # custom allocation amounts
