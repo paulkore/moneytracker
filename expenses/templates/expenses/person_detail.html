@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'expenses/style.css' %}" />
+
+<div id="main-wrapper">
+
+    <div id="title">User detail</div>
+
+    <div id="inner-wrapper">
+
+        <p>PK: {{ object.id }}</p>
+        <p>Name: {{ object.name }}</p>
+
+    </div>
+
+</div>

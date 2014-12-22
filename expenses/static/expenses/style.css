@@ -1,0 +1,154 @@
+body {
+    background-color: lightblue;
+}
+
+#main-wrapper {
+    /*width: 1100px;*/
+    display: table;
+	margin: 0 auto;
+    min-width: 800px;
+    min-height: 600px;
+    border-radius: 10px;
+    background: whitesmoke;
+}
+
+#title {
+    font-size: 30pt;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: dodgerblue;
+    color: darkblue;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.sub-title {
+    font-size: 20pt;
+    font-weight: bold;
+    color: darkblue;
+    margin-bottom: 10px;
+}
+
+#inner-wrapper {
+    padding: 20px;
+}
+
+.expenses-col {
+    float: left;
+}
+
+.expenses-header {
+    font-weight: bold;
+    color: darkblue;
+    background-color: lightblue;
+    margin-bottom: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.expenses-header.expenses-header-person {
+    color: darkgreen;
+}
+
+.expenses-footer {
+    background-color: lightblue;
+    margin-top: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.expenses-col-numeric {
+    text-align: right;
+}
+
+#expenses-clear-float {
+    clear: both;
+}
+
+.expenses-cell {
+    padding: 1px 20px 1px 5px;
+    min-height: 18px;
+}
+
+.expenses-cell-lastcol {
+    padding-right: 5px;
+}
+
+.expenses-cell .action-link.action-link-delete {
+    margin-left: 5px;
+}
+
+.expenses-cell .action-link.action-link-edit {
+    margin-left: 10px;
+}
+
+.expenses-cell .action-link.action-link-add {
+    margin-left: 2px;
+}
+
+.expenses-cell .action-link img {
+    width: 12px;
+    height: 12px;
+    padding: 2px 3px 0px 3px;
+}
+
+.expenses-cell-strong {
+    font-weight: bold;
+}
+
+.action-status {
+    margin: 0px 0px 0px 5px;
+    font-weight: bold;
+    font-size: 20pt;
+    font-family: "Courier New"
+}
+
+.action-status-success {
+    color: green;
+}
+
+.action-status-failure {
+    color: red;
+}
+
+.form-wrapper {
+    padding: 10px;
+}
+
+form .errorlist {
+    color: red;
+}
+
+.form-field-wrapper {
+    padding: 5px 2px;
+}
+
+.form-field-wrapper label {
+    margin-right: 10px;
+}
+
+.form-submit {
+    margin-top: 10px;
+}
+
+#expense-form {
+
+}
+
+#expense-form #field-pub-date input {
+    width: 80px;
+}
+
+#expense-form #field-description input {
+    width: 500px;
+}
+
+#expense-form #field-participant select {
+    width: 200px;
+}
+
+#expense-form #field-amount input {
+    width: 50px;
+}

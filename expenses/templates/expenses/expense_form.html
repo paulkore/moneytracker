@@ -1,0 +1,78 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'expenses/style.css' %}" />
+
+{######## jQuery and jQuery-UI served locally #######}
+<link rel="stylesheet" type="text/css" href="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.css' %}" />
+<script src="{% static 'expenses/js/jquery-1.11.2.js' %}"></script>
+<script src="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
+
+{######## jQuery and jQuery-UI imported from remote domain #######}
+{#<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">#}
+{#<script src="http://code.jquery.com/jquery-1.9.1.js"></script>#}
+{#<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>#}
+
+<script>
+// enable all date pickers
+$(document).ready(function() {
+    $('.datepicker').datepicker();
+});
+</script>
+
+
+<div id="main-wrapper">
+
+    <div id="title">{{ form.event.name }}</div>
+
+    <div id="inner-wrapper">
+
+        <div class="form-wrapper">
+            <div class="sub-title">
+            {% if form.expense %}
+                Edit expense
+            {% else %}
+                Create new expense
+            {% endif %}
+            </div>
+
+            <form id="expense-form" method="post">{% csrf_token %}
+{#                {% include "expenses/form_snippet.html" %}#}
+
+                <div class="form-non-field-errors-wrapper">
+                    {{ form.non_field_errors }}
+                </div>
+
+{#                {% for field in form %}#}
+{#                    <div class="form-field-wrapper">#}
+{#                        {{ field.errors }}#}
+{#                        {{ field.label_tag }} {{ field }}#}
+{#                    </div>#}
+{#                {% endfor %}#}
+
+                <div id="field-pub-date" class="form-field-wrapper">
+                    {{ form.pub_date.errors }}
+                    {{ form.pub_date.label_tag }} {{ form.pub_date }}
+                </div>
+
+                <div id="field-description" class="form-field-wrapper">
+                    {{ form.description.errors }}
+                    {{ form.description.label_tag }} {{ form.description }}
+                </div>
+
+                <div id="field-participant" class="form-field-wrapper">
+                    {{ form.participant.errors }}
+                    {{ form.participant.label_tag }} {{ form.participant }}
+                </div>
+
+                <div id="field-amount" class="form-field-wrapper">
+                    {{ form.amount.errors }}
+                    {{ form.amount.label_tag }} {{ form.amount }}
+                </div>
+
+                <input type="submit" value="Submit" class="form-submit"/>
+            </form>
+        </div>
+
+    </div>
+
+</div>
