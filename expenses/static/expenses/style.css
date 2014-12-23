@@ -40,17 +40,22 @@ body {
 }
 
 .expenses-header {
+    min-height: 24px;
+    font-size: 16px;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
     color: darkblue;
     background-color: lightblue;
     margin-bottom: 10px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .expenses-header.expenses-header-person {
     color: darkgreen;
 }
+
+
 
 .expenses-footer {
     background-color: lightblue;
@@ -76,6 +81,10 @@ body {
     padding-right: 5px;
 }
 
+.expenses-cell .action-link {
+    color: #0000EE;
+}
+
 .expenses-cell .action-link.action-link-delete {
     margin-left: 5px;
 }
@@ -85,6 +94,7 @@ body {
 }
 
 .expenses-cell .action-link.action-link-add {
+    font-size: 18px;
     margin-left: 2px;
 }
 
@@ -92,6 +102,10 @@ body {
     width: 12px;
     height: 12px;
     padding: 2px 3px 0px 3px;
+}
+
+.expenses-cell.expenses-bottom-row {
+    min-height: 24px;
 }
 
 .expenses-cell-strong {

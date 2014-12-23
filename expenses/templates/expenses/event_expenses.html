@@ -16,15 +16,11 @@
                 </div>
                 {% for expense in expenses_list %}
                     <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">
-{#                        <a class="action-link action-link-delete" href="{{ expense.url_delete }}"><img src="{% static 'expenses/images/16x16/delete.png' %}"></a>#}
-                        <a class="action-link action-link-edit" href="{{ expense.url_edit }}">
-                            Edit
-{#                            <img src="{% static 'expenses/images/16x16/edit.png' %}">#}
-                        </a>
+{#                      <a class="action-link action-link-delete" href="{{ expense.url_delete }}"><img src="{% static 'expenses/images/16x16/delete.png' %}"></a>#}
+                        <a class="action-link action-link-edit" href="{{ expense.url_edit }}">Edit{#<img src="{% static 'expenses/images/16x16/edit.png' %}">#}</a>
                     </div>
                 {% endfor %}
-                <div class="expenses-cell"></div>
-
+                <div class="expenses-cell expenses-bottom-row"></div>
 
                 <div class="expenses-footer">
                     <div class="expenses-cell expenses-cell-strong"></div>
@@ -39,7 +35,7 @@
                 {% for expense in expenses_list %}
                     <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">{{ expense.description }}</div>
                 {% endfor %}
-                <div class="expenses-cell">
+                <div class="expenses-cell expenses-bottom-row">
                     <a class="action-link action-link-add" href="{{ url_add_expense }}"><img src="{% static 'expenses/images/16x16/add.png' %}"> add new</a>
                 </div>
 
@@ -57,7 +53,7 @@
                 {% for expense in expenses_list %}
                     <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">{{ expense.pub_date | date:"Y/m/d" }}</div>
                 {% endfor %}
-                <div class="expenses-cell"></div>
+                <div class="expenses-cell expenses-bottom-row"></div>
 
                 <div class="expenses-footer">
                     <div class="expenses-cell"></div>
@@ -73,7 +69,7 @@
                     {% for expense in expenses_list %}
                         <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">{{ expense.contributions | get_item:person | money_amount_hide_zero}}</div>
                     {% endfor %}
-                    <div class="expenses-cell"></div>
+                    <div class="expenses-cell expenses-bottom-row"></div>
 
                     <div class="expenses-footer">
                         <div class="expenses-cell">{{ participant_total | get_item:person | money_amount }}</div>
@@ -89,7 +85,7 @@
                 {% for expense in expenses_list %}
                     <div class="expenses-cell expenses-cell-lastcol expense-cell-id-{{ expense.expense_id }}">{{ expense.total_amount | money_amount }}</div>
                 {% endfor %}
-                <div class="expenses-cell"></div>
+                <div class="expenses-cell expenses-bottom-row"></div>
 
                 <div class="expenses-footer">
                     <div class="expenses-cell expenses-cell-lastcol expenses-cell-strong">{{ event_total | money_amount }}</div>
