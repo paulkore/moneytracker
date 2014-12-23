@@ -48,7 +48,7 @@ def money_amount_str(amount):
 
 
 class EventExpensesView(generic.TemplateView):
-    template_name = "expenses/expenses.html"
+    template_name = "expenses/event_expenses.html"
 
     def get_context_data(self, **kwargs):
         context = super(EventExpensesView, self).get_context_data(**kwargs)
