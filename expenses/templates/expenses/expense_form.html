@@ -17,6 +17,7 @@
 $(document).ready(function() {
     $('.datepicker').datepicker();
 });
+
 </script>
 
 
@@ -28,7 +29,7 @@ $(document).ready(function() {
 
         <div class="form-wrapper">
             <div class="sub-title">
-            {% if form.expense %}
+            {% if existing_expense %}
                 Edit expense
             {% else %}
                 Create new expense
@@ -36,18 +37,10 @@ $(document).ready(function() {
             </div>
 
             <form id="expense-form" method="post">{% csrf_token %}
-{#                {% include "expenses/form_snippet.html" %}#}
 
                 <div class="form-non-field-errors-wrapper">
                     {{ form.non_field_errors }}
                 </div>
-
-{#                {% for field in form %}#}
-{#                    <div class="form-field-wrapper">#}
-{#                        {{ field.errors }}#}
-{#                        {{ field.label_tag }} {{ field }}#}
-{#                    </div>#}
-{#                {% endfor %}#}
 
                 <div id="field-pub-date" class="form-field-wrapper">
                     {{ form.pub_date.errors }}
@@ -69,8 +62,12 @@ $(document).ready(function() {
                     {{ form.amount.label_tag }} {{ form.amount }}
                 </div>
 
-                <input type="submit" value="Submit" class="form-submit"/>
+                <input type="submit" class="form-submit" name="form-submit-save" value="Save" />
+                {% if existing_expense %}
+                    <input type="submit" class="form-submit" name="form-submit-delete" value="Delete" />
+                {% endif %}
             </form>
+
         </div>
 
     </div>

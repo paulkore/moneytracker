@@ -72,7 +72,11 @@ class Expense(models.Model):
             total += contribution.amount
         return total
 
-
+    # TODO: is this method really necessary?
+    def deep_delete(self):
+        for contribution in self.contributions():
+            contribution.delete()
+        self.delete()
 
 
 class Contribution(models.Model):

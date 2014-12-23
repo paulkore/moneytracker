@@ -59,20 +59,17 @@ class ExpenseForm(forms.Form):
         self.fields['participant'].initial = contribution.participant_id
 
 
-    def process(self):
+    def process_save(self):
         assert self.is_valid(), 'Assuming that form validation was handled already'
 
-        print('processing ExpenseForm >>> ' + str(self.cleaned_data))
-
-        # TODO: this should wrap the multiple DB writes below in a DB transaction. Verify that it works as expected!
         with transaction.atomic():
 
             if self.expense :
-                print('Updating existing expense (id: %d)' % self.expense.id)
+                # print('Updating existing expense (id: %d)' % self.expense.id)
                 self._update_existing_expense()
 
             else :
-                print('Creating new expense')
+                # print('Creating new expense')
                 self._create_new_expense()
 
 
