@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.http import Http404
+from django.middleware import transaction
 from django.template.defaultfilters import slugify
 
 from decimal import Decimal
@@ -74,9 +75,10 @@ class Expense(models.Model):
 
     # TODO: is this method really necessary?
     def deep_delete(self):
-        for contribution in self.contributions():
-            contribution.delete()
-        self.delete()
+        with transaction.atomic():
+            for contribution in self.contributions():
+                contribution.delete()
+            self.delete()
 
 
 class Contribution(models.Model):
