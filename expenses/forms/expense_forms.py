@@ -52,7 +52,7 @@ class ExpenseForm(forms.Form):
         self.fields['description'].initial = expense.description
 
         contributions = expense.contributions()
-        assert len(contributions) is 1, 'Only supporting expenses with a single contribution for now'
+        assert len(contributions) is 1, 'Only 1 contribution currently supported'
         contribution = contributions[0]
 
         self.fields['amount'].initial = contribution.amount
