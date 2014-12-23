@@ -8,18 +8,6 @@ DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
 from expenses.models import Expense, Contribution, Event, Person, Participant
 
-# class PersonForm(forms.ModelForm):
-#     class Meta:
-#         model = Person
-#         fields = '__all__'
-
-
-# class PersonForm(forms.Form):
-#     name = forms.CharField(label='Name', max_length=50)
-#
-#     def create_person(self):
-#         print('#PersonForm >>> ' + str(self.cleaned_data) )
-
 class ParticipantChoice:
 
     def __init__(self, participant):
