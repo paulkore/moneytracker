@@ -1,8 +1,11 @@
-from django.conf.urls import patterns,url
+from django.conf.urls import patterns,url, include
 
 from expenses import views
 
 urlpatterns = patterns('',
+    # TODO: this doesn't work (fails to load internal module 'conf')
+    # url(r'^', include('favicon.urls')),
+
     url(r'^(?P<event_name_slug>[-\w]+)/$', views.EventExpensesView.as_view(), name='event-expenses'),
     url(r'^(?P<event_name_slug>[-\w]+)/expense/add/$', views.expense_form_view, name='event-expense-create'),
     url(r'^(?P<event_name_slug>[-\w]+)/expense/(?P<expense_id>\d+)/$', views.expense_form_view, name='event-expense-edit'),
