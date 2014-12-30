@@ -1,8 +1,7 @@
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.http import Http404
-from django.middleware import transaction
 from django.template.defaultfilters import slugify
+from django.db import transaction
 
 from decimal import Decimal
 
