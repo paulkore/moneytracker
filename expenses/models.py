@@ -72,7 +72,6 @@ class Expense(models.Model):
             total += contribution.amount
         return total
 
-    # TODO: is this method really necessary?
     def deep_delete(self):
         with transaction.atomic():
             for contribution in self.contributions():

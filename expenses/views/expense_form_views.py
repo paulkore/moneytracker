@@ -71,16 +71,5 @@ def expense_form_view(request, event_name_slug, expense_id = None):
                       'existing_expense': existing_expense,
                   })
 
-def expense_delete_view(request, event_name_slug, expense_id):
-    event = Event.find_by_name_slug(event_name_slug)
-    assert event
-    expense = Expense.objects.get(pk=expense_id)
-    assert expense
-    assert expense.event_id is event.id
 
-    # TODO: determine whether the deep_delete() method is really necessary, rather than just delete()
-    expense.deep_delete()
-    #expense.delete()
-
-    return HttpResponseRedirect(reverse('expenses:event-expenses', kwargs={'event_name_slug': event_name_slug}))
 
