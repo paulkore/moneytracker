@@ -16,8 +16,7 @@
                 </div>
                 {% for expense in expenses_list %}
                     <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">
-{#                      <a class="action-link action-link-delete" href="{{ expense.url_delete }}"><img src="{% static 'expenses/images/16x16/delete.png' %}"></a>#}
-                        <a class="action-link action-link-edit" href="{{ expense.url_edit }}">Edit{#<img src="{% static 'expenses/images/16x16/edit.png' %}">#}</a>
+                        <a class="action-link action-link-edit" href="{{ expense.url_edit }}">Edit</a>
                     </div>
                 {% endfor %}
                 <div class="expenses-cell expenses-bottom-row"></div>

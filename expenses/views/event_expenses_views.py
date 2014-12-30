@@ -20,7 +20,6 @@ class ExpenseObject:
             self.contributions[person] = contribution
 
         self.url_edit = reverse('expenses:event-expense-edit', kwargs={'event_name_slug': expense.event.name_slug, 'expense_id': expense.id})
-        self.url_delete = reverse('expenses:event-expense-delete', kwargs={'event_name_slug': expense.event.name_slug, 'expense_id': expense.id})
 
 @register.filter
 def get_item(dictionary, key):
