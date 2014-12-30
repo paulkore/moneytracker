@@ -25,23 +25,37 @@ class ExpenseForm(forms.Form):
 
     pub_date = forms.DateField(label='Date', input_formats = ['%Y/%m/%d', '%Y-%m-%d', '%m/%d/%Y'], widget=DateInput())
     description = forms.CharField(label='Description', max_length=200)
-    amount = forms.DecimalField(label='Amount', decimal_places=2)
-    participant = None # initialized dynamically
 
     def __init__(self, event, *args, **kwargs):
         super(ExpenseForm, self).__init__(*args, **kwargs)
 
         assert type(event) is Event
-        # print('Expense form initializing for event: ' + event.name)
         self.event = event
         self.expense = None
 
-        participant_choices=[(None, 'SELECT')]
-        for o in event.participant_objects():
-            choice = (o.id, str(o.person.name))
-            participant_choices.append(choice)
+        self.contribution_fields = {}
+        for participant in event.participant_objects():
+            participant_id = participant.id
+            person_name = participant.person.name
+            contrib_field_name = 'contribution_par_'+str(participant_id)
+            contrib_field_label = 'Contribution - '+person_name
+            contrib_field = forms.DecimalField(label=contrib_field_label, decimal_places=2, required=False)
+            contrib_field.name = contrib_field_name
+            self.fields[contrib_field_name] = contrib_field
+            self.contribution_fields[participant_id] = contrib_field
 
-        self.fields['participant'] = forms.ChoiceField(choices=participant_choices)
+
+    def _get_contrib_amounts(self):
+        d_contrib_amounts = {}
+        for participant_id, contrib_field in self.contribution_fields.items():
+            contrib_amount = self.cleaned_data[contrib_field.name]
+            if contrib_amount and contrib_amount != Decimal(0):
+                d_contrib_amounts[participant_id] = contrib_amount
+
+        participants = self.event.participant_objects()
+        assert 1 <= len(d_contrib_amounts) <= len(participants)
+        return d_contrib_amounts
+
 
     def populate_from_object(self, expense):
         assert type(expense) is Expense
@@ -52,24 +66,20 @@ class ExpenseForm(forms.Form):
         self.fields['description'].initial = expense.description
 
         contributions = expense.contributions()
-        assert len(contributions) is 1, 'Only 1 contribution currently supported'
-        contribution = contributions[0]
+        participants = self.event.participant_objects()
+        assert 1 <= len(contributions) <= len(participants)
+        for contribution in contributions:
+            self.contribution_fields[contribution.participant_id].initial = contribution.amount
 
-        self.fields['amount'].initial = contribution.amount
-        self.fields['participant'].initial = contribution.participant_id
 
 
     def process_save(self):
         assert self.is_valid(), 'Assuming that form validation was handled already'
 
         with transaction.atomic():
-
             if self.expense :
-                # print('Updating existing expense (id: %d)' % self.expense.id)
                 self._update_existing_expense()
-
             else :
-                # print('Creating new expense')
                 self._create_new_expense()
 
 
@@ -82,12 +92,39 @@ class ExpenseForm(forms.Form):
         self.expense.save()
 
         contributions = self.expense.contributions()
-        assert len(contributions) == 1, 'Only 1 contribution currently supported'
-        contribution = contributions[0]
 
-        contribution.participant_id = self.cleaned_data['participant']
-        contribution.amount = self.cleaned_data['amount']
-        contribution.save()
+        participants = self.event.participant_objects()
+        assert len(participants) > 0
+
+        d_existing_contrib_records = {}
+        for contribution in contributions:
+            d_existing_contrib_records[contribution.participant_id] = contribution
+        assert 1 <= len(d_existing_contrib_records) <= len(participants)
+
+        d_contrib_amounts = self._get_contrib_amounts()
+        assert 1 <= len(d_contrib_amounts) <= len(participants)
+
+        # remove any existing Contribution records, that no longer have an amount
+        for participant_id, contrib_record in d_existing_contrib_records.items():
+            if participant_id not in d_contrib_amounts:
+                contrib_record.delete()
+
+        # apply the contribution amounts from the form
+        for participant_id, contrib_amount in d_contrib_amounts.items():
+
+            if participant_id in d_existing_contrib_records:
+                # existing Contribution record
+                contribution = d_existing_contrib_records[participant_id]
+                contribution.amount = contrib_amount
+            else:
+                # new Contribution record
+                contribution = Contribution.objects.create(
+                    expense=self.expense,
+                    participant_id=participant_id,
+                    amount=contrib_amount)
+                contribution.save()
+
+        pass
 
 
     def _create_new_expense(self):
@@ -98,12 +135,14 @@ class ExpenseForm(forms.Form):
         )
         expense.save()
 
-        contribution = Contribution.objects.create(
-            expense = expense,
-            participant_id = self.cleaned_data['participant'],
-            amount = self.cleaned_data['amount'],
-        )
-        contribution.save()
+        d_contrib_amounts = self._get_contrib_amounts()
+        for participant_id, contrib_amount in d_contrib_amounts.items():
+            contribution = Contribution.objects.create(
+                expense=expense,
+                participant_id=participant_id,
+                amount=contrib_amount,
+            )
+            contribution.save()
 
 
 

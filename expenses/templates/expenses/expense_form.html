@@ -42,30 +42,41 @@ $(document).ready(function() {
                     {{ form.non_field_errors }}
                 </div>
 
-                <div id="field-pub-date" class="form-field-wrapper">
-                    {{ form.pub_date.errors }}
-                    {{ form.pub_date.label_tag }} {{ form.pub_date }}
-                </div>
+{#            temporarily iterate over all fields in form.... #}
+{#            couldn't render fields in form.contribution_fields #}
+                {% for field in form %}
+                    <div class="form-field-wrapper">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                    </div>
+                {% endfor %}
 
-                <div id="field-description" class="form-field-wrapper">
-                    {{ form.description.errors }}
-                    {{ form.description.label_tag }} {{ form.description }}
-                </div>
+{#                <div id="field-pub-date" class="form-field-wrapper">#}
+{#                    {{ form.pub_date.errors }}#}
+{#                    {{ form.pub_date.label_tag }} {{ form.pub_date }}#}
+{#                </div>#}
 
-                <div id="field-participant" class="form-field-wrapper">
-                    {{ form.participant.errors }}
-                    {{ form.participant.label_tag }} {{ form.participant }}
-                </div>
+{#                <div id="field-description" class="form-field-wrapper">#}
+{#                    {{ form.description.errors }}#}
+{#                    {{ form.description.label_tag }} {{ form.description }}#}
+{#                </div>#}
 
-                <div id="field-amount" class="form-field-wrapper">
-                    {{ form.amount.errors }}
-                    {{ form.amount.label_tag }} {{ form.amount }}
-                </div>
+{#                {% for participant_id, contrib_field in form.contribution_fields.items %}#}
+{#                    <div class="form-field-wrapper">#}
+{#                        foo1#}
+{#                        {{ contrib_field.errors }}#}
+{#                        foo2#}
+{#                        {{ contrib_field.label_tag }} foo3 {{ contrib_field }} foo4#}
+{#                    </div>#}
+{#                {% endfor %}#}
+
 
                 <input type="submit" class="form-submit" name="form-submit-save" value="Save" />
                 {% if existing_expense %}
                     <input type="submit" class="form-submit" name="form-submit-delete" value="Delete" />
                 {% endif %}
+                <input type="submit" class="form-submit" name="form-submit-cancel" value="Cancel" />
+
             </form>
 
         </div>
