@@ -25,7 +25,7 @@ class Event(models.Model):
         return Person.objects.filter(id__in=person_ids)
 
     def expenses(self):
-        return Expense.objects.filter(event_id=self.id)
+        return Expense.objects.filter(event_id=self.id).order_by('id')
 
     def find_by_name_slug(name_slug):
         assert type(name_slug) is str
