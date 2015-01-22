@@ -24,8 +24,8 @@ def list_events():
     print('Event records in database:')
     for event in Event.objects.all().order_by('id'):
         participant_names = []
-        for person in event.participants():
-            participant_names.append(person.name)
+        for participant in event.participants():
+            participant_names.append(participant.person.name)
         print("id: {0}, name: \"{1}\", name slug: {2}, participants: {3}"
               .format(event.id, event.name, event.name_slug, participant_names)
         )
