@@ -34,11 +34,11 @@ body {
     padding: 20px;
 }
 
-.expenses-col {
+.records-col {
     float: left;
 }
 
-.expenses-header {
+.records-header {
     min-height: 24px;
     font-size: 16px;
     font-weight: bold;
@@ -50,62 +50,64 @@ body {
     padding-bottom: 0px;
 }
 
-.expenses-header.expenses-header-person {
+.records-header.records-header-person {
     color: darkgreen;
 }
 
 
 
-.expenses-footer {
+.records-footer {
     background-color: lightblue;
     margin-top: 10px;
     padding-top: 2px;
     padding-bottom: 2px;
 }
 
-.expenses-col-numeric {
+.records-col-numeric {
     text-align: right;
 }
 
-#expenses-clear-float {
+#records-clear-float {
     clear: both;
 }
 
-.expenses-cell {
+.records-cell {
     padding: 1px 20px 1px 5px;
     min-height: 18px;
 }
 
-.expenses-cell-lastcol {
+.records-cell.records-cell-strong {
+    font-weight: bold;
+}
+
+.records-cell.records-cell-lastcol {
     padding-right: 5px;
 }
 
-.expenses-cell .action-link {
+.records-cell .action-link {
     color: #0000EE;
 }
 
-.expenses-cell .action-link.action-link-edit {
+.records-cell .action-link.action-link-edit {
     margin-left: 10px;
 }
 
-.expenses-cell .action-link.action-link-add {
+.records-cell .action-link.action-link-add {
     font-size: 18px;
     margin-left: 2px;
 }
 
-.expenses-cell .action-link img {
+.records-cell .action-link img {
     width: 12px;
     height: 12px;
     padding: 2px 3px 0px 3px;
 }
 
-.expenses-cell.expenses-bottom-row {
+.records-cell.records-bottom-row {
     min-height: 24px;
 }
 
-.expenses-cell-strong {
-    font-weight: bold;
-}
+
 
 .action-status {
     margin: 0px 0px 0px 5px;
@@ -142,22 +144,22 @@ form .errorlist {
     margin-top: 10px;
 }
 
-#expense-form {
+#money-record-form {
 
 }
 
-#expense-form #field-pub-date input {
+#money-record-form #field-pub-date input {
     width: 80px;
 }
 
-#expense-form #field-description input {
+#money-record-form #field-description input {
     width: 500px;
 }
 
-#expense-form #field-amount input {
+#money-record-form #field-amount input {
     width: 80px;
 }
 
-#expense-form #field-participant select {
+#money-record-form #field-participant select {
     width: 200px;
 }
