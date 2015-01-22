@@ -1,1 +1,1 @@
-from expenses.forms.expense_forms import MoneyRecordForm
+from expenses.forms.money_record_form import MoneyRecordForm

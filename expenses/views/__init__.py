@@ -1,12 +1,12 @@
-from expenses.views.event_expenses_views import EventExpensesView
+from expenses.views.event_records_view import EventRecordsView
 
-from expenses.views.expense_form_views import expense_form_view
+from expenses.views.money_record_view import expense_form_view
 
-from expenses.views.person_form_views import PersonDetailView
-from expenses.views.person_form_views import PersonCreateView
-from expenses.views.person_form_views import PersonUpdateView
-from expenses.views.person_form_views import PersonDeleteView
+from expenses.views.person_view import PersonDetailView
+from expenses.views.person_view import PersonCreateView
+from expenses.views.person_view import PersonUpdateView
+from expenses.views.person_view import PersonDeleteView
 
-from expenses.views.action_views import ActionSuccessView
-from expenses.views.action_views import ActionFailureView
+from expenses.views.action_view import ActionSuccessView
+from expenses.views.action_view import ActionFailureView
 

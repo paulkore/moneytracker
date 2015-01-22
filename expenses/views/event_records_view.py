@@ -50,11 +50,11 @@ def money_amount_hide_zero(decimal_amount):
         return money_amount(decimal_amount)
 
 
-class EventExpensesView(generic.TemplateView):
-    template_name = "expenses/event_expenses.html"
+class EventRecordsView(generic.TemplateView):
+    template_name = "expenses/event_records.html"
 
     def get_context_data(self, **kwargs):
-        context = super(EventExpensesView, self).get_context_data(**kwargs)
+        context = super(EventRecordsView, self).get_context_data(**kwargs)
 
         event_name_slug = kwargs['event_name_slug']
         event = Event.find_by_name_slug(event_name_slug)
