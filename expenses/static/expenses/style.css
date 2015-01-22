@@ -154,10 +154,10 @@ form .errorlist {
     width: 500px;
 }
 
-#expense-form #field-participant select {
-    width: 200px;
+#expense-form #field-amount input {
+    width: 80px;
 }
 
-#expense-form #field-amount input {
-    width: 50px;
+#expense-form #field-participant select {
+    width: 200px;
 }

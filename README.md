@@ -3,7 +3,8 @@ MoneyTracker is a simple Django app, to help keep track of communal expenses dur
 Functionality outline:
 
 - creation of an event and a group of participants
-- entry of expense records, under the participant(s) who paid for the expense
+- entry of expense records, under the name of the participant who paid for the expense
+- entry of balance transfer records, between two participants
 - calculation of the running total (all expenses)
 - calculation of the individual split (total divided by number of participants) 
 - calculation of each participant's contribution variance (overpayment or underpayment)

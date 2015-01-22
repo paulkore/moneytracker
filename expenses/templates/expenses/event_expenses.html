@@ -14,9 +14,9 @@
                 <div class="expenses-header">
                     <div class="expenses-cell"></div>
                 </div>
-                {% for expense in expenses_list %}
-                    <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">
-                        <a class="action-link action-link-edit" href="{{ expense.url_edit }}">Edit</a>
+                {% for record in money_records %}
+                    <div class="expenses-cell expense-cell-id-{{ record.record_id }}">
+                        <a class="action-link action-link-edit" href="{{ record.url_edit }}">Edit</a>
                     </div>
                 {% endfor %}
                 <div class="expenses-cell expenses-bottom-row"></div>
@@ -31,13 +31,12 @@
                 <div class="expenses-header">
                     <div class="expenses-cell">Item description</div>
                 </div>
-                {% for expense in expenses_list %}
-                    <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">{{ expense.description }}</div>
+                {% for record in money_records %}
+                    <div class="expenses-cell expense-cell-id-{{ record.record_id }}">{{ record.description }}</div>
                 {% endfor %}
                 <div class="expenses-cell expenses-bottom-row">
-                    <a class="action-link action-link-add" href="{{ url_add_expense }}"><img src="{% static 'expenses/images/16x16/add.png' %}"> add new</a>
+                    <a class="action-link action-link-add" href="{{ url_add_record }}"><img src="{% static 'expenses/images/16x16/add.png' %}"> add new</a>
                 </div>
-
 
                 <div class="expenses-footer">
                     <div class="expenses-cell expenses-cell-strong">Totals</div>
@@ -49,8 +48,8 @@
                 <div class="expenses-header">
                     <div class="expenses-cell">Date</div>
                 </div>
-                {% for expense in expenses_list %}
-                    <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">{{ expense.pub_date | date:"Y/m/d" }}</div>
+                {% for record in money_records %}
+                    <div class="expenses-cell expense-cell-id-{{ record.record_id }}">{{ record.pub_date | date:"Y/m/d" }}</div>
                 {% endfor %}
                 <div class="expenses-cell expenses-bottom-row"></div>
 
@@ -60,19 +59,19 @@
                 </div>
             </div>
 
-            {% for person in participants %}
+            {% for participant in participants %}
                 <div class="expenses-col expenses-col-numeric">
                     <div class="expenses-header expenses-header-person">
-                        <div class="expenses-cell">{{ person.name }}</div>
+                        <div class="expenses-cell">{{ participant.person.name }}</div>
                     </div>
-                    {% for expense in expenses_list %}
-                        <div class="expenses-cell expense-cell-id-{{ expense.expense_id }}">{{ expense.contributions | get_item:person | money_amount_hide_zero}}</div>
+                    {% for record in money_records %}
+                        <div class="expenses-cell expense-cell-id-{{ record.record_id }}">{{ record.contributions | get_item:participant | money_amount_hide_zero}}</div>
                     {% endfor %}
                     <div class="expenses-cell expenses-bottom-row"></div>
 
                     <div class="expenses-footer">
-                        <div class="expenses-cell">{{ participant_total | get_item:person | money_amount }}</div>
-                        <div class="expenses-cell">{{ participant_variance | get_item:person | money_amount }}</div>
+                        <div class="expenses-cell">{{ participant_total | get_item:participant | money_amount }}</div>
+                        <div class="expenses-cell">{{ participant_variance | get_item:participant | money_amount }}</div>
                     </div>
                 </div>
             {% endfor %}
@@ -81,8 +80,8 @@
                 <div class="expenses-header">
                     <div class="expenses-cell expenses-cell-lastcol">Item total</div>
                 </div>
-                {% for expense in expenses_list %}
-                    <div class="expenses-cell expenses-cell-lastcol expense-cell-id-{{ expense.expense_id }}">{{ expense.total_amount | money_amount }}</div>
+                {% for record in money_records %}
+                    <div class="expenses-cell expenses-cell-lastcol expense-cell-id-{{ record.record_id }}">{{ record.total_amount | money_amount_hide_zero }}</div>
                 {% endfor %}
                 <div class="expenses-cell expenses-bottom-row"></div>
 

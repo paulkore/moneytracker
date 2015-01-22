@@ -5,29 +5,42 @@ from expenses.models import Event
 from django.template.defaulttags import register
 
 
-class ExpenseObject:
-    def __init__(self, expense, participants):
-        self.expense_id = expense.id
-        self.description = expense.description
-        self.pub_date = expense.pub_date
-        self.total_amount = expense.total_amount()
-        self.contributions = {}
-        d_contributions = expense.contributions_dict()
-        for person in participants:
-            contribution = Decimal(0)
-            if person in d_contributions:
-                contribution = d_contributions[person]
-            self.contributions[person] = contribution
+class MoneyRecordWrapper:
+    def __init__(self, money_record, participants):
+        self.record_id = money_record.id
+        self.description = money_record.description
+        self.pub_date = money_record.pub_date
 
-        self.url_edit = reverse('expenses:event-expense-edit', kwargs={'event_name_slug': expense.event.name_slug, 'expense_id': expense.id})
+        amount = money_record.amount
+        assert money_record.participant1
+        if money_record.participant2 is None:
+            self.contributions = {
+                money_record.participant1: amount
+            }
+            self.total_amount = amount
+        else:
+            self.contributions = {
+                money_record.participant1: amount,
+                money_record.participant2: -amount
+            }
+            self.total_amount = Decimal(0)
+
+        self.url_edit = reverse('expenses:event-record-edit',
+                                kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
+
 
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
 
+
 @register.filter
 def money_amount(decimal_amount):
-    return money_amount_str(decimal_amount)
+    if decimal_amount >= 0:
+        return "${0:.2f}".format(decimal_amount)
+    else:
+        return "(${0:.2f})".format(-decimal_amount)
+
 
 @register.filter
 def money_amount_hide_zero(decimal_amount):
@@ -35,15 +48,6 @@ def money_amount_hide_zero(decimal_amount):
         return '--'
     else:
         return money_amount(decimal_amount)
-
-def money_amount_str(amount):
-    if amount >= 0:
-        return "${0:.2f}".format(amount)
-    else:
-        return "(${0:.2f})".format(-amount)
-
-
-
 
 
 class EventExpensesView(generic.TemplateView):
@@ -56,35 +60,35 @@ class EventExpensesView(generic.TemplateView):
         event = Event.find_by_name_slug(event_name_slug)
 
         participants = event.participants()
-        expenses = event.expenses()
+        money_records = event.money_records()
 
         event_total = Decimal(0)
         participant_total = {}
-        for person in participants:
-            participant_total[person] = Decimal(0)
+        for p in participants:
+            participant_total[p] = Decimal(0)
 
-        expense_objects = []
-        for expense in expenses:
-            expense_object = ExpenseObject(expense, participants)
-            expense_objects.append(expense_object)
-            event_total += expense_object.total_amount
-            for person in participants:
-                participant_total[person] += expense_object.contributions[person]
+        money_record_items = []
+        for money_record in money_records:
+            money_record_view_item = MoneyRecordWrapper(money_record, participants)
+            money_record_items.append(money_record_view_item)
+            event_total += money_record_view_item.total_amount
+            for p in money_record_view_item.contributions:
+                participant_total[p] += money_record_view_item.contributions[p]
 
         event_split = event_total / len(participants)
         participant_variance = {}
-        for person in participants:
-            participant_variance[person] = participant_total[person] - event_split
+        for p in participants:
+            participant_variance[p] = participant_total[p] - event_split
 
         context.update({
             'event': event,
             'participants': participants,
-            'expenses_list': expense_objects,
+            'money_records': money_record_items,
             'event_total': event_total,
             'event_split': event_split,
             'participant_total': participant_total,
             'participant_variance': participant_variance,
-            'url_add_expense': reverse('expenses:event-expense-create', kwargs={'event_name_slug': event_name_slug})
+            'url_add_record': reverse('expenses:event-record-create', kwargs={'event_name_slug': event_name_slug})
         })
 
         return context
