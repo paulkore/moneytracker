@@ -33,7 +33,7 @@ def list_events():
 
 
 def list_money_records():
-    print('Expense records in database:')
+    print('MoneyRecord records in database:')
     participant_name = lambda participant: participant.person.name if participant else 'NONE'
     for money_record in MoneyRecord.objects.all().order_by('id'):
         print("id: {0}, description: {1}, date: {2}, amount: {3}, participant1: {4}, participant2: {5}"
