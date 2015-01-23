@@ -1,8 +1,10 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
-from expenses.models import Person
+''' from expenses.models import Person'''
 
+# TODO: re-purpose this for user account creation / profile editing
 
+'''
 class PersonDetailView(generic.DetailView):
     template_name = "expenses/person_detail.html"
     model = Person
@@ -25,3 +27,4 @@ class PersonUpdateView(generic.UpdateView):
 class PersonDeleteView(generic.DeleteView):
     model = Person
     success_url = reverse_lazy('expenses:person-list')
+'''

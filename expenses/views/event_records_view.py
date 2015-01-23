@@ -1,12 +1,12 @@
 from decimal import Decimal
 from django.core.urlresolvers import reverse
 from django.views import generic
-from expenses.models import Event
+from expenses.models import Event, Participant
 from django.template.defaulttags import register
 
 
 class MoneyRecordWrapper:
-    def __init__(self, money_record, participants):
+    def __init__(self, money_record):
         self.record_id = money_record.id
         self.description = money_record.description
         self.pub_date = money_record.pub_date
@@ -69,7 +69,7 @@ class EventRecordsView(generic.TemplateView):
 
         money_record_items = []
         for money_record in money_records:
-            money_record_view_item = MoneyRecordWrapper(money_record, participants)
+            money_record_view_item = MoneyRecordWrapper(money_record)
             money_record_items.append(money_record_view_item)
             event_total += money_record_view_item.total_amount
             for p in money_record_view_item.contributions:

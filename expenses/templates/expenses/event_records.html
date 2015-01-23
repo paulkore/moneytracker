@@ -62,7 +62,7 @@
             {% for participant in participants %}
                 <div class="records-col records-col-numeric">
                     <div class="records-header records-header-person">
-                        <div class="records-cell">{{ participant.person.name }}</div>
+                        <div class="records-cell">{{ participant.get_name }}</div>
                     </div>
                     {% for record in money_records %}
                         <div class="records-cell expense-cell-id-{{ record.record_id }}">{{ record.contributions | get_item:participant | money_amount_hide_zero}}</div>
