@@ -75,7 +75,7 @@ DATABASES = {
         'USER': 'moneytracker',
         'PASSWORD': 'moneytracker',
         'OPTIONS': {
-          'autocommit': True,
+            'autocommit': True,
         },
     }
 
