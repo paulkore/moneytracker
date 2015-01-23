@@ -6,7 +6,3 @@ from expenses.views.person_view import PersonDetailView
 from expenses.views.person_view import PersonCreateView
 from expenses.views.person_view import PersonUpdateView
 from expenses.views.person_view import PersonDeleteView
-
-from expenses.views.action_view import ActionSuccessView
-from expenses.views.action_view import ActionFailureView
-

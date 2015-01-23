@@ -17,6 +17,4 @@ urlpatterns = patterns(
     url(r'^person/(?P<pk>\d+)/update/$', views.PersonUpdateView.as_view(), name='person-update'),
     url(r'^person/(?P<pk>\d+)/delete/$', views.PersonDeleteView.as_view(), name='person-delete'),
 
-    url(r'^action/success/$', views.ActionSuccessView.as_view(), name='action-success'),
-    url(r'^action/failure/$', views.ActionFailureView.as_view(), name='action-failure'),
 )

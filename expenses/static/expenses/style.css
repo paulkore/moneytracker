@@ -84,6 +84,10 @@ body {
     padding-right: 5px;
 }
 
+.records-cell.records-bottom-row {
+    min-height: 24px;
+}
+
 .records-cell .action-link {
     color: #0000EE;
 }
@@ -101,27 +105,6 @@ body {
     width: 12px;
     height: 12px;
     padding: 2px 3px 0px 3px;
-}
-
-.records-cell.records-bottom-row {
-    min-height: 24px;
-}
-
-
-
-.action-status {
-    margin: 0px 0px 0px 5px;
-    font-weight: bold;
-    font-size: 20pt;
-    font-family: "Courier New"
-}
-
-.action-status-success {
-    color: green;
-}
-
-.action-status-failure {
-    color: red;
 }
 
 .form-wrapper {
