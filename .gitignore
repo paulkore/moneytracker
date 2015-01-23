@@ -120,9 +120,6 @@ templates/admin/base_site.html
 # Database migrations 
 expenses/migrations/
 
-# Initial data 
-expenses/scripts/db_create.py
-
 # All sorts of embarrassing throw-away code
 sandbox
 scratch
