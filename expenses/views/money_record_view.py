@@ -5,7 +5,7 @@ from expenses.forms import MoneyRecordForm
 from expenses.models import Event, MoneyRecord
 
 
-def expense_form_view(request, event_name_slug, record_id=None):
+def money_record_view(request, event_name_slug, record_id=None):
     event = Event.find_by_name_slug(event_name_slug)
     assert event
 

@@ -25,7 +25,7 @@ class MoneyRecordWrapper:
             }
             self.total_amount = Decimal(0)
 
-        self.url_edit = reverse('expenses:event-record-edit',
+        self.url_edit = reverse('expenses:money-record-edit',
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
@@ -88,7 +88,7 @@ class EventRecordsView(generic.TemplateView):
             'event_split': event_split,
             'participant_total': participant_total,
             'participant_variance': participant_variance,
-            'url_add_record': reverse('expenses:event-record-create', kwargs={'event_name_slug': event_name_slug})
+            'url_add_record': reverse('expenses:money-record-create', kwargs={'event_name_slug': event_name_slug})
         })
 
         return context
