@@ -21,7 +21,8 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: dodgerblue;
-    color: darkblue;
+    /*color: darkblue;*/
+    color: #F7EF99;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
