@@ -65,6 +65,6 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'expenses/login_form.html', {'form': LoginForm()})
+    return HttpResponseRedirect(reverse('expenses:login'))
 
 
