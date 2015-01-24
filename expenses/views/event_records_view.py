@@ -56,11 +56,21 @@ class EventRecordsView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(EventRecordsView, self).get_context_data(**kwargs)
 
+        # TODO: achieve this using the authorization mechanism; Redirect user to login page
+        assert self.request.user.is_authenticated(), 'Must be authenticated to see this view'
+
         event_name_slug = kwargs['event_name_slug']
         event = Event.find_by_name_slug(event_name_slug)
 
         participants = event.participants()
         money_records = event.money_records()
+
+        participant = None
+        for p in participants:
+            if p.user_id == self.request.user.id:
+                participant = p
+                break
+        assert participant
 
         event_total = Decimal(0)
         participant_total = {}
@@ -82,13 +92,15 @@ class EventRecordsView(generic.TemplateView):
 
         context.update({
             'event': event,
+            'participant_name': participant.get_name(),
             'participants': participants,
             'money_records': money_record_items,
             'event_total': event_total,
             'event_split': event_split,
             'participant_total': participant_total,
             'participant_variance': participant_variance,
-            'url_add_record': reverse('expenses:money-record-create', kwargs={'event_name_slug': event_name_slug})
+            'url_add_record': reverse('expenses:money-record-create', kwargs={'event_name_slug': event_name_slug}),
+            'url_logout': reverse('expenses:logout'),
         })
 
         return context

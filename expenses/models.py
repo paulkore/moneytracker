@@ -32,6 +32,15 @@ class Event(models.Model):
         else:
             raise Exception('Unexpected: more than one event found by name slug: ' + name_slug)
 
+    @staticmethod
+    def find_by_user(user):
+        event_ids = set()
+        participants = Participant.objects.filter(user_id=user.id)
+        for participant in participants:
+            event_ids.add(participant.event_id)
+        events = Event.objects.filter(id__in=event_ids).order_by('id')
+        return events
+
 
 class Participant(models.Model):
     user = models.ForeignKey(User)

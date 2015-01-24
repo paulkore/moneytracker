@@ -107,6 +107,10 @@ body {
     padding: 2px 3px 0px 3px;
 }
 
+
+
+/* GENERIC FORM STYLING - APPLICABLE TO ALL FORMS */
+
 .form-wrapper {
     padding: 10px;
 }
@@ -126,6 +130,24 @@ form .errorlist {
 .form-submit {
     margin-top: 10px;
 }
+
+
+/* LOGIN FORM */
+
+#login-form {
+
+}
+
+#login-form #field-username {
+
+}
+
+#login-form #field-password {
+
+}
+
+
+/* MONEY RECORD FORM */
 
 #money-record-form {
 
