@@ -35,11 +35,26 @@ body {
 }
 
 #inner-wrapper {
-    padding: 20px;
+    padding: 10px 20px;
 }
+
 
 .records-col {
     float: left;
+}
+
+.records-col.records-col-numeric {
+    text-align: right;
+}
+
+.records-col.records-col-person {
+    text-align: right;
+    background-color: #EAEAEA;
+}
+
+.records-header-top {
+    background-color: lightblue;
+    height: 3px;
 }
 
 .records-header {
@@ -53,6 +68,10 @@ body {
     padding-bottom: 0px;
 }
 
+.records-header.records-header-empty {
+    color: lightblue;
+}
+
 .records-header.records-header-person {
     color: darkgreen;
 }
@@ -64,27 +83,27 @@ body {
     padding-bottom: 2px;
 }
 
-.records-col-numeric {
-    text-align: right;
-}
+
+
+
 
 #records-clear-float {
     clear: both;
 }
 
+#records-col-amount .records-cell {
+    margin-right: 15px;
+}
+
 .records-cell {
     min-height: 18px;
     padding: 0 20px 0 5px;
-    margin-top: 1px;
-    margin-bottom: 3px;
+    margin-top: 0px;
+    margin-bottom: 4px;
 }
 
 .records-cell.records-cell-strong {
     font-weight: bold;
-}
-
-.records-cell.records-cell-lastcol {
-    padding-right: 5px;
 }
 
 .records-cell.records-bottom-row {
