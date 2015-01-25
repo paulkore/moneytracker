@@ -57,8 +57,6 @@ body {
     color: darkgreen;
 }
 
-
-
 .records-footer {
     background-color: lightblue;
     margin-top: 10px;
@@ -75,8 +73,10 @@ body {
 }
 
 .records-cell {
-    padding: 1px 20px 1px 5px;
     min-height: 18px;
+    padding: 0 20px 0 5px;
+    margin-top: 1px;
+    margin-bottom: 3px;
 }
 
 .records-cell.records-cell-strong {
