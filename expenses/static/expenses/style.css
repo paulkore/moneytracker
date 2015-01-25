@@ -1,3 +1,5 @@
+/* GENERAL STYLES */
+
 body {
     background-color: lightblue;
     font-family: Helvetica, Arial, sans-serif;
@@ -21,7 +23,6 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: dodgerblue;
-    /*color: darkblue;*/
     color: #F7EF99;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -39,6 +40,13 @@ body {
 }
 
 
+/* EVENT MONEY RECORDS PAGE */
+
+
+#money-records-wrapper {
+
+}
+
 .records-col {
     float: left;
 }
@@ -50,6 +58,10 @@ body {
 .records-col.records-col-person {
     text-align: right;
     background-color: #EAEAEA;
+}
+
+.records-col#records-col-amount .records-cell {
+    margin-right: 15px;
 }
 
 .records-header-top {
@@ -78,26 +90,18 @@ body {
 
 .records-footer {
     background-color: lightblue;
-    margin-top: 10px;
-    padding-top: 2px;
+    margin-top: 2px;
+    padding-top: 8px;
     padding-bottom: 2px;
 }
-
-
-
-
 
 #records-clear-float {
     clear: both;
 }
 
-#records-col-amount .records-cell {
-    margin-right: 15px;
-}
-
 .records-cell {
     min-height: 18px;
-    padding: 0 20px 0 5px;
+    padding: 0 12px 0 12px;
     margin-top: 0px;
     margin-bottom: 4px;
 }
@@ -115,18 +119,14 @@ body {
 }
 
 .records-cell .action-link.action-link-edit {
-    margin-left: 10px;
+    margin-left: 2px;
 }
 
 .records-cell .action-link.action-link-add {
     margin-left: 2px;
 }
 
-.records-cell .action-link img {
-    width: 12px;
-    height: 12px;
-    padding: 2px 3px 0px 3px;
-}
+
 
 
 
