@@ -1,77 +1,53 @@
+{% extends "expenses/base.html" %}
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'expenses/style.css' %}" />
-
-{######## jQuery and jQuery-UI served locally #######}
-<link rel="stylesheet" type="text/css" href="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.css' %}" />
-<script src="{% static 'expenses/js/jquery-1.11.2.js' %}"></script>
-<script src="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
-
-<script>
-// enable all date pickers
-$(document).ready(function() {
-    $('.datepicker').datepicker();
-});
-
-</script>
-
-
-<div id="main-wrapper">
-
-    <div id="title">{{ form.event.name }}</div>
-
-    <div id="inner-wrapper">
-
-        <div class="form-wrapper">
-            <div class="sub-title">
-            {% if existing_record %}
-                Edit record
-            {% else %}
-                Create new record
-            {% endif %}
-            </div>
-
-            <form id="money-record-form" method="post">{% csrf_token %}
-
-                <div class="form-non-field-errors-wrapper">
-                    {{ form.non_field_errors }}
-                </div>
-
-                <div id="field-pub-date" class="form-field-wrapper">
-                    {{ form.pub_date.errors }}
-                    {{ form.pub_date.label_tag }} {{ form.pub_date }}
-                </div>
-
-                <div id="field-description" class="form-field-wrapper">
-                    {{ form.description.errors }}
-                    {{ form.description.label_tag }} {{ form.description }}
-                </div>
-
-                <div id="field-amount" class="form-field-wrapper">
-                    {{ form.amount.errors }}
-                    {{ form.amount.label_tag }} {{ form.amount }}
-                </div>
-
-                <div id="field-participant1" class="form-field-wrapper">
-                    {{ form.participant1.errors }}
-                    {{ form.participant1.label_tag }} {{ form.participant1 }}
-                </div>
-
-                <div id="field-participant2" class="form-field-wrapper">
-                    {{ form.participant2.errors }}
-                    {{ form.participant2.label_tag }} {{ form.participant2 }}
-                </div>
-
-                <input type="submit" class="form-submit" name="form-submit-save" value="Save" />
-                {% if existing_record %}
-                    <input type="submit" class="form-submit" name="form-submit-delete" value="Delete" />
-                {% endif %}
-                <input type="submit" class="form-submit" name="form-submit-cancel" value="Cancel" />
-
-            </form>
-
-        </div>
-
+{% block content %}
+<div class="form-wrapper">
+    <div class="sub-title">
+    {% if existing_record %}
+        Edit record
+    {% else %}
+        Create new record
+    {% endif %}
     </div>
 
+    <form id="money-record-form" method="post">{% csrf_token %}
+
+        <div class="form-non-field-errors-wrapper">
+            {{ form.non_field_errors }}
+        </div>
+
+        <div id="field-pub-date" class="form-field-wrapper">
+            {{ form.pub_date.errors }}
+            {{ form.pub_date.label_tag }} {{ form.pub_date }}
+        </div>
+
+        <div id="field-description" class="form-field-wrapper">
+            {{ form.description.errors }}
+            {{ form.description.label_tag }} {{ form.description }}
+        </div>
+
+        <div id="field-amount" class="form-field-wrapper">
+            {{ form.amount.errors }}
+            {{ form.amount.label_tag }} {{ form.amount }}
+        </div>
+
+        <div id="field-participant1" class="form-field-wrapper">
+            {{ form.participant1.errors }}
+            {{ form.participant1.label_tag }} {{ form.participant1 }}
+        </div>
+
+        <div id="field-participant2" class="form-field-wrapper">
+            {{ form.participant2.errors }}
+            {{ form.participant2.label_tag }} {{ form.participant2 }}
+        </div>
+
+        <input type="submit" class="form-submit" name="form-submit-save" value="Save" />
+        {% if existing_record %}
+            <input type="submit" class="form-submit" name="form-submit-delete" value="Delete" />
+        {% endif %}
+        <input type="submit" class="form-submit" name="form-submit-cancel" value="Cancel" />
+
+    </form>
 </div>
+{% endblock %}

@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.views import generic
 from expenses.models import Event, Participant
 from django.template.defaulttags import register
@@ -56,8 +57,9 @@ class EventRecordsView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(EventRecordsView, self).get_context_data(**kwargs)
 
-        # TODO: achieve this using the authorization mechanism; Redirect user to login page
-        assert self.request.user.is_authenticated(), 'Must be authenticated to see this view'
+        # if not self.request.user.is_authenticated():
+        #     return HttpResponseRedirect(reverse('expenses:login'))
+            # pass
 
         event_name_slug = kwargs['event_name_slug']
         event = Event.find_by_name_slug(event_name_slug)
@@ -91,6 +93,7 @@ class EventRecordsView(generic.TemplateView):
             participant_variance[p] = participant_total[p] - event_split
 
         context.update({
+            'page_title': None, #event.name,
             'event': event,
             'participant_name': participant.get_name(),
             'participants': participants,

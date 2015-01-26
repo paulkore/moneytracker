@@ -1,22 +1,69 @@
 /* GENERAL STYLES */
 
 body {
-    background-color: lightblue;
+    padding: 0;
+    margin: 0;
+    background-color: #CCC;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12pt;
     font-weight: 400;
 }
 
+#site-header {
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: 50px;
+    background-color: dodgerblue;
+}
+
+#site-header #logo {
+    float: left;
+    margin: 5px 0 10px 20px;
+    font-size: 25pt;
+    font-weight: bold;
+    color: #F7EF99;
+}
+
+#site-header #user-info {
+    float: right;
+    margin: 8px 15px 0 0;
+    color: #F7EF99
+}
+
+#site-header #user-info a {
+    margin-left: 10px;
+    color: #FFEE88
+}
+
+#site-header #clear-float {
+    clear: both;
+}
+
 #main-wrapper {
     display: table;
 	margin: 0 auto;
+    padding-top: 50px;
     min-width: 800px;
-    min-height: 600px;
-    border-radius: 10px;
+    min-height: 500px;
     background: whitesmoke;
 }
 
-#title {
+#inner-wrapper {
+    padding: 25px 20px 10px 20px;
+    min-height: 400px;
+}
+
+#site-footer {
+    height: 100px;
+    background-color: #666;
+    margin-top: 50px;
+}
+
+.title {
     font-size: 30pt;
     font-weight: bold;
     text-align: center;
@@ -24,8 +71,6 @@ body {
     padding-bottom: 10px;
     background-color: dodgerblue;
     color: #F7EF99;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 
 .sub-title {
@@ -35,17 +80,13 @@ body {
     margin-bottom: 10px;
 }
 
-#inner-wrapper {
-    padding: 10px 20px;
-}
+
+
+
+
 
 
 /* EVENT MONEY RECORDS PAGE */
-
-
-#money-records-wrapper {
-
-}
 
 .records-col {
     float: left;
@@ -90,7 +131,7 @@ body {
 
 .records-footer {
     background-color: lightblue;
-    margin-top: 2px;
+    margin-top: 10px;
     padding-top: 8px;
     padding-bottom: 2px;
 }

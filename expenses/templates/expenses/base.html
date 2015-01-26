@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'expenses/style.css' %}" />
+
+{######## jQuery and jQuery-UI served locally #######}
+<link rel="stylesheet" type="text/css" href="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.css' %}" />
+<script src="{% static 'expenses/js/jquery-1.11.2.js' %}"></script>
+<script src="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
+
+<script>
+    // enable all date pickers
+    $(document).ready(function() {
+        $('.datepicker').datepicker();
+    });
+</script>
+
+<div id="site-header">
+    <div id="logo">trakr</div>
+    <div id="user-info">
+        {% if participant_name %}
+            <span>Hey, {{ participant_name }}!</span>
+            <a class="" href="{{ url_logout }}">Logout</a>
+        {% endif %}
+    </div>
+    <div id="clear-float"></div>
+</div>
+
+<div id="main-wrapper">
+    {% if page_title %}
+        <div class="title">{{ page_title }}</div>
+    {% endif %}
+
+    <div id="inner-wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="site-footer">
+
+    </div>
+</div>
+
+
+
+
+

@@ -1,40 +1,33 @@
+{% extends "expenses/base.html" %}
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'expenses/style.css' %}" />
+{% block content %}
 
-<div id="main-wrapper">
-
-    <div id="title">MoneyTracker</div>
-
-    <div id="inner-wrapper">
-
-        <div class="form-wrapper">
-            <div class="sub-title">
-                Login
-            </div>
-
-            <form id="login-form" method="post">{% csrf_token %}
-
-                <div class="error-message-wrapper errorlist">
-                    {{ form.error_message }}
-                </div>
-
-                <div id="field-username" class="form-field-wrapper">
-                    {{ form.username.errors }}
-                    {{ form.username.label_tag }} {{ form.username }}
-                </div>
-
-                <div id="field-password" class="form-field-wrapper">
-                    {{ form.password.errors }}
-                    {{ form.password.label_tag }} {{ form.password }}
-                </div>
-
-                <input type="submit" class="form-submit" name="form-submit-save" value="Login" />
-
-            </form>
-
-        </div>
-
+<div class="form-wrapper">
+    <div class="sub-title">
+        Login
     </div>
 
+    <form id="login-form" method="post">{% csrf_token %}
+
+        <div class="error-message-wrapper errorlist">
+            {{ form.error_message }}
+        </div>
+
+        <div id="field-username" class="form-field-wrapper">
+            {{ form.username.errors }}
+            {{ form.username.label_tag }} {{ form.username }}
+        </div>
+
+        <div id="field-password" class="form-field-wrapper">
+            {{ form.password.errors }}
+            {{ form.password.label_tag }} {{ form.password }}
+        </div>
+
+        <input type="submit" class="form-submit" name="form-submit-save" value="Login" />
+
+    </form>
+
 </div>
+
+{% endblock %}
