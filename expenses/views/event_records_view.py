@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.core.urlresolvers import reverse
-from django.views import generic
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from expenses.models import Event
 
 
@@ -28,29 +29,14 @@ class MoneyRecordWrapper:
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
-class EventRecordsView(generic.TemplateView):
-    template_name = "expenses/event_records.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(EventRecordsView, self).get_context_data(**kwargs)
-
-        user = self.request.user
+def event_records_view(request, event_name_slug):
+        user = request.user
         if not user.is_authenticated():
-            # TODO: redirect to login page instead
-            raise Exception('User is not authenticated')
+            return HttpResponseRedirect(reverse('expenses:login'))
 
-        event_name_slug = kwargs['event_name_slug']
         event = Event.find_by_name_slug(event_name_slug)
-
         participants = event.participants()
         money_records = event.money_records()
-
-        participant = None
-        for p in participants:
-            if p.user_id == self.request.user.id:
-                participant = p
-                break
-        assert participant
 
         event_total = Decimal(0)
         participant_total = {}
@@ -70,7 +56,7 @@ class EventRecordsView(generic.TemplateView):
         for p in participants:
             participant_variance[p] = participant_total[p] - event_split
 
-        context.update({
+        return render(request, 'expenses/event_records.html', {
             'event': event,
             'participants': participants,
             'money_records': money_record_items,
@@ -79,6 +65,5 @@ class EventRecordsView(generic.TemplateView):
             'participant_total': participant_total,
             'participant_variance': participant_variance,
             'url_add_record': reverse('expenses:money-record-create', kwargs={'event_name_slug': event_name_slug}),
-        })
 
-        return context
+        })
