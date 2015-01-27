@@ -13,7 +13,10 @@
 
     <form id="money-record-form" method="post">{% csrf_token %}
 
-        <div class="form-non-field-errors-wrapper">
+        <div class="error-message-wrapper errorlist">
+            {{ form.custom_error }}
+        </div>
+        <div class="error-message-wrapper errorlist">
             {{ form.non_field_errors }}
         </div>
 

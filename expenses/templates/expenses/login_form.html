@@ -11,7 +11,10 @@
     <form id="login-form" method="post">{% csrf_token %}
 
         <div class="error-message-wrapper errorlist">
-            {{ form.error_message }}
+            {{ form.custom_error }}
+        </div>
+        <div class="error-message-wrapper errorlist">
+            {{ form.non_field_errors }}
         </div>
 
         <div id="field-username" class="form-field-wrapper">

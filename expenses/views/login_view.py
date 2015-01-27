@@ -42,12 +42,12 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is None:
                 form = LoginForm()
-                form.error_message = 'Invalid username / password combination'
+                form.custom_error = 'Invalid username / password combination'
             else:
                 # if authentication succeeded, check whether the account is active / inactive
                 if not user.is_active:
                     form = LoginForm()
-                    form.error_message = "Account '{0}' is disabled".format(username)
+                    form.custom_error = "Account '{0}' is disabled".format(username)
                 else:
                     # if account is active, login the user and redirect to the user's landing page
                     login(request, user)
