@@ -1,9 +1,7 @@
 from decimal import Decimal
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.views import generic
-from expenses.models import Event, Participant
-from django.template.defaulttags import register
+from expenses.models import Event
 
 
 class MoneyRecordWrapper:
@@ -30,36 +28,16 @@ class MoneyRecordWrapper:
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
-@register.filter
-def get_item(dictionary, key):
-    return dictionary.get(key)
-
-
-@register.filter
-def money_amount(decimal_amount):
-    if decimal_amount >= 0:
-        return "${0:.2f}".format(decimal_amount)
-    else:
-        return "(${0:.2f})".format(-decimal_amount)
-
-
-@register.filter
-def money_amount_hide_zero(decimal_amount):
-    if not decimal_amount:
-        return '--'
-    else:
-        return money_amount(decimal_amount)
-
-
 class EventRecordsView(generic.TemplateView):
     template_name = "expenses/event_records.html"
 
     def get_context_data(self, **kwargs):
         context = super(EventRecordsView, self).get_context_data(**kwargs)
 
-        # if not self.request.user.is_authenticated():
-        #     return HttpResponseRedirect(reverse('expenses:login'))
-            # pass
+        user = self.request.user
+        if not user.is_authenticated():
+            # TODO: redirect to login page instead
+            raise Exception('User is not authenticated')
 
         event_name_slug = kwargs['event_name_slug']
         event = Event.find_by_name_slug(event_name_slug)
@@ -93,9 +71,7 @@ class EventRecordsView(generic.TemplateView):
             participant_variance[p] = participant_total[p] - event_split
 
         context.update({
-            'page_title': None, #event.name,
             'event': event,
-            'participant_name': participant.get_name(),
             'participants': participants,
             'money_records': money_record_items,
             'event_total': event_total,
@@ -103,7 +79,6 @@ class EventRecordsView(generic.TemplateView):
             'participant_total': participant_total,
             'participant_variance': participant_variance,
             'url_add_record': reverse('expenses:money-record-create', kwargs={'event_name_slug': event_name_slug}),
-            'url_logout': reverse('expenses:logout'),
         })
 
         return context
