@@ -6,6 +6,11 @@ from expenses.models import Event, MoneyRecord
 
 
 def money_record_view(request, event_name_slug, record_id=None):
+    user = request.user
+    if not user.is_authenticated():
+        # TODO: redirect to login page instead
+        raise Exception('User is not authenticated')
+
     event = Event.find_by_name_slug(event_name_slug)
     assert event
 
