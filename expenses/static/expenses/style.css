@@ -79,6 +79,10 @@ body {
     margin-bottom: 10px;
 }
 
+.floating {
+    float: left;
+}
+
 .clear-float {
     clear: both;
 }
@@ -173,34 +177,52 @@ body {
     padding: 10px;
 }
 
-form .errorlist {
+.form-col {
+    /*border: 1px solid;*/
+}
+
+.form-labels-col {
+
+}
+
+.form-fields-col {
+
+}
+
+.form-field-errors-col {
+
+}
+
+.form-col div {
+    /*border: 1px solid;*/
+    min-height: 30px;
+    margin: 5px 10px 5px 0;
+}
+
+.form-errors, form ul.errorlist {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
     color: red;
 }
 
-.form-field-wrapper {
-    padding: 5px 2px;
+.form-errors {
+    min-height: 20px;
+    margin-bottom: 10px;
 }
 
-.form-field-wrapper label {
-    margin-right: 10px;
+.form-buttons {
+    margin-top: 25px;
 }
 
-.form-submit {
-    margin-top: 10px;
+.form-button {
+    /* TODO: design form buttons */
 }
 
 
 /* LOGIN FORM */
 
 #login-form {
-
-}
-
-#login-form #field-username {
-
-}
-
-#login-form #field-password {
 
 }
 
@@ -216,7 +238,7 @@ form .errorlist {
 }
 
 #money-record-form #field-description input {
-    width: 500px;
+    width: 350px;
 }
 
 #money-record-form #field-amount input {

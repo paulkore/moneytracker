@@ -10,24 +10,31 @@
 
     <form id="login-form" method="post">{% csrf_token %}
 
-        <div class="error-message-wrapper errorlist">
+        <div class="form-errors">
             {{ form.custom_error }}
-        </div>
-        <div class="error-message-wrapper errorlist">
             {{ form.non_field_errors }}
         </div>
 
-        <div id="field-username" class="form-field-wrapper">
-            {{ form.username.errors }}
-            {{ form.username.label_tag }} {{ form.username }}
+        <div class="floating form-col form-labels-col">
+            <div>{{ form.username.label_tag }}</div>
+            <div>{{ form.password.label_tag }}</div>
         </div>
 
-        <div id="field-password" class="form-field-wrapper">
-            {{ form.password.errors }}
-            {{ form.password.label_tag }} {{ form.password }}
+        <div class="floating form-col form-fields-col">
+            <div>{{ form.username }}</div>
+            <div>{{ form.password }}</div>
         </div>
 
-        <input type="submit" class="form-submit" name="form-submit-save" value="Login" />
+        <div class="floating form-col form-field-errors-col">
+            <div>{{ form.username.errors }}</div>
+            <div>{{ form.password.errors }}</div>
+        </div>
+
+        <div class="clear-float"></div>
+
+        <div class="form-buttons">
+            <input type="submit" class="form-button" name="form-submit-save" value="Login" />
+        </div>
 
     </form>
 
