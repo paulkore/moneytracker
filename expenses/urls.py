@@ -9,6 +9,7 @@ urlpatterns = patterns(
     #
     # url(r'^', include('favicon.urls')),
 
+    url(r'^$', views.login_redirect_view),
     url(r'^login/$', views.login_view, name='login'),
     url(r'^logout/$', views.logout_view, name='logout'),
 

@@ -68,3 +68,7 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('expenses:login'))
 
 
+def login_redirect_view(request):
+    return HttpResponseRedirect(reverse('expenses:login'))
+
+
