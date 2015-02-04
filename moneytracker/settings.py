@@ -38,7 +38,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     # 'favicon',
-    # 'polls',
     'expenses',
 
 )
