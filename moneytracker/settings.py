@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# [Heroku]:
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -59,26 +60,17 @@ WSGI_APPLICATION = 'moneytracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'NAME': 'moneytracker',
-        'USER': 'moneytracker',
-        'PASSWORD': 'moneytracker',
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    }
-
-
+    # [Heroku]
+    # Parse database configuration from $DATABASE_URL
+    'default': dj_database_url.config(default='postgres://moneytracker:moneytracker@localhost:5432/moneytracker')
+    # 'default': dj_database_url.config()
 }
+
+# [Heroku] Enable Connection Pooling
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 
 # Internationalization
@@ -98,8 +90,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+# [Heroku]:
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, '../expenses/static'),
+)
+
+# [Heroku]:
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'expenses/templates'),
+    os.path.join(BASE_DIR,  '../expenses/templates'),
 )
