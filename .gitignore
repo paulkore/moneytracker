@@ -113,9 +113,6 @@ docs/_build/
 # Project files
 # =========================
 
-# Tutorial content
-polls/
-templates/admin/base_site.html
 
 # Database migrations 
 expenses/migrations/
