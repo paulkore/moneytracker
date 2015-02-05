@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from expenses.forms import LoginForm
-from expenses.models import Event
+from moneytracker.forms import LoginForm
+from moneytracker.models import Event
 
 
 def _landing_page_redirect(user):
@@ -15,7 +15,7 @@ def _landing_page_redirect(user):
     # for now, the landing page is the first event that's relevant:
     events = Event.find_by_user(user)
     assert len(events) > 0, 'Currently supporting only users with at least 1 event'
-    return HttpResponseRedirect(reverse('expenses:event-records', kwargs={'event_name_slug': events[0].name_slug}))
+    return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': events[0].name_slug}))
 
 
 def login_view(request):
@@ -60,15 +60,15 @@ def login_view(request):
     else:
         raise Exception('HTTP method not allowed: ' + request.method)
 
-    return render(request, 'expenses/login_form.html', {'form': form})
+    return render(request, 'login_form.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('expenses:login'))
+    return HttpResponseRedirect(reverse('login'))
 
 
 def login_redirect_view(request):
-    return HttpResponseRedirect(reverse('expenses:login'))
+    return HttpResponseRedirect(reverse('login'))
 
 

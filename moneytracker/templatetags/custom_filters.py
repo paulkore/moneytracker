@@ -1,5 +1,5 @@
-from django.core.urlresolvers import reverse
 from django.template.defaulttags import register
+
 
 @register.filter
 def get_item(dictionary, key):

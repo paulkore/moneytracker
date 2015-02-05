@@ -113,10 +113,6 @@ docs/_build/
 # Project files
 # =========================
 
-
-# Database migrations 
-expenses/migrations/
-
 # All sorts of embarrassing throw-away code
 sandbox
 scratch

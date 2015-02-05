@@ -1,14 +1,14 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from expenses.forms import MoneyRecordForm
-from expenses.models import Event, MoneyRecord
+from moneytracker.forms import MoneyRecordForm
+from moneytracker.models import Event, MoneyRecord
 
 
 def money_record_view(request, event_name_slug, record_id=None):
     user = request.user
     if not user.is_authenticated():
-        return HttpResponseRedirect(reverse('expenses:login'))
+        return HttpResponseRedirect(reverse('login'))
 
     event = Event.find_by_name_slug(event_name_slug)
     assert event
@@ -48,7 +48,7 @@ def money_record_view(request, event_name_slug, record_id=None):
             if form.is_valid():
                 # if form is valid, process the save and redirect to event records view
                 form.process()
-                return HttpResponseRedirect(reverse('expenses:event-records', kwargs={'event_name_slug': event_name_slug}))
+                return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': event_name_slug}))
             else:
                 # if form is invalid, re-render the form (validation errors will be displayed)
                 pass
@@ -57,11 +57,11 @@ def money_record_view(request, event_name_slug, record_id=None):
             # DELETE:
             assert existing_record
             existing_record.delete()
-            return HttpResponseRedirect(reverse('expenses:event-records', kwargs={'event_name_slug': event_name_slug}))
+            return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': event_name_slug}))
 
         elif 'form-submit-cancel' in request.POST:
             # CANCEL: return to the event records view
-            return HttpResponseRedirect(reverse('expenses:event-records', kwargs={'event_name_slug': event_name_slug}))
+            return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': event_name_slug}))
 
         else:
             raise Exception('Did not receive expected submit input name in POST data')
@@ -69,7 +69,7 @@ def money_record_view(request, event_name_slug, record_id=None):
     else:
         raise Exception('HTTP method not allowed: ' + request.method)
 
-    return render(request, 'expenses/money_record_form.html',
+    return render(request, 'money_record_form.html',
                   {
                       'form': form,
                       'existing_record': existing_record,

@@ -5,7 +5,7 @@ from django.db import transaction
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
-from expenses.models import MoneyRecord, Event
+from moneytracker.models import MoneyRecord, Event
 
 
 class MoneyRecordForm(forms.Form):

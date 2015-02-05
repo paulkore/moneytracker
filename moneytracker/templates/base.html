@@ -1,12 +1,12 @@
 {% load staticfiles %}
 {% load custom_filters %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'expenses/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
 {######## jQuery and jQuery-UI served locally #######}
-<link rel="stylesheet" type="text/css" href="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.css' %}" />
-<script src="{% static 'expenses/js/jquery-1.11.2.js' %}"></script>
-<script src="{% static 'expenses/js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-ui-1.11.2/jquery-ui.css' %}" />
+<script src="{% static 'js/jquery-1.11.2.js' %}"></script>
+<script src="{% static 'js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
 
 <script>
     // enable all date pickers
@@ -20,7 +20,7 @@
     <div id="user-info">
         {% if user.is_authenticated %}
             <span>Hey, {{ user | user_name }}!</span>
-            <a class="" href="{% url 'expenses:logout' %}">Logout</a>
+            <a class="" href="{% url 'logout' %}">Logout</a>
         {% endif %}
     </div>
     <div class="clear-float"></div>

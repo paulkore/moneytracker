@@ -2,7 +2,7 @@ from decimal import Decimal
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from expenses.models import Event
+from moneytracker.models import Event
 
 
 class MoneyRecordWrapper:
@@ -25,14 +25,14 @@ class MoneyRecordWrapper:
             }
             self.total_amount = Decimal(0)
 
-        self.url_edit = reverse('expenses:money-record-edit',
+        self.url_edit = reverse('money-record-edit',
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
 def event_records_view(request, event_name_slug):
         user = request.user
         if not user.is_authenticated():
-            return HttpResponseRedirect(reverse('expenses:login'))
+            return HttpResponseRedirect(reverse('login'))
 
         event = Event.find_by_name_slug(event_name_slug)
         participants = event.participants()
@@ -56,7 +56,7 @@ def event_records_view(request, event_name_slug):
         for p in participants:
             participant_variance[p] = participant_total[p] - event_split
 
-        return render(request, 'expenses/event_records.html', {
+        return render(request, 'event_records.html', {
             'event': event,
             'participants': participants,
             'money_records': money_record_items,
@@ -64,6 +64,6 @@ def event_records_view(request, event_name_slug):
             'event_split': event_split,
             'participant_total': participant_total,
             'participant_variance': participant_variance,
-            'url_add_record': reverse('expenses:money-record-create', kwargs={'event_name_slug': event_name_slug}),
+            'url_add_record': reverse('money-record-create', kwargs={'event_name_slug': event_name_slug}),
 
         })

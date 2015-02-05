@@ -38,8 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'expenses',
-
+    'moneytracker',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,7 +93,7 @@ USE_TZ = True
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '../expenses/static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # [Heroku]:
@@ -105,5 +104,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  '../expenses/templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )

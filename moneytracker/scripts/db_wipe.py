@@ -1,4 +1,4 @@
-from expenses.scripts import db
+from moneytracker.scripts import db
 
 
 def run():
