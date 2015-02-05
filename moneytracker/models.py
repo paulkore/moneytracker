@@ -11,6 +11,9 @@ class Event(models.Model):
     class Meta:
         db_table = 'mt_event'
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
         super(Event, self).save(*args, **kwargs)
@@ -49,6 +52,9 @@ class Participant(models.Model):
 
     class Meta:
         db_table = 'mt_participant'
+
+    def __str__(self):
+        return "{0} - {1}".format(self.event.name, self.get_name())
 
     # @return The local name value if one is set, otherwise falls back to the name of the user
     def get_name(self):
