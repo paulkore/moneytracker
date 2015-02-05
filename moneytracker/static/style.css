@@ -50,7 +50,9 @@ body {
 
 #inner-wrapper {
     padding: 25px 20px 10px 20px;
+    /*min-width: 800px;*/
     min-height: 400px;
+    /*overflow: auto;*/
 }
 
 #site-footer {
@@ -92,8 +94,13 @@ body {
 
 /* EVENT MONEY RECORDS PAGE */
 
+.records-table {
+    display: table;
+}
+
 .records-col {
-    float: left;
+    display: table-cell;
+    white-space: nowrap;
 }
 
 .records-col.records-col-numeric {
