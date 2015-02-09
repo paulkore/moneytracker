@@ -100,6 +100,7 @@ body {
 
 .records-col {
     display: table-cell;
+    vertical-align: top;
     white-space: nowrap;
 }
 
@@ -112,11 +113,13 @@ body {
     background-color: #EAEAEA;
 }
 
-.records-col#records-col-amount .records-cell {
-    margin-right: 15px;
+.records-cell {
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .records-header {
+    height: 26px;
     line-height: 26px;
     font-size: 18px;
     font-weight: bold;
@@ -125,48 +128,34 @@ body {
     margin-bottom: 10px;
 }
 
-.records-header.records-header-empty {
-    color: lightblue;
-}
-
 .records-header.records-header-person {
     color: darkgreen;
 }
 
-.records-footer {
-    background-color: lightblue;
-    margin-top: 10px;
-    padding-top: 8px;
-    padding-bottom: 2px;
+.records-body {
+    height: 22px;
+    line-height: 22px;
+    font-size: 16px;
 }
 
-.records-cell {
-    min-height: 18px;
-    padding: 0 12px 0 12px;
-    margin-top: 0px;
-    margin-bottom: 4px;
+.records-body.records-body-last-row {
+    margin-bottom: 20px;
 }
 
-.records-cell.records-cell-strong {
-    font-weight: bold;
-}
-
-.records-cell.records-bottom-row {
-    min-height: 24px;
-}
-
-.records-cell .action-link {
+.records-body .action-link {
     color: #0000EE;
 }
 
-.records-cell .action-link.action-link-edit {
-    margin-left: 2px;
+.records-footer {
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    background-color: lightblue;
 }
 
-.records-cell .action-link.action-link-add {
-    margin-left: 2px;
+.records-footer.records-footer-strong {
+    font-weight: bold;
 }
-
 
 
 
