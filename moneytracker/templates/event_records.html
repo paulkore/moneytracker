@@ -4,8 +4,12 @@
 
 {% block content %}
 
-<div class="sub-title">
-    {{ event.name }}
+<div class="records-title-bar">
+    <div id="event-name">{{ event.name }}</div>
+    <form id="add-record-form" method="get" action="{{ url_add_record }}">{% csrf_token %}
+        <input type="submit" class="form-button" value="+ add record" />
+    </form>
+    <div class="clear-float"></div>
 </div>
 
 <div class="records-table">
@@ -38,7 +42,7 @@
             <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.description }}</div>
         {% endfor %}
         <div class="records-cell records-body-last-row">
-            <a class="action-link" href="{{ url_add_record }}"><img src="{% static 'images/16x16/add.png' %}"> add new</a>
+{#            <a class="action-link" href="{{ url_add_record }}"><img src="{% static 'images/16x16/add.png' %}"> add new</a>#}
         </div>
         <div class="records-cell records-footer records-footer-strong">Total cost</div>
         <div class="records-cell records-footer records-footer-strong">Balance per person</div>

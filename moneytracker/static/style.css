@@ -92,6 +92,24 @@ body {
 
 /* EVENT MONEY RECORDS PAGE */
 
+.records-title-bar {
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.records-title-bar #event-name {
+    float: left;
+
+    line-height: 40px;
+    font-size: 28px;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.records-title-bar #add-record-form {
+    float: right;
+}
+
 .records-table {
     display: table;
 }
@@ -141,7 +159,7 @@ body {
 }
 
 .records-body-last-row {
-    height: 40px;
+    height: 25px;
 }
 
 .records-body .action-link {
@@ -164,6 +182,10 @@ body {
 
 
 /* GENERIC FORM STYLING - APPLICABLE TO ALL FORMS */
+
+form {
+    margin: 0px;
+}
 
 .form-wrapper {
     padding: 10px;
@@ -206,6 +228,10 @@ body {
     margin-top: 25px;
 }
 
+.form-buttons .form-button {
+    margin-right: 5px;
+}
+
 .form-button {
     background: #428BCA;
     color: #FFFFFF;
@@ -214,7 +240,6 @@ body {
     min-width: 100px;
     text-align: center;
     border: 0;
-    margin-right: 5px;
 }
 
 .form-button:hover {
