@@ -223,8 +223,25 @@ body {
 }
 
 .form-button {
-    /* TODO: design form buttons */
+    background: #428BCA;
+    color: #FFFFFF;
+    font-size: 20px;
+    line-height: 35px;
+    min-width: 100px;
+    text-align: center;
+    border: 0;
+    margin-right: 5px;
 }
+
+.form-button:hover {
+    background: #3071A9
+}
+
+.form-button:active {
+    background: #a1accf;
+}
+
+
 
 
 /* LOGIN FORM */
