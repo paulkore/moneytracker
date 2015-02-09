@@ -140,8 +140,8 @@ body {
     font-size: 16px;
 }
 
-.records-body.records-body-last-row {
-    margin-bottom: 20px;
+.records-body-last-row {
+    height: 40px;
 }
 
 .records-body .action-link {
