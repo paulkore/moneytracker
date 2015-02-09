@@ -50,9 +50,7 @@ body {
 
 #inner-wrapper {
     padding: 25px 20px 10px 20px;
-    /*min-width: 800px;*/
     min-height: 400px;
-    /*overflow: auto;*/
 }
 
 #site-footer {
@@ -98,6 +96,10 @@ body {
     display: table;
 }
 
+.records-table .participant-cols {
+    margin-left: 10px;
+}
+
 .records-col {
     display: table-cell;
     vertical-align: top;
@@ -108,7 +110,7 @@ body {
     text-align: right;
 }
 
-.records-col.records-col-person {
+.records-col.records-col-participant {
     text-align: right;
     background-color: #EAEAEA;
 }
@@ -128,7 +130,7 @@ body {
     margin-bottom: 10px;
 }
 
-.records-header.records-header-person {
+.records-header.records-header-participant {
     color: darkgreen;
 }
 
@@ -160,6 +162,7 @@ body {
 
 
 
+
 /* GENERIC FORM STYLING - APPLICABLE TO ALL FORMS */
 
 .form-wrapper {
@@ -167,7 +170,7 @@ body {
 }
 
 .form-col {
-    /*border: 1px solid;*/
+
 }
 
 .form-labels-col {
@@ -183,7 +186,6 @@ body {
 }
 
 .form-col div {
-    /*border: 1px solid;*/
     min-height: 30px;
     margin: 5px 10px 5px 0;
 }

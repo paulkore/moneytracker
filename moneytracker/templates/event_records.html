@@ -54,9 +54,10 @@
         <div class="records-cell records-footer records-footer-strong">{{ event_split | money_amount }}</div>
     </div>
 
+    <div class="participant-cols">
     {% for participant in participants %}
-        <div class="records-col records-col-numeric records-col-person">
-            <div class="records-cell records-header records-header-person">{{ participant.get_name }}</div>
+        <div class="records-col records-col-numeric records-col-participant">
+            <div class="records-cell records-header records-header-participant">{{ participant.get_name }}</div>
             {% for record in money_records %}
                 <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.contributions | get_item:participant | money_amount_hide_zero}}</div>
             {% endfor %}
@@ -65,6 +66,7 @@
             <div class="records-cell records-footer">{{ participant_variance | get_item:participant | money_amount }}</div>
         </div>
     {% endfor %}
+    </div>
 
 </div>
 
