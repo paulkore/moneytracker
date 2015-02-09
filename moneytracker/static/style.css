@@ -116,20 +116,13 @@ body {
     margin-right: 15px;
 }
 
-.records-header-top {
-    background-color: lightblue;
-    height: 3px;
-}
-
 .records-header {
-    min-height: 24px;
-    font-size: 19px;
+    line-height: 26px;
+    font-size: 18px;
     font-weight: bold;
     color: darkblue;
     background-color: lightblue;
     margin-bottom: 10px;
-    padding-top: 0px;
-    padding-bottom: 0px;
 }
 
 .records-header.records-header-empty {
