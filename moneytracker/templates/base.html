@@ -1,47 +1,47 @@
 {% load staticfiles %}
 {% load custom_filters %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
-{######## jQuery and jQuery-UI served locally #######}
-<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-ui-1.11.2/jquery-ui.css' %}" />
-<script src="{% static 'js/jquery-1.11.2.js' %}"></script>
-<script src="{% static 'js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
+    {######## jQuery and jQuery-UI served locally #######}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/jquery-ui-1.11.2/jquery-ui.css' %}" />
+    <script src="{% static 'js/jquery-1.11.2.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
 
-<script>
-    // enable all date pickers
-    $(document).ready(function() {
-        $('.datepicker').datepicker();
-    });
-</script>
+    <script>
+        // enable all date pickers
+        $(document).ready(function() {
+            $('.datepicker').datepicker();
+        });
+    </script>
+</head>
 
-<div id="site-header">
-    <div id="logo">trakr</div>
-    <div id="user-info">
-        {% if user.is_authenticated %}
-            <span>Hey, {{ user | user_name }}!</span>
-            <a class="" href="{% url 'logout' %}">Logout</a>
-        {% endif %}
-    </div>
-    <div class="clear-float"></div>
-</div>
+<body>
 
-<div id="main-wrapper">
-    {% if page_title %}
-        <div class="title">{{ page_title }}</div>
-    {% endif %}
-
-    <div id="inner-wrapper">
-        {% block content %}
-        {% endblock %}
+    <div id="site-header">
+        <div id="logo">trakr</div>
+        <div id="user-info">
+            {% if user.is_authenticated %}
+                <span>Hey, {{ user | user_name }}!</span>
+                <a class="" href="{% url 'logout' %}">Logout</a>
+            {% endif %}
+        </div>
+        <div class="clear-float"></div>
     </div>
 
-    <div id="site-footer">
-{#        <div>footer content goes here</div>#}
-{#        <div>footer content goes here</div>#}
-{#        <div>footer content goes here</div>#}
+    <div id="main-wrapper">
+
+        <div id="inner-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div id="site-footer">
+
+        </div>
     </div>
-</div>
+</body>
 
 
 
