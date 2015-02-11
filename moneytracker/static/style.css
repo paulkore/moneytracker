@@ -3,7 +3,7 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #CCC;
+    background-color: #CCCCCC;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -17,7 +17,7 @@ body {
     top: 0;
 
     height: 50px;
-    background-color: dodgerblue;
+    background-color: #1E90FF;
 }
 
 #site-header #logo {
@@ -68,14 +68,14 @@ body {
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: dodgerblue;
+    background-color: #1E90FF;
     color: #F7EF99;
 }
 
 .sub-title {
     font-size: 26px;
     font-weight: bold;
-    color: darkblue;
+    color: #3071A9;
     margin-bottom: 10px;
 }
 
@@ -110,7 +110,7 @@ body {
     line-height: 40px;
     font-size: 28px;
     font-weight: bold;
-    color: darkblue;
+    color: #3071A9;
 }
 
 .records-title-bar #add-record-form {
@@ -129,6 +129,7 @@ body {
     display: table-cell;
     vertical-align: top;
     white-space: nowrap;
+    background-color: #EFEFEF;
 }
 
 .records-col.records-col-description {
@@ -141,7 +142,6 @@ body {
 
 .records-col.records-col-participant {
     text-align: right;
-    background-color: #EAEAEA;
 }
 
 .records-cell {
@@ -153,14 +153,13 @@ body {
     height: 26px;
     line-height: 26px;
     font-size: 18px;
-    font-weight: bold;
-    color: darkblue;
-    background-color: lightblue;
+    color: #FEFEFE;
+    background-color: #1E90FF;
     margin-bottom: 10px;
 }
 
 .records-header.records-header-participant {
-    color: darkgreen;
+
 }
 
 .records-body {
@@ -174,18 +173,20 @@ body {
 }
 
 .records-body .action-link {
-    color: #0000EE;
+    color: blue;
 }
 
 .records-footer {
     height: 24px;
     line-height: 24px;
     font-size: 16px;
-    background-color: lightblue;
+    background-color: #1E90FF;
+    color: #FEFEFE;
 }
 
 .records-footer.records-footer-strong {
     font-weight: bold;
+    color: #F7EF99;
 }
 
 
@@ -244,21 +245,25 @@ form {
 }
 
 .form-button {
-    background: #428BCA;
-    color: #FFFFFF;
+    background: #3071A9;
+    color: #FEFEFE;
     font-size: 20px;
     line-height: 35px;
     min-width: 100px;
     text-align: center;
     border: 0;
+    opacity: 1;
+    transition: all 0.3s ease 0s;
 }
 
 .form-button:hover {
-    background: #3071A9
+    background: #3071A9;
+    opacity: 0.75;
 }
 
 .form-button:active {
-    background: #a1accf;
+    background: #ADD8E6;
+    opacity: 0.75;
 }
 
 
