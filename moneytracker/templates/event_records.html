@@ -36,7 +36,7 @@
         <div class="records-cell records-footer"></div>
     </div>
 
-    <div class="records-col">
+    <div class="records-col records-col-description">
         <div class="records-cell records-header">Description</div>
         {% for record in money_records %}
             <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.description }}</div>

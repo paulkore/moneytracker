@@ -131,6 +131,10 @@ body {
     white-space: nowrap;
 }
 
+.records-col.records-col-description {
+    min-width: 400px;
+}
+
 .records-col.records-col-numeric {
     text-align: right;
 }
