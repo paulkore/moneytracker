@@ -1,17 +1,18 @@
 from moneytracker.models import Event
 
 
-def has_event_access(user, event_name_slug):
-    if not user.is_authenticated():
-            return False
+def has_event_access(user, event):
+    assert user.is_authenticated(), 'Function assumes that user is already authenticated'
+    assert type(event) is Event
 
-    event = Event.find_by_name_slug(event_name_slug)
     participants = event.participants()
     for participant in participants:
         if participant.user_id == user.id:
             return True
-
     return False
+
+
+
 
 
 

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.http import Http404
 from django.template.defaultfilters import slugify
 
 
@@ -29,7 +28,7 @@ class Event(models.Model):
         assert type(name_slug) is str
         results = Event.objects.filter(name_slug=name_slug)
         if len(results) == 0:
-            raise Http404
+            return None
         elif len(results) == 1:
             return results[0]
         else:

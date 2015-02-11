@@ -79,6 +79,13 @@ body {
     margin-bottom: 10px;
 }
 
+.error {
+    font-size: 20px;
+    font-weight: bold;
+    color: darkred;
+    margin: 20px;
+}
+
 .floating {
     float: left;
 }
