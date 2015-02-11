@@ -39,8 +39,8 @@ body {
     display: table;
 	margin: 0 auto;
     padding-top: 50px;
-    min-width: 800px;
-    min-height: 500px;
+    min-width: 75%;
+    min-height: 75%;
 }
 
 #inner-wrapper {
@@ -235,7 +235,7 @@ form {
 /* LOGIN FORM */
 
 #login-form {
-
+    
 }
 
 
