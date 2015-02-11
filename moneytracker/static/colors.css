@@ -1,0 +1,83 @@
+body {
+    background: #CCCCCC;
+}
+
+#site-header {
+    background: #1E90FF;
+}
+
+#site-header #logo {
+    color: #F7EF99;
+}
+
+#site-header #user-info {
+    color: #F7EF99;
+}
+
+#site-header #user-info a {
+    color: #FFEE88
+}
+
+#main-wrapper {
+    background: #FEFEFE;
+}
+
+#site-footer {
+    background: #666666;
+    color: #CCCCCC;
+}
+
+.page-title {
+    color: #3071A9;
+}
+
+.error {
+    color: #8B0000;
+}
+
+.records-title-bar #event-name {
+    color: #3071A9;
+}
+
+.records-col {
+    background: #EFEFEF;
+}
+
+.records-header {
+    background: #1E90FF;
+    color: #FEFEFE;
+}
+
+.records-body .action-link {
+    color: #0000FF;
+}
+
+.records-footer {
+    background: #1E90FF;
+    color: #FEFEFE;
+}
+
+.records-footer.records-footer-strong {
+    color: #F7EF99;
+}
+
+.form-errors, form ul.errorlist {
+    color: #FF0000;
+}
+
+.form-button {
+    background: #3071A9;
+    color: #FEFEFE;
+    opacity: 1;
+    transition: all 0.3s ease 0s;
+}
+
+.form-button:hover {
+    background: #3071A9;
+    opacity: 0.75;
+}
+
+.form-button:active {
+    background: #ADD8E6;
+    opacity: 0.75;
+}

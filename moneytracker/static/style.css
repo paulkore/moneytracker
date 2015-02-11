@@ -3,7 +3,6 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #CCCCCC;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -17,7 +16,6 @@ body {
     top: 0;
 
     height: 50px;
-    background-color: #1E90FF;
 }
 
 #site-header #logo {
@@ -25,18 +23,16 @@ body {
     margin: 5px 0 10px 20px;
     font-size: 34px;
     font-weight: bold;
-    color: #F7EF99;
 }
 
 #site-header #user-info {
     float: right;
     margin: 8px 15px 0 0;
-    color: #F7EF99
+
 }
 
 #site-header #user-info a {
     margin-left: 10px;
-    color: #FFEE88
 }
 
 #main-wrapper {
@@ -45,7 +41,6 @@ body {
     padding-top: 50px;
     min-width: 800px;
     min-height: 500px;
-    background-color: #FEFEFE;
 }
 
 #inner-wrapper {
@@ -57,22 +52,19 @@ body {
     min-height: 60px;
     margin-top: 50px;
     padding: 20px 20px 10px 10px;
-    background-color: #666;
-    color: #cccccc;
     text-align: right;
 }
 
 .page-title {
     font-size: 26px;
     font-weight: bold;
-    color: #3071A9;
+
     margin-bottom: 10px;
 }
 
 .error {
     font-size: 20px;
     font-weight: bold;
-    color: darkred;
     margin: 20px;
 }
 
@@ -100,7 +92,6 @@ body {
     line-height: 40px;
     font-size: 28px;
     font-weight: bold;
-    color: #3071A9;
 }
 
 .records-title-bar #add-record-form {
@@ -119,7 +110,6 @@ body {
     display: table-cell;
     vertical-align: top;
     white-space: nowrap;
-    background-color: #EFEFEF;
 }
 
 .records-col.records-col-description {
@@ -143,8 +133,6 @@ body {
     height: 26px;
     line-height: 26px;
     font-size: 18px;
-    color: #FEFEFE;
-    background-color: #1E90FF;
     margin-bottom: 10px;
 }
 
@@ -162,21 +150,15 @@ body {
     height: 25px;
 }
 
-.records-body .action-link {
-    color: blue;
-}
-
 .records-footer {
     height: 24px;
     line-height: 24px;
     font-size: 16px;
-    background-color: #1E90FF;
-    color: #FEFEFE;
+
 }
 
 .records-footer.records-footer-strong {
     font-weight: bold;
-    color: #F7EF99;
 }
 
 
@@ -218,7 +200,6 @@ form {
     padding: 0;
     margin: 0;
     list-style-type: none;
-    color: red;
 }
 
 .form-errors {
@@ -235,25 +216,17 @@ form {
 }
 
 .form-button {
-    background: #3071A9;
-    color: #FEFEFE;
     font-size: 20px;
     line-height: 35px;
     min-width: 100px;
     text-align: center;
     border: 0;
-    opacity: 1;
-    transition: all 0.3s ease 0s;
 }
 
 .form-button:hover {
-    background: #3071A9;
-    opacity: 0.75;
 }
 
 .form-button:active {
-    background: #ADD8E6;
-    opacity: 0.75;
 }
 
 
