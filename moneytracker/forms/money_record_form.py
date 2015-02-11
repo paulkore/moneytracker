@@ -24,10 +24,16 @@ class MoneyRecordForm(forms.Form):
         participant_choices = [(None, '')]
         for participant in event.participants():
             participant_choices.append((participant.id, participant.get_name()))
+
         self.fields['participant1'] = forms.ChoiceField(
-            label='Participant 1', choices=participant_choices, required=True)
+            label='Paid for expense / Balance transfer from',
+            choices=participant_choices,
+            required=True)
+
         self.fields['participant2'] = forms.ChoiceField(
-            label='Participant 2', choices=participant_choices, required=False)
+            label='Balance transfer to',
+            choices=participant_choices,
+            required=False)
 
     def populate_from_object(self, money_record):
         assert type(money_record) is MoneyRecord
