@@ -3,13 +3,14 @@
 
 {% block content %}
 <div class="form-wrapper">
-    <div class="sub-title">
-    {% if existing_record %}
-        Edit record
-    {% else %}
-        Create new record
-    {% endif %}
-    </div>
+
+{#    <div class="sub-title">#}
+{#    {% if existing_record %}#}
+{#        Edit record#}
+{#    {% else %}#}
+{#        Create new record#}
+{#    {% endif %}#}
+{#    </div>#}
 
     <form id="money-record-form" method="post">{% csrf_token %}
 
