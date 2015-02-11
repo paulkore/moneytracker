@@ -2,7 +2,9 @@ from decimal import Decimal
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from moneytracker.auth import has_event_access
 from moneytracker.models import Event
+from moneytracker.account import landing_page_redirect
 
 
 class MoneyRecordWrapper:
@@ -33,6 +35,8 @@ def event_records_view(request, event_name_slug):
         user = request.user
         if not user.is_authenticated():
             return HttpResponseRedirect(reverse('login'))
+        if not has_event_access(user, event_name_slug):
+            return landing_page_redirect(user)
 
         event = Event.find_by_name_slug(event_name_slug)
         participants = event.participants()

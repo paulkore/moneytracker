@@ -3,26 +3,15 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
+from moneytracker.account import landing_page_redirect
 from moneytracker.forms import LoginForm
-from moneytracker.models import Event
-
-
-def _landing_page_redirect(user):
-    # TODO: the landing page should be the following:
-    # - the user's account page (default, as this page always exists)
-    # - one of the user's events' pages (configurable from the account page)
-
-    # for now, the landing page is the first event that's relevant:
-    events = Event.find_by_user(user)
-    assert len(events) > 0, 'Currently supporting only users with at least 1 event'
-    return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': events[0].name_slug}))
 
 
 def login_view(request):
 
     if request.user.is_authenticated():
         # if a user is already logged in, redirect somewhere else!
-        return _landing_page_redirect(request.user)
+        return landing_page_redirect(request.user)
 
     if request.method == 'GET':
         # a GET request indicates that someone navigated to this page
@@ -51,7 +40,7 @@ def login_view(request):
                 else:
                     # if account is active, login the user and redirect to the user's landing page
                     login(request, user)
-                    return _landing_page_redirect(user)
+                    return landing_page_redirect(user)
 
         else:
             # if form input is invalid, re-render the form (validation errors will be displayed)
