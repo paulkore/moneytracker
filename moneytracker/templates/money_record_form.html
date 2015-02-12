@@ -11,31 +11,35 @@
             {{ form.non_field_errors }}
         </div>
 
-        <div class="floating form-col form-labels-col">
-            <div>{{ form.pub_date.label_tag }}</div>
-            <div>{{ form.description.label_tag }}</div>
-            <div>{{ form.amount.label_tag }}</div>
-            <div>{{ form.participant1.label_tag }}</div>
-            <div>{{ form.participant2.label_tag }}</div>
+        <div class="form-row" id="field-pub-date">
+            <div class="form-row-item form-label">{{ form.pub_date.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.pub_date }}</div>
+            <div class="form-row-item form-field-errors">{{ form.pub_date.errors }}</div>
         </div>
 
-        <div class="floating form-col form-fields-col">
-            <div id="field-pub-date">{{ form.pub_date }}</div>
-            <div id="field-description">{{ form.description }}</div>
-            <div id="field-amount">{{ form.amount }}</div>
-            <div id="field-participant1">{{ form.participant1 }}</div>
-            <div id="field-participant2">{{ form.participant2 }}</div>
+        <div class="form-row" id="field-description">
+            <div class="form-row-item form-label">{{ form.description.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.description }}</div>
+            <div class="form-row-item form-field-errors">{{ form.description.errors }}</div>
         </div>
 
-        <div class="floating form-col form-field-errors-col">
-            <div>{{ form.pub_date.errors }}</div>
-            <div>{{ form.description.errors }}</div>
-            <div>{{ form.amount.errors }}</div>
-            <div>{{ form.participant1.errors }}</div>
-            <div>{{ form.participant2.errors }}</div>
+        <div class="form-row" id="field-amount">
+            <div class="form-row-item form-label">{{ form.amount.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.amount }}</div>
+            <div class="form-row-item form-field-errors">{{ form.amount.errors }}</div>
         </div>
 
-        <div class="clear-float"></div>
+        <div class="form-row" id="field-participant1">
+            <div class="form-row-item form-label">{{ form.participant1.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.participant1 }}</div>
+            <div class="form-row-item form-field-errors">{{ form.participant1.errors }}</div>
+        </div>
+
+        <div class="form-row" id="field-participant2">
+            <div class="form-row-item form-label">{{ form.participant2.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.participant2 }}</div>
+            <div class="form-row-item form-field-errors">{{ form.participant2.errors }}</div>
+        </div>
 
         <div class="form-buttons">
             <input type="submit" class="form-button" name="form-submit-save" value="Save" />

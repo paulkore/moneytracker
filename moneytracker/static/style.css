@@ -188,17 +188,17 @@ form {
 
 .form-label {
     display: inline-block;
-    width: 100px;
+    width: 100px; /* default */
 }
 
 .form-field {
     display: inline-block;
-    width: 180px;
+    width: 180px; /* default */
 }
 
 .form-field-errors {
     display: inline-block;
-    width: 180px;
+    width: 180px; /* default */
 }
 
 .form-errors, form ul.errorlist {
@@ -243,6 +243,21 @@ form {
 
 }
 
+#login-form .form-label {
+    width: 100px;
+}
+
+#login-form .form-field {
+    width: 180px;
+}
+
+#login-form .form-field-errors {
+    width: 180px;
+}
+
+
+
+
 
 /* MONEY RECORD FORM */
 
@@ -250,8 +265,24 @@ form {
 
 }
 
+#money-record-form .form-label {
+    width: 180px;
+}
+
+#money-record-form .form-field {
+    width: 90px;
+}
+
+#money-record-form .form-field-errors {
+    width: 180px;
+}
+
 #money-record-form #field-pub-date input {
     width: 80px;
+}
+
+#money-record-form #field-description .form-field {
+    width: 360px;
 }
 
 #money-record-form #field-description input {
@@ -262,6 +293,10 @@ form {
     width: 80px;
 }
 
-#money-record-form #field-participant select {
-    width: 200px;
+#money-record-form #field-participant1 select {
+    min-width: 80px;
+}
+
+#money-record-form #field-participant2 select {
+    min-width: 80px;
 }
