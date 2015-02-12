@@ -27,11 +27,7 @@ body {
     color: #CCCCCC;
 }
 
-.page-title {
-    color: #3071A9;
-}
-
-.error {
+.http-error-message {
     color: #8B0000;
 }
 
