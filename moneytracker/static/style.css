@@ -172,25 +172,33 @@ form {
     padding: 10px;
 }
 
-.form-col {
-
-}
-
-.form-labels-col {
-
-}
-
-.form-fields-col {
-
-}
-
-.form-field-errors-col {
-
-}
-
 .form-col div {
     min-height: 30px;
     margin: 5px 10px 5px 0;
+}
+
+.form-row {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-row-item {
+    margin-top: 5px;
+}
+
+.form-label {
+    display: inline-block;
+    width: 100px;
+}
+
+.form-field {
+    display: inline-block;
+    width: 180px;
+}
+
+.form-field-errors {
+    display: inline-block;
+    width: 180px;
 }
 
 .form-errors, form ul.errorlist {

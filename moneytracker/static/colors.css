@@ -61,6 +61,11 @@ body {
     color: #F7EF99;
 }
 
+.form-row .form-label {
+    color: #2a5082;
+    font-weight: bold;
+}
+
 .form-errors, form ul.errorlist {
     color: #FF0000;
 }

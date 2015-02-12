@@ -12,22 +12,17 @@
             {{ form.non_field_errors }}
         </div>
 
-        <div class="floating form-col form-labels-col">
-            <div>{{ form.username.label_tag }}</div>
-            <div>{{ form.password.label_tag }}</div>
+        <div class="form-row">
+            <div class="form-row-item form-label">{{ form.username.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.username }}</div>
+            <div class="form-row-item form-field-errors">{{ form.username.errors }}</div>
         </div>
 
-        <div class="floating form-col form-fields-col">
-            <div>{{ form.username }}</div>
-            <div>{{ form.password }}</div>
+        <div class="form-row">
+            <div class="form-row-item form-label">{{ form.password.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.password }}</div>
+            <div class="form-row-item form-field-errors">{{ form.password.errors }}</div>
         </div>
-
-        <div class="floating form-col form-field-errors-col">
-            <div>{{ form.username.errors }}</div>
-            <div>{{ form.password.errors }}</div>
-        </div>
-
-        <div class="clear-float"></div>
 
         <div class="form-buttons">
             <input type="submit" class="form-button" name="form-submit-save" value="Login" />
