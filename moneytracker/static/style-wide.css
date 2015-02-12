@@ -5,8 +5,6 @@ body {
 #main-wrapper {
     display: table;
 	margin: 0 auto;
-    width: 60%;
-    height: 70%;
     min-width: 600px;
     min-height: 500px;
 }
