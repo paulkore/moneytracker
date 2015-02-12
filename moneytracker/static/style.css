@@ -41,12 +41,12 @@ body {
 }
 
 #inner-wrapper {
-    padding: 10px 20px 10px 20px;
-    min-height: 400px;
+    box-sizing: border-box;
 }
 
 #site-footer {
-    min-height: 60px;
+    box-sizing: border-box;
+    min-height: 90px;
     margin-top: 50px;
     padding: 20px 20px 10px 10px;
     text-align: right;

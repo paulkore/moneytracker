@@ -6,5 +6,10 @@ body {
     display: table;
 	margin: 0 auto;
     min-width: 600px;
+    min-height: 0;
+}
+
+#inner-wrapper {
+    padding: 10px 20px 10px 20px;
     min-height: 500px;
 }

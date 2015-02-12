@@ -6,4 +6,10 @@ body {
     display: block;
     margin: 0;
     min-width: 100%;
+    min-height: 0;
+}
+
+#inner-wrapper {
+    padding: 5px 5px 5px 5px;
+    min-height: 400px;
 }
