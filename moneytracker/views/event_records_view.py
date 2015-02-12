@@ -12,18 +12,20 @@ class MoneyRecordWrapper:
         self.record_id = money_record.id
         self.description = money_record.description
         self.pub_date = money_record.pub_date
+        self.amount = money_record.amount
+        self.participant1 = money_record.participant1
+        self.participant2 = money_record.participant2
 
-        amount = money_record.amount
         assert money_record.participant1
         if money_record.participant2 is None:
             self.contributions = {
-                money_record.participant1: amount
+                money_record.participant1: self.amount
             }
-            self.total_amount = amount
+            self.total_amount = self.amount
         else:
             self.contributions = {
-                money_record.participant1: amount,
-                money_record.participant2: -amount
+                money_record.participant1: +self.amount,
+                money_record.participant2: -self.amount,
             }
             self.total_amount = Decimal(0)
 

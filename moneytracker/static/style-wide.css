@@ -14,8 +14,89 @@ body {
     min-height: 500px;
 }
 
-.records-table #participant-cols {
+
+/* EVENT MONEY RECORDS PAGE */
+
+#records-title-bar {
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+#records-event-name {
+    line-height: 40px;
+    font-size: 28px;
+    font-weight: bold;
+
+    float: left;
+}
+
+#records-control-form {
+    float: right;
+}
+
+#records-title-clearfix {
+    clear: both;
+}
+
+
+#records-table {
+    /* table view is displayed */
+    display: table;
+}
+
+#records-table #participant-cols {
     display: block;
     float: left;
     margin-left: 10px;
+}
+
+.records-col {
+    display: table-cell;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.records-col.records-col-description {
+    min-width: 400px;
+}
+
+.records-col.records-col-numeric {
+    text-align: right;
+}
+
+.records-col.records-col-participant {
+    text-align: right;
+}
+
+.records-cell {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.records-header {
+    height: 26px;
+    line-height: 26px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.records-body {
+    height: 22px;
+    line-height: 22px;
+    font-size: 16px;
+}
+
+.records-body-last-row {
+    height: 25px;
+}
+
+.records-footer {
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+
+}
+
+.records-footer.records-footer-strong {
+    font-weight: bold;
 }

@@ -14,7 +14,109 @@ body {
     min-height: 400px;
 }
 
-.records-table #participant-cols {
-    display: none;
-    margin: 0;
+
+/* EVENT MONEY RECORDS PAGE */
+
+#records-title-bar {
+    margin-bottom: 15px;
+}
+
+#records-event-name {
+    line-height: 36px;
+    font-size: 25px;
+    font-weight: bold;
+
+    display: block;
+}
+
+#records-control-form {
+    display: block;
+}
+
+#records-title-clearfix {
+
+}
+
+#records-list {
+    /* list view is displayed */
+    display: block;
+}
+
+#record-list-items {
+    padding-bottom: 20px;
+}
+
+.record-list-item {
+    display: block;
+    padding: 5px 5px;
+    border-top: 3px solid #9c9c9c;
+}
+
+.record-list-item-line {
+    display: table;
+    margin: 3px 0;
+}
+
+.record-list-item-date {
+    display: table-cell;
+    padding-right: 40px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.record-list-item-description {
+    display: table-cell;
+    width: 100%;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.record-list-item-participant {
+    display: table-cell;
+    width: 100%;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.record-list-item-edit-link {
+    display: table-cell;
+    padding-left: 20px;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.record-list-item-amount {
+    display: table-cell;
+    padding-left: 40px;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#record-list-totals {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.record-list-totals-event {
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.record-list-totals-participant {
+    padding: 5px 5px;
+}
+
+.record-list-totals-participant-name {
+    font-weight: bold;
+    font-size: 18px;
 }

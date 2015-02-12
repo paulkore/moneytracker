@@ -4,15 +4,17 @@
 
 {% block content %}
 
-<div class="records-title-bar">
-    <div id="event-name">{{ event.name }}</div>
-    <form id="add-record-form" method="get" action="{{ url_add_record }}">{% csrf_token %}
+<div id="records-title-bar">
+    <div id="records-event-name">{{ event.name }}</div>
+    <form id="records-control-form" method="get" action="{{ url_add_record }}">{% csrf_token %}
         <input type="submit" class="form-button" value="+ add record" />
     </form>
-    <div class="clear-float"></div>
+    <div id="records-title-clearfix"></div>
 </div>
 
-<div class="records-table">
+
+{# TABLE VIEW FOR WIDE VIEWPORTS #}
+<div id="records-table">
 
     <div class="records-col">
         <div class="records-cell records-header"></div>
@@ -71,5 +73,50 @@
     </div>
 
 </div>
+
+
+{# LIST VIEW FOR NARROW VIEWPORTS #}
+<div id="records-list">
+    <div id="record-list-items">
+        {% for record in money_records %}
+            <div class="record-list-item">
+
+
+
+
+                <div class="record-list-item-line">
+                    <div class="record-list-item-date">{{ record.pub_date | date:"Y/m/d" }}</div>
+                    <div class="record-list-item-description">{{ record.description }}</div>
+                </div>
+                <div class="record-list-item-line">
+                    <div class="record-list-item-participant">
+                        {{ record.participant1.get_name }}{% if record.participant2 %} &#9654; {{ record.participant2.get_name }}{% endif %}
+                    </div>
+                    <div class="record-list-item-amount">{{ record.amount }}</div>
+                    <div class="record-list-item-edit-link">
+                        <a class="action-link" href="{{ record.url_edit }}">EDIT</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="record-list-totals">
+
+        <div class="record-list-totals-event">
+            <div class="record-list-total-cost">Total event cost: {{ event_total | money_amount }}</div>
+            <div class="record-list-total-cost">Cost per person: {{ event_split | money_amount }}</div>
+        </div>
+
+        {% for participant in participants %}
+            <div class="record-list-totals-participant">
+                <div class="record-list-totals-participant-name">{{ participant.get_name }}</div>
+                <div class="record-list-totals-participant-cost">Contribution: {{ participant_total | get_item:participant | money_amount }}</div>
+                <div class="record-list-totals-participant-cost">Balance owed: {{ participant_variance | get_item:participant | money_amount }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 
 {% endblock %}

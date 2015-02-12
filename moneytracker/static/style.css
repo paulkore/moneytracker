@@ -67,79 +67,35 @@ body {
 
 /* EVENT MONEY RECORDS PAGE */
 
-.records-title-bar {
-    height: 40px;
-    margin-bottom: 5px;
-}
 
-.records-title-bar #event-name {
-    float: left;
-
-    line-height: 40px;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.records-title-bar #add-record-form {
-    float: right;
-}
-
-.records-table {
-    display: table;
-}
-
-
-
-.records-col {
-    display: table-cell;
-    vertical-align: top;
-    white-space: nowrap;
-}
-
-.records-col.records-col-description {
-    min-width: 400px;
-}
-
-.records-col.records-col-numeric {
-    text-align: right;
-}
-
-.records-col.records-col-participant {
-    text-align: right;
-}
-
-.records-cell {
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-.records-header {
-    height: 26px;
-    line-height: 26px;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.records-body {
-    height: 22px;
-    line-height: 22px;
-    font-size: 16px;
-}
-
-.records-body-last-row {
-    height: 25px;
-}
-
-.records-footer {
-    height: 24px;
-    line-height: 24px;
-    font-size: 16px;
+#records-title-bar {
 
 }
 
-.records-footer.records-footer-strong {
-    font-weight: bold;
+#records-event-name {
+
 }
+
+#records-control-form {
+
+}
+
+#records-title-clearfix {
+
+}
+
+
+#records-table {
+    /* activated by media query dependent stylesheet */
+    display: none;
+}
+
+#records-list {
+    /* activated by media query dependent stylesheet */
+    display: none;
+}
+
+
 
 
 
@@ -148,16 +104,11 @@ body {
 /* GENERIC FORM STYLING - APPLICABLE TO ALL FORMS */
 
 form {
-    margin: 0px;
+    margin: 0;
 }
 
 .form-wrapper {
     padding: 10px;
-}
-
-.form-col div {
-    min-height: 30px;
-    margin: 5px 10px 5px 0;
 }
 
 .form-row {
