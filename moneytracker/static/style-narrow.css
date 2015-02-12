@@ -14,3 +14,7 @@ body {
     min-height: 400px;
 }
 
+.records-table #participant-cols {
+    display: none;
+    margin: 0;
+}

@@ -88,9 +88,7 @@ body {
     display: table;
 }
 
-.records-table .participant-cols {
-    margin-left: 10px;
-}
+
 
 .records-col {
     display: table-cell;

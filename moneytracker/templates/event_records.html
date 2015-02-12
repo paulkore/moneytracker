@@ -56,7 +56,7 @@
         <div class="records-cell records-footer records-footer-strong">{{ event_split | money_amount }}</div>
     </div>
 
-    <div class="participant-cols">
+    <div id="participant-cols">
     {% for participant in participants %}
         <div class="records-col records-col-numeric records-col-participant">
             <div class="records-cell records-header">{{ participant.get_name }}</div>

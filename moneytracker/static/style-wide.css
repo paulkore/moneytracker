@@ -13,3 +13,9 @@ body {
     padding: 10px 20px 10px 20px;
     min-height: 500px;
 }
+
+.records-table #participant-cols {
+    display: block;
+    float: left;
+    margin-left: 10px;
+}
