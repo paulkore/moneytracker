@@ -27,8 +27,8 @@ body {
 
 #site-header #user-info {
     float: right;
-    margin: 8px 15px 0 0;
-
+    margin: 10px 15px 0 0;
+    font-size: 18px;
 }
 
 #site-header #user-info a {
