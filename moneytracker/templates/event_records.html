@@ -92,7 +92,7 @@
                     <div class="record-list-item-participant">
                         {{ record.participant1.get_name }}{% if record.participant2 %} &#9654; {{ record.participant2.get_name }}{% endif %}
                     </div>
-                    <div class="record-list-item-amount">{{ record.amount }}</div>
+                    <div class="record-list-item-amount">{{ record.amount | money_amount }}</div>
                     <div class="record-list-item-edit-link">
                         <a class="action-link" href="{{ record.url_edit }}">EDIT</a>
                     </div>
