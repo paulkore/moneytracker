@@ -99,6 +99,7 @@ body {
     vertical-align: middle;
     font-size: 20px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 #record-list-totals {

@@ -48,26 +48,26 @@
         <div class="records-cell records-footer records-footer-strong">Balance per person</div>
     </div>
 
-    <div class="records-col records-col-numeric">
+    <div class="records-col records-col-amount">
         <div class="records-cell records-header">Amount</div>
         {% for record in money_records %}
-            <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.total_amount | money_amount_hide_zero }}</div>
+            <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.total_amount | money_amount_hide_zero:'finance' }}</div>
         {% endfor %}
         <div class="records-cell records-body-last-row"></div>
-        <div class="records-cell records-footer records-footer-strong">{{ event_total | money_amount }}</div>
-        <div class="records-cell records-footer records-footer-strong">{{ event_split | money_amount }}</div>
+        <div class="records-cell records-footer records-footer-strong">{{ event_total | money_amount:'finance' }}</div>
+        <div class="records-cell records-footer records-footer-strong">{{ event_split | money_amount:'finance' }}</div>
     </div>
 
     <div id="participant-cols">
     {% for participant in participants %}
-        <div class="records-col records-col-numeric records-col-participant">
+        <div class="records-col records-col-amount records-col-participant">
             <div class="records-cell records-header">{{ participant.get_name }}</div>
             {% for record in money_records %}
-                <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.contributions | get_item:participant | money_amount_hide_zero}}</div>
+                <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.contributions | get_item:participant | money_amount_hide_zero:'finance' }}</div>
             {% endfor %}
             <div class="records-cell records-body-last-row"></div>
-            <div class="records-cell records-footer">{{ participant_total | get_item:participant | money_amount }}</div>
-            <div class="records-cell records-footer">{{ participant_variance | get_item:participant | money_amount }}</div>
+            <div class="records-cell records-footer">{{ participant_total | get_item:participant | money_amount:'finance' }}</div>
+            <div class="records-cell records-footer">{{ participant_variance | get_item:participant | money_amount:'finance' }}</div>
         </div>
     {% endfor %}
     </div>
@@ -92,7 +92,7 @@
                     <div class="record-list-item-participant">
                         {{ record.participant1.get_name }}{% if record.participant2 %} &#9654; {{ record.participant2.get_name }}{% endif %}
                     </div>
-                    <div class="record-list-item-amount">{{ record.amount | money_amount }}</div>
+                    <div class="record-list-item-amount">{{ record.amount | money_amount:'simple' }}</div>
                     <div class="record-list-item-edit-link">
                         <a class="action-link" href="{{ record.url_edit }}">EDIT</a>
                     </div>
@@ -104,15 +104,15 @@
     <div id="record-list-totals">
 
         <div class="record-list-totals-event">
-            <div class="record-list-total-cost">Total event cost: {{ event_total | money_amount }}</div>
-            <div class="record-list-total-cost">Cost per person: {{ event_split | money_amount }}</div>
+            <div class="record-list-total-cost">Total event cost: {{ event_total | money_amount:'simple' }}</div>
+            <div class="record-list-total-cost">Cost per person: {{ event_split | money_amount:'simple' }}</div>
         </div>
 
         {% for participant in participants %}
             <div class="record-list-totals-participant">
                 <div class="record-list-totals-participant-name">{{ participant.get_name }}</div>
-                <div class="record-list-totals-participant-cost">Contribution: {{ participant_total | get_item:participant | money_amount }}</div>
-                <div class="record-list-totals-participant-cost">Balance owed: {{ participant_variance | get_item:participant | money_amount }}</div>
+                <div class="record-list-totals-participant-cost">Contribution: {{ participant_total | get_item:participant | money_amount:'simple' }}</div>
+                <div class="record-list-totals-participant-cost">Balance owed: {{ participant_variance | get_item:participant | money_amount:'simple' }}</div>
             </div>
         {% endfor %}
     </div>

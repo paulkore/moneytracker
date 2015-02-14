@@ -60,8 +60,9 @@ body {
     min-width: 400px;
 }
 
-.records-col.records-col-numeric {
+.records-col.records-col-amount {
     text-align: right;
+    white-space: nowrap;
 }
 
 .records-col.records-col-participant {

@@ -7,19 +7,31 @@ def get_item(dictionary, key):
 
 
 @register.filter
-def money_amount(decimal_amount):
-    if decimal_amount >= 0:
-        return "${0:.2f}".format(decimal_amount)
-    else:
-        return "(${0:.2f})".format(-decimal_amount)
+def money_amount(decimal_amount, number_format):
+    assert number_format == 'simple' or number_format == 'finance', 'unknown format: ' + str(number_format)
+
+    if number_format == 'simple':
+        if decimal_amount >= 0:
+            return "${0:.2f}".format(decimal_amount)
+        else:
+            return "-${0:.2f}".format(-decimal_amount)
+
+    if number_format == 'finance':
+        if decimal_amount >= 0:
+            return "${0:.2f}".format(decimal_amount)
+        else:
+            return "(${0:.2f})".format(-decimal_amount)
+
+    # shouldn't reach this line
+    raise Exception('logic error')
 
 
 @register.filter
-def money_amount_hide_zero(decimal_amount):
+def money_amount_hide_zero(decimal_amount, number_format):
     if not decimal_amount:
         return '--'
-    else:
-        return money_amount(decimal_amount)
+
+    return money_amount(decimal_amount, number_format)
 
 
 @register.filter
