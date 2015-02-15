@@ -48,9 +48,9 @@ def event_records_view(request, event_name_slug):
         money_records = event.money_records()
 
         event_total = Decimal(0)
-        participant_total = {}
+        participant_contribution = {}
         for p in participants:
-            participant_total[p] = Decimal(0)
+            participant_contribution[p] = Decimal(0)
 
         money_record_items = []
         for money_record in money_records:
@@ -58,12 +58,22 @@ def event_records_view(request, event_name_slug):
             money_record_items.append(money_record_view_item)
             event_total += money_record_view_item.total_amount
             for p in money_record_view_item.contributions:
-                participant_total[p] += money_record_view_item.contributions[p]
+                participant_contribution[p] += money_record_view_item.contributions[p]
 
         event_split = event_total / len(participants)
         participant_variance = {}
+        participant_overcontrib = {}
+        participant_undercontrib = {}
         for p in participants:
-            participant_variance[p] = participant_total[p] - event_split
+            variance = participant_contribution[p] - event_split
+            participant_variance[p] = variance
+            if variance > 0:
+                participant_overcontrib[p] = variance
+            elif variance < 0:
+                participant_undercontrib[p] = -variance
+            else:
+                # zero variance
+                pass
 
         return render(request, 'event_records.html', {
             'event': event,
@@ -71,8 +81,9 @@ def event_records_view(request, event_name_slug):
             'money_records': money_record_items,
             'event_total': event_total,
             'event_split': event_split,
-            'participant_total': participant_total,
+            'participant_contribution': participant_contribution,
             'participant_variance': participant_variance,
+            'participant_overcontrib': participant_overcontrib,
+            'participant_undercontrib': participant_undercontrib,
             'url_add_record': reverse('money-record-create', kwargs={'event_name_slug': event_name_slug}),
-
         })

@@ -66,7 +66,7 @@
                 <div class="records-cell records-body expense-cell-id-{{ record.record_id }}">{{ record.contributions | get_item:participant | money_amount_hide_zero:'finance' }}</div>
             {% endfor %}
             <div class="records-cell records-body-last-row"></div>
-            <div class="records-cell records-footer">{{ participant_total | get_item:participant | money_amount:'finance' }}</div>
+            <div class="records-cell records-footer">{{ participant_contribution | get_item:participant | money_amount:'finance' }}</div>
             <div class="records-cell records-footer">{{ participant_variance | get_item:participant | money_amount:'finance' }}</div>
         </div>
     {% endfor %}
@@ -111,8 +111,16 @@
         {% for participant in participants %}
             <div class="record-list-totals-participant">
                 <div class="record-list-totals-participant-name">{{ participant.get_name }}</div>
-                <div class="record-list-totals-participant-cost">Contribution: {{ participant_total | get_item:participant | money_amount:'simple' }}</div>
-                <div class="record-list-totals-participant-cost">Balance owed: {{ participant_variance | get_item:participant | money_amount:'simple' }}</div>
+                <div class="record-list-totals-participant-cost">Contribution: {{ participant_contribution | get_item:participant | money_amount:'simple' }}</div>
+                <div class="record-list-totals-participant-cost">
+                    {% if participant in participant_overcontrib %}
+                        Over-contribution: {{ participant_overcontrib | get_item:participant | money_amount:'simple' }}
+                    {% elif participant in participant_undercontrib %}
+                        Under-contribution: {{ participant_undercontrib | get_item:participant | money_amount:'simple' }}
+                    {% else %}
+                        Balance owed: $0.00
+                    {% endif %}
+                </div>
             </div>
         {% endfor %}
     </div>
