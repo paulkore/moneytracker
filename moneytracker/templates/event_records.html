@@ -6,9 +6,11 @@
 
 <div id="records-title-bar">
     <div id="records-event-name">{{ event.name }}</div>
-    <form id="records-control-form" method="get" action="{{ url_add_record }}">{% csrf_token %}
-        <input type="submit" class="form-button" value="+ add record" />
-    </form>
+
+    <div id="records-control-buttons">
+        <button class="form-button" onclick="window.location.href='{{ url_add_record }}';">add expense</button>
+    </div>
+
     <div id="records-title-clearfix"></div>
 </div>
 
