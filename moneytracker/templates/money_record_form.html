@@ -6,6 +6,20 @@
 
     <form id="money-record-form" method="post">{% csrf_token %}
 
+        {% if form.record_type == 'expense' %}
+            <div class="form-title">Record an expense</div>
+            <div class="form-description">
+                This record captures a expense paid for by one of the participants.
+                For example, "Jack pays $850 for the group's hotel stay in Berlin"
+            </div>
+        {% elif form.record_type == 'transfer' %}
+            <div class="form-title">Record a transfer of funds</div>
+            <div class="form-description">
+                This record captures a transfer of funds between two participants.
+                For example, "Mary gives Jack $200 to even out her contribution to date"
+            </div>
+        {% endif %}
+
         <div class="form-errors">
             {{ form.custom_error }}
             {{ form.non_field_errors }}
