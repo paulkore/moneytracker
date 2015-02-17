@@ -11,18 +11,22 @@
             {{ form.non_field_errors }}
         </div>
 
+        {# Hidden input #}
+        <div>{{ form.record_type_hidden }}</div>
+
         <div class="form-row" id="field-pub-date">
-            <div class="form-row-item form-label">{{ form.pub_date.label_tag }}</div>
-            <div class="form-row-item form-field">{{ form.pub_date }}</div>
-            <div class="form-row-item form-field-errors">{{ form.pub_date.errors }}</div>
+            <div class="form-row-item form-label">{{ form.date.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.date }}</div>
+            <div class="form-row-item form-field-errors">{{ form.date.errors }}</div>
         </div>
 
-
+        {% if form.record_type == 'expense' %}
         <div class="form-row" id="field-description">
             <div class="form-row-item form-label">{{ form.description.label_tag }}</div>
             <div class="form-row-item form-field">{{ form.description }}</div>
             <div class="form-row-item form-field-errors">{{ form.description.errors }}</div>
         </div>
+        {% endif %}
 
         <div class="form-row" id="field-amount">
             <div class="form-row-item form-label">{{ form.amount.label_tag }}</div>
@@ -36,18 +40,20 @@
             <div class="form-row-item form-field-errors">{{ form.participant1.errors }}</div>
         </div>
 
+        {% if form.record_type == 'transfer' %}
         <div class="form-row" id="field-participant2">
             <div class="form-row-item form-label">{{ form.participant2.label_tag }}</div>
             <div class="form-row-item form-field">{{ form.participant2 }}</div>
             <div class="form-row-item form-field-errors">{{ form.participant2.errors }}</div>
         </div>
+        {% endif %}
 
         <div class="form-buttons">
-            <input type="submit" class="form-button" name="form-submit-save" value="Save" />
+            <input type="submit" class="button button-margin-right" name="form-submit-save" value="Save" />
             {% if existing_record %}
-                <input type="submit" class="form-button" name="form-submit-delete" value="Delete" />
+                <input type="submit" class="button button-margin-right" name="form-submit-delete" value="Delete" />
             {% endif %}
-            <input type="submit" class="form-button" name="form-submit-cancel" value="Cancel" />
+            <input type="submit" class="button button-no-margin" name="form-submit-cancel" value="Cancel" />
         </div>
 
     </form>

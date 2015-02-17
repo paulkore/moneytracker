@@ -29,7 +29,7 @@ class MoneyRecordWrapper:
             }
             self.total_amount = Decimal(0)
 
-        self.url_edit = reverse('money-record-edit',
+        self.url_edit = reverse('edit-record',
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
@@ -85,5 +85,6 @@ def event_records_view(request, event_name_slug):
             'participant_variance': participant_variance,
             'participant_overcontrib': participant_overcontrib,
             'participant_undercontrib': participant_undercontrib,
-            'url_add_record': reverse('money-record-create', kwargs={'event_name_slug': event_name_slug}),
+            'url_add_expense': reverse('create-expense', kwargs={'event_name_slug': event_name_slug}),
+            'url_add_transfer': reverse('create-transfer', kwargs={'event_name_slug': event_name_slug}),
         })

@@ -20,49 +20,64 @@ def money_record_view(request, event_name_slug, record_id=None):
         raise PermissionDenied()
 
     if record_id is None:
-        # if we are creating a new record
+        # A new record is being created
         existing_record = None
     else:
-        # if we are editing an existing record
+        # An existing record is being edited
         existing_record = MoneyRecord.objects.get(id=record_id)
-        assert existing_record
+        if not existing_record:
+            raise Http404()
 
     if request.method == 'GET':
         # a GET request indicates that we're either
         #   - starting to create a new record
         #   - starting to edit an existing record
 
-        # we'll create a blank form first, which will suffice for creating a new record
-        form = MoneyRecordForm(event)
         if existing_record:
-            # ...and populate it with the existing values, if applicable
-            form.populate_from_object(existing_record)
+            # Existing record:
+            # Create a form and populate it with the existing record's values
+            form = MoneyRecordForm(event)
+            form.populate_from_record(existing_record)
+        else:
+            # New record:
+            # Create a form and set the requested record type (expense or transfer)
+            form = MoneyRecordForm(event)
+            if 'create-expense' in request.path:
+                form.set_record_type('expense')
+            elif 'create-transfer' in request.path:
+                form.set_record_type('transfer')
+            else:
+                raise Exception('Unable to detect the record type from URL')
 
     elif request.method == 'POST':
         # a POST request indicates that a form was submitted and we need to process it, to either:
         #   - create a new record with the passed data
         #   - update an existing record with the passed data
+        #   - delete an existing record
+        #   - cancel the operation
 
         # create a form instance and populate it with data from the request:
         form = MoneyRecordForm(event, request.POST)
-        if existing_record:
-            # indicate the existing record, if applicable (this will toggle create/update behavior)
-            form.money_record = existing_record
 
         if 'form-submit-save' in request.POST:
             # SAVE:
             if form.is_valid():
-                # if form is valid, process the save and redirect to event records view
-                form.process()
+                # if form is valid, save and redirect to event records view
+                if existing_record:
+                    form.update_existing(existing_record)
+                else:
+                    form.save_as_new_record()
+
                 return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': event_name_slug}))
             else:
-                # if form is invalid, re-render the form (validation errors will be displayed)
+                # if form is invalid, do nothing here;
+                # the form will be re-rendered, and validation errors will be displayed
                 pass
 
         elif 'form-submit-delete' in request.POST:
             # DELETE:
-            assert existing_record
-            existing_record.delete()
+            if existing_record:
+                existing_record.delete()
             return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': event_name_slug}))
 
         elif 'form-submit-cancel' in request.POST:

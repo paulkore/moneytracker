@@ -121,3 +121,17 @@ body {
     font-weight: bold;
     font-size: 18px;
 }
+
+
+
+#money-record-form .form-label {
+    width: 120px;
+}
+
+#money-record-form #field-description .form-field {
+    width: 220px;
+}
+
+#money-record-form #field-description input {
+    width: 210px;
+}

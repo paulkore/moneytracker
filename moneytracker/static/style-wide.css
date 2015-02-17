@@ -101,3 +101,16 @@ body {
 .records-footer.records-footer-strong {
     font-weight: bold;
 }
+
+
+#money-record-form .form-label {
+    width: 180px;
+}
+
+#money-record-form #field-description .form-field {
+    width: 360px;
+}
+
+#money-record-form #field-description input {
+    width: 350px;
+}

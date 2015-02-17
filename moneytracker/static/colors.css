@@ -101,28 +101,27 @@ body {
 /* FORMS */
 
 
-.form-row .form-label {
+.form-label {
     color: #2a5082;
-    font-weight: bold;
 }
 
 .form-errors, form ul.errorlist {
     color: #FF0000;
 }
 
-.form-button {
+.button {
     background: #3071A9;
     color: #FEFEFE;
     opacity: 1;
     transition: all 0.3s ease 0s;
 }
 
-.form-button:hover {
+.button:hover {
     background: #3071A9;
     opacity: 0.75;
 }
 
-.form-button:active {
+.button:active {
     background: #ADD8E6;
     opacity: 0.75;
 }
