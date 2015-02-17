@@ -105,9 +105,9 @@ def create_data():
     create_record(revy, '2014/12/08', 'Gas (3 - Kelowna)', 8.50, revy_jeremy)
     create_record(revy, '2014/12/08', 'Car rental - second payment', 126.00, revy_jules)
     create_record(revy, '2014/12/08', 'Taxi ride from Pearson Airport', 65.00, revy_jeremy)
-    create_record(revy, '2014/12/15', 'End of trip settlement', 183.50, revy_jeremy, revy_jules)
-    create_record(revy, '2014/12/15', 'End of trip settlement', 20.50, revy_valdis, revy_jules)
-    create_record(revy, '2014/12/15', 'End of trip settlement', 77.00, revy_valdis, revy_paul)
+    # create_record(revy, '2014/12/15', 'End of trip settlement', 183.50, revy_jeremy, revy_jules)
+    # create_record(revy, '2014/12/15', 'End of trip settlement', 20.50, revy_valdis, revy_jules)
+    # create_record(revy, '2014/12/15', 'End of trip settlement', 77.00, revy_valdis, revy_paul)
 
     print()
 
