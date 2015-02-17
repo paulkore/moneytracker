@@ -21,7 +21,7 @@ class Event(models.Model):
         return Participant.objects.filter(event_id=self.id).order_by('id')
 
     def money_records(self):
-        return MoneyRecord.objects.filter(event_id=self.id).order_by('id')
+        return MoneyRecord.objects.filter(event_id=self.id).order_by('pub_date', 'id')
 
     @staticmethod
     def find_by_name_slug(name_slug):
