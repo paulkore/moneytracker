@@ -83,17 +83,14 @@
     <div id="record-list-items">
         {% for record in money_records %}
             <div class="record-list-item">
-
-
-
-
                 <div class="record-list-item-line">
                     <div class="record-list-item-date">{{ record.pub_date | date:"Y/m/d" }}</div>
                     <div class="record-list-item-description">{{ record.description }}</div>
                 </div>
                 <div class="record-list-item-line">
                     <div class="record-list-item-participant">
-                        {{ record.participant1.get_name }}{% if record.participant2 %} &#9654; {{ record.participant2.get_name }}{% endif %}
+                        {{ record.participant1.get_name }}
+                        {% if record.participant2 %} ⇨ {{ record.participant2.get_name }}{% endif %}
                     </div>
                     <div class="record-list-item-amount">{{ record.amount | money_amount:'simple' }}</div>
                     <div class="record-list-item-edit-link">
