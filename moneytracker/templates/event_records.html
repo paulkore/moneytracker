@@ -86,7 +86,13 @@
                 <div class="record-list-item-left">
                     <div class="record-list-item-right-line1">
                         <div class="record-list-item-amount">{{ record.amount | money_amount:'simple' }}</div>
-                        <div class="record-list-item-description">{{ record.description }}</div>
+                        <div class="record-list-item-description">
+                            {% if record.participant2 %}
+                                Transfer of funds
+                            {% else %}
+                                {{ record.description }}
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="record-list-item-right-line2">
                         <div class="record-list-item-date">{{ record.pub_date | date:"Y/m/d" }}</div>
