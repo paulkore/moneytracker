@@ -48,7 +48,7 @@ body {
 
 .record-list-item {
     display: table;
-    padding: 4px 3px 4px 3px;
+    padding: 5px 3px 8px 3px;
     border-top: 3px solid #9c9c9c;
 }
 
