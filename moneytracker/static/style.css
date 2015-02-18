@@ -19,22 +19,32 @@ body {
     top: 0;
 
     height: 50px;
+    display: table;
+    width: 100%;
 }
 
-#site-header #logo {
-    float: left;
-    margin: 5px 0 10px 20px;
+#site-header-logo {
+    display: table-cell;
+    width: 120px;
+    text-align: left;
+    vertical-align: top;
+
+    padding: 5px 0 0 20px;
     font-size: 34px;
     font-weight: bold;
 }
 
-#site-header #user-info {
-    float: right;
-    margin: 10px 15px 0 0;
+#site-header-user-info {
+    display: table-cell;
+    width: 100%;
+    text-align: right;
+    vertical-align: top;
+
+    padding: 10px 15px 0 0;
     font-size: 18px;
 }
 
-#site-header #user-info a {
+#site-header-user-info a {
     margin-left: 10px;
 }
 

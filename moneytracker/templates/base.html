@@ -28,14 +28,13 @@
 
 
     <div id="site-header">
-        <div id="logo">trakr</div>
-        <div id="user-info">
+        <div id="site-header-logo">trakr</div>
+        <div id="site-header-user-info">
             {% if user.is_authenticated %}
                 <span>Hey, {{ user | user_name }}!</span>
                 <a class="" href="{% url 'logout' %}">Logout</a>
             {% endif %}
         </div>
-        <div class="clear-float"></div>
     </div>
 
     <div id="main-wrapper">
