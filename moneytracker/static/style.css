@@ -172,11 +172,11 @@ form {
     margin: 0;
 }
 
-.button.button-small {
+.button.button-square {
     font-size: 20px;
-    line-height: 30px;
+    line-height: 35px;
     min-width: 0;
-    padding: 2px 5px;
+    padding: 2px 8px;
 }
 
 .button.button-margin-left {
