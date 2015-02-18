@@ -18,7 +18,7 @@ body {
 /* EVENT MONEY RECORDS PAGE */
 
 #records-title-bar {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 #records-event-name {
@@ -47,59 +47,68 @@ body {
 }
 
 .record-list-item {
-    display: block;
-    padding: 5px 5px;
+    display: table;
+    padding: 4px 3px 4px 3px;
     border-top: 3px solid #9c9c9c;
 }
 
-.record-list-item-line {
-    display: table;
-    margin: 3px 0;
+.record-list-item-left {
+    display: table-cell;
+    width: 100%
 }
 
-.record-list-item-date {
+.record-list-item-right {
     display: table-cell;
-    padding-right: 40px;
-    text-align: left;
     vertical-align: middle;
-    font-size: 18px;
-    font-weight: bold;
+    padding-left: 10px;
+}
+
+.record-list-item-right-line1 {
+    display: table;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.record-list-item-right-line2 {
+    display: table;
+    width: 100%;
+    margin: 0;
 }
 
 .record-list-item-description {
     display: table-cell;
     width: 100%;
     text-align: right;
-    vertical-align: middle;
+    vertical-align: top;
     font-size: 16px;
+}
+
+.record-list-item-amount {
+    display: table-cell;
+    padding-right: 10px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 .record-list-item-participant {
     display: table-cell;
     width: 100%;
-    text-align: left;
-    vertical-align: middle;
+    text-align: right;
+    vertical-align: bottom;
     font-size: 16px;
     font-weight: bold;
 }
 
-.record-list-item-edit-link {
+.record-list-item-date {
     display: table-cell;
-    padding-left: 20px;
-    text-align: right;
-    vertical-align: middle;
-    font-size: 22px;
+    padding-right: 20px;
+    text-align: left;
+    vertical-align: bottom;
+    font-size: 16px;
     font-weight: bold;
-}
-
-.record-list-item-amount {
-    display: table-cell;
-    padding-left: 40px;
-    text-align: right;
-    vertical-align: middle;
-    font-size: 20px;
-    font-weight: bold;
-    white-space: nowrap;
 }
 
 #record-list-totals {
