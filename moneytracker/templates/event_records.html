@@ -6,21 +6,25 @@
 
 <script>
     function hideParticipantsView() {
-        $('#participant-cols').hide()
-        $('.records-contribution-value').hide()
-        $('.records-allocation-value').hide()
+        $('#participant-cols').fadeTo(400, 0)
     }
 
     function showParticipantContributionsView() {
-        $('#participant-cols').show()
-        $('.records-contribution-value').show()
-        $('.records-allocation-value').hide()
+         $('#participant-cols').fadeTo(200, 0, function() {
+            $('.records-allocation-value').hide()
+            $('.records-contribution-value').show()
+
+            $('#participant-cols').fadeTo(400, 1)
+         })
     }
 
     function showParticipantAllocationsView() {
-        $('#participant-cols').show()
-        $('.records-contribution-value').hide()
-        $('.records-allocation-value').show()
+        $('#participant-cols').fadeTo(200, 0, function() {
+            $('.records-allocation-value').show()
+            $('.records-contribution-value').hide()
+
+            $('#participant-cols').fadeTo(400, 1)
+        })
     }
 </script>
 
