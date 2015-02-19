@@ -18,24 +18,22 @@ body {
 /* EVENT MONEY RECORDS PAGE */
 
 #records-title-bar {
+    display: block;
     margin-bottom: 25px;
 }
 
 #records-event-name {
+    display: block;
+
     line-height: 36px;
     font-size: 25px;
     font-weight: bold;
+}
 
+#records-view-controls {
     display: block;
 }
 
-#records-control-buttons {
-    display: block;
-}
-
-#records-title-clearfix {
-
-}
 
 #records-list {
     /* list view is displayed */

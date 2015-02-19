@@ -89,11 +89,7 @@ body {
 
 }
 
-#records-control-buttons {
-
-}
-
-#records-title-clearfix {
+#records-view-controls {
 
 }
 
@@ -200,6 +196,7 @@ form {
     line-height: 38px;
     min-width: 100px;
     text-align: center;
+    white-space: nowrap;
     border: 0;
     padding: 0 10px;
     margin: 0;
