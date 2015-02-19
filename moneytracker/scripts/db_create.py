@@ -32,9 +32,9 @@ def create_record(event, date_str, description, amount, participant1, participan
     assert type(amount) is float
     assert participant1
     if participant2 and not description:
-        description = 'Balance transfer from ' + participant1.get_name() + ' to ' + participant2.get_name()
+        description = 'Transfer from ' + participant1.get_name() + ' to ' + participant2.get_name()
     else:
-        assert description
+        assert description and not participant2
 
     money_record = MoneyRecord.objects.create(
         event=event,
@@ -75,19 +75,19 @@ def create_data():
     revy_valdis = create_participant(revy, user_valdis)
 
     print('Creating money records...')
-    create_record(revy, '2014/09/28', 'B&B - first installment (50%)', 500.00, revy_jules)
-    create_record(revy, '2014/09/28', 'Car rental - first installment', 462.00, revy_jules)
+    create_record(revy, '2014/09/28', 'B&B - first payment (50%)', 500.00, revy_jules)
+    create_record(revy, '2014/09/28', 'Car rental - first payment', 462.00, revy_jules)
     create_record(revy, '2014/10/08', None, 320.00, revy_paul, revy_jules)     # type: email
     create_record(revy, '2014/10/08', None, 320.00, revy_jeremy, revy_jules)   # type: email
     create_record(revy, '2014/11/28', 'Taxi ride to Pearson Airport', 60.00, revy_jeremy)
     create_record(revy, '2014/11/28', 'Costco - food', 319.00, revy_jules)
     create_record(revy, '2014/11/28', 'Costco - Revelstoke tickets x 30 ($63 per ticket)', 1890.00, revy_jules)
-    create_record(revy, '2014/11/28', 'Costco - Revelstoke tickets x -2 (Jer & Valdis paid cash)', -126.00, revy_jules)
+    create_record(revy, '2014/11/28', 'Credit for 2 Revelstoke tickets (Jeremy and Valdis paid cash)', -126.00, revy_jules)
     create_record(revy, '2014/11/28', 'Dollarama - Kelowna', 10.00, revy_paul)
     create_record(revy, '2014/11/28', 'IGA - Kelowna', 5.00, revy_paul)
     create_record(revy, '2014/11/30', 'Southside Grocery', 10.00, revy_paul)
     create_record(revy, '2014/11/30', 'Southside Grocery', 11.00, revy_paul)
-    create_record(revy, '2014/11/30', 'B&B - second installment (50%)', 500.00, revy_valdis)
+    create_record(revy, '2014/11/30', 'B&B - second payment (50%)', 500.00, revy_valdis)
     create_record(revy, '2014/11/30', None, 200.00, revy_jeremy, revy_jules)  # type: cash
     create_record(revy, '2014/11/30', None, 600.00, revy_paul, revy_jules)    # type: email
     create_record(revy, '2014/11/30', None, 436.50, revy_valdis, revy_jules)  # type: email
