@@ -133,4 +133,11 @@ body {
 .radio-button-selector {
     background: #3071A9;
     color: #FEFEFE;
+    opacity: 1;
+    transition: all 0.3s ease 0s;
+}
+
+.radio-button-selector:hover {
+    background: #3071A9;
+    opacity: 0.85;
 }

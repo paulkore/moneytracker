@@ -247,8 +247,12 @@ form {
     padding: 5px;
 }
 
+.radio-button-selector:hover {
+}
+
 .radio-button-selector .radio-buttons-title {
     margin-bottom: 5px;
+    padding-right: 10px;
     font-size: 18px;
 }
 
