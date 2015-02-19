@@ -111,6 +111,28 @@ body {
 
 
 
+#event-summary {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.event-summary-top {
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.event-summary-participant {
+    padding: 5px 5px;
+}
+
+.event-summary-participant-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
 
 
 

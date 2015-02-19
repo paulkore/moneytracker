@@ -43,7 +43,7 @@ body {
 }
 
 #record-list-items {
-    padding-bottom: 20px;
+
 }
 
 .record-list-item {
@@ -111,25 +111,8 @@ body {
     font-weight: bold;
 }
 
-#record-list-totals {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 
-.record-list-totals-event {
-    padding: 5px 5px;
-    margin-bottom: 10px;
-    font-size: 18px;
-}
 
-.record-list-totals-participant {
-    padding: 5px 5px;
-}
-
-.record-list-totals-participant-name {
-    font-weight: bold;
-    font-size: 18px;
-}
 
 
 
