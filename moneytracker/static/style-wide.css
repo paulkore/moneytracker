@@ -56,6 +56,14 @@ body {
     white-space: nowrap;
 }
 
+.records-col.records-col-actions {
+
+}
+
+.records-col.records-col-date {
+
+}
+
 .records-col.records-col-description {
     min-width: 400px;
 }
@@ -63,6 +71,15 @@ body {
 .records-col.records-col-amount {
     text-align: right;
     white-space: nowrap;
+}
+
+.records-col.records-col-effective-amount {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.records-col.records-col-payer {
+
 }
 
 .records-col.records-col-participant {
@@ -98,8 +115,12 @@ body {
 
 }
 
-.records-footer.records-footer-strong {
-    font-weight: bold;
+.records-allocation-value {
+    display: none; /*default*/
+}
+
+.records-contribution-value {
+    display: block; /*default*/
 }
 
 
