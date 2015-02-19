@@ -93,7 +93,6 @@ body {
 
 }
 
-
 #records-table {
     /* activated by media query dependent stylesheet */
     display: none;
@@ -191,6 +190,14 @@ form {
     margin-bottom: 10px;
 }
 
+.form-buttons {
+    margin-top: 25px;
+}
+
+
+/* BUTTONS */
+
+
 .button {
     font-size: 20px;
     line-height: 38px;
@@ -230,11 +237,34 @@ form {
 .button:active {
 }
 
-.form-buttons {
-    margin-top: 25px;
+
+/* SELECTOR CONTROL */
+
+
+.radio-button-selector {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
 }
 
+.radio-button-selector .radio-buttons-title {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
 
+.radio-button-selector .radio-button {
+    display: block;
+    margin: 2px 0;
+}
+
+.radio-button-selector .radio-button input[type="radio"] {
+    margin-right: 10px;
+}
+
+.radio-button-selector .radio-button label {
+    font-size: 16px;
+    vertical-align: top;
+}
 
 
 

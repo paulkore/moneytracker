@@ -4,12 +4,46 @@
 
 {% block content %}
 
+<script>
+    function hideParticipantsView() {
+        $('#participant-cols').hide()
+        $('.records-contribution-value').hide()
+        $('.records-allocation-value').hide()
+    }
+
+    function showParticipantContributionsView() {
+        $('#participant-cols').show()
+        $('.records-contribution-value').show()
+        $('.records-allocation-value').hide()
+    }
+
+    function showParticipantAllocationsView() {
+        $('#participant-cols').show()
+        $('.records-contribution-value').hide()
+        $('.records-allocation-value').show()
+    }
+</script>
+
 <div id="records-title-bar">
     <div id="records-event-name">{{ event.name }}</div>
 
     <div id="records-view-controls">
         <button class="button button-margin-right" onclick="window.location.href='{{ url_add_expense }}';">+ add expense</button>
         <button class="button button-no-margin" onclick="window.location.href='{{ url_add_transfer }}';">+ add transfer</button>
+        <div id="participants-view-toggle" class="radio-button-selector">
+            <div class="radio-buttons-title">
+                Participant details (advanced):
+            </div>
+            <div class="radio-button">
+                <input type="radio" id="radio-1" name="radio" onchange="showParticipantContributionsView()" checked /><label for="radio-1">contribution view</label>
+            </div>
+            <div class="radio-button">
+                <input type="radio" id="radio-2" name="radio" onchange="showParticipantAllocationsView()" /><label for="radio-2">allocation view</label>
+            </div>
+            <div class="radio-button">
+                <input type="radio" id="radio-3" name="radio" onchange="hideParticipantsView()" /><label for="radio-3">hidden</label>
+            </div>
+        </div>
     </div>
 </div>
 

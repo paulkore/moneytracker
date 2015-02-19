@@ -18,28 +18,37 @@ body {
 /* EVENT MONEY RECORDS PAGE */
 
 #records-title-bar {
-    display: table;
-    width: 100%;
+    /*display: table;*/
+    /*width: 100%;*/
+    display: block;
 
     margin-bottom: 25px;
 }
 
 #records-event-name {
-    display: table-cell;
-    width: 100%;
+    /*display: table-cell;*/
+    /*width: 100%;*/
+    display: block;
+    margin-bottom: 20px;
 
     line-height: 40px;
     font-size: 28px;
     font-weight: bold;
+
 }
 
 #records-view-controls {
-    display: table-cell;
-    width: auto;
-    white-space: nowrap;
-    padding-left: 20px;
+    /*display: table-cell;*/
+    /*white-space: nowrap;*/
+    /*padding-left: 20px;*/
+
+    display: block;
 }
 
+#participants-view-toggle {
+    display: inline-block;
+    margin-left: 10px;
+}
 
 #records-table {
     /* table view is displayed */
