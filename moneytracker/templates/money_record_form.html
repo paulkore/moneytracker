@@ -64,6 +64,20 @@
         </div>
         {% endif %}
 
+        {% if form.record_type == 'expense' %}
+        <div class="form-row" id="field-allocations-toggle">
+            <div class="form-row-item form-label">{{ form.allocations_toggle.label_tag }}</div>
+            <div class="form-row-item form-field">{{ form.allocations_toggle }}</div>
+            <div class="form-row-item form-field-errors">{{ form.allocations_toggle.errors }}</div>
+        </div>
+
+        <div class="form-row" id="field-allocations">
+            <div class="form-row-item form-label">{# do not display label #}</div>
+            <div class="form-row-item form-field">{{ form.allocations }}</div>
+            <div class="form-row-item form-field-errors">{{ form.allocations.errors }}</div>
+        </div>
+        {% endif %}
+
         <div class="form-buttons">
             <input type="submit" class="button button-margin-right" name="form-submit-save" value="Save" />
             <input type="submit" class="button button-margin-right" name="form-submit-cancel" value="Cancel" />
@@ -88,6 +102,28 @@
 </div>
 
 <script>
+    $( document ).ready(function() {
+        toggleAllocations($('#id_allocations_toggle').val())
+    });
+
+    function toggleAllocations(toggleValue) {
+        if (toggleValue === '0') {
+            // entire group
+            $('#field-allocations').hide()
+        }
+        else if (toggleValue === '1') {
+            // select participants
+            $('#field-allocations').show()
+        }
+        else {
+            console.log('Unhandled value: ' + this.value)
+        }
+    }
+
+    $('#id_allocations_toggle').change(function() {
+        toggleAllocations(this.value)
+    })
+
     function confirmDelete() {
         $('#button-delete').fadeOut(function() {
             $('#confirm-delete').fadeIn()
