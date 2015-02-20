@@ -6,7 +6,7 @@ from django.http import QueryDict
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
-from moneytracker.models import MoneyRecord, Event, Participant
+from moneytracker.models import MoneyRecord, Event, Participant, Allocation
 
 
 class MoneyRecordForm(forms.Form):
@@ -135,6 +135,15 @@ class MoneyRecordForm(forms.Form):
                 participant2_id=self.cleaned_data['participant2'],
             )
             new_record.save()
+
+            if self.record_type == 'expense':
+                # Create allocations for expense record
+                participants = self.event.participants()
+                assert len(participants) > 0
+                for participant in participants:
+                    new_allocation = Allocation.objects.create(money_record=new_record, participant=participant)
+                    new_allocation.save()
+
 
     def update_existing(self, record):
         assert self.is_valid(), 'Form validation is a pre-requisite to this function'
