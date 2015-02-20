@@ -80,3 +80,14 @@ class MoneyRecord(models.Model):
 
     class Meta:
         db_table = 'mt_money_record'
+
+    def allocations(self):
+        return Allocation.objects.filter(money_record_id=self.id)
+
+
+class Allocation(models.Model):
+    participant = models.ForeignKey(Participant)
+    money_record = models.ForeignKey(MoneyRecord)
+
+    class Meta:
+        db_table = 'mt_allocation'

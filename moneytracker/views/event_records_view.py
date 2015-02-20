@@ -8,9 +8,8 @@ from moneytracker.models import Event, MoneyRecord, Participant
 
 
 class MoneyRecordData:
-    def __init__(self, money_record, participants):
+    def __init__(self, money_record):
         assert type(money_record) is MoneyRecord
-        assert len(participants) > 0 and type(participants[0]) is Participant
 
         self.record_id = money_record.id
         self.description = money_record.description
@@ -29,9 +28,11 @@ class MoneyRecordData:
             self.total_amount = self.amount
             self.contributions[money_record.participant1] = self.amount
 
-            individual_allocation = self.amount / len(participants)
-            for participant in participants:
-                self.allocations[participant] = individual_allocation
+            allocations = money_record.allocations()
+            assert len(allocations) > 0
+            split_allocation = self.amount / len(allocations)
+            for allocation in allocations:
+                self.allocations[allocation.participant] = split_allocation
         else:
             # transfer record
 
@@ -66,7 +67,7 @@ def event_records_view(request, event_name_slug):
 
         money_record_data_items = []
         for money_record in money_records:
-            money_record_data = MoneyRecordData(money_record, participants)
+            money_record_data = MoneyRecordData(money_record)
             money_record_data_items.append(money_record_data)
             event_total += money_record_data.total_amount
             for p in money_record_data.contributions:
