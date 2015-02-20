@@ -77,7 +77,7 @@ def money_record_view(request, event_name_slug, record_id=None):
         elif 'form-submit-delete' in request.POST:
             # DELETE:
             if existing_record:
-                existing_record.delete()
+                existing_record.deep_delete()
             return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': event_name_slug}))
 
         elif 'form-submit-cancel' in request.POST:

@@ -85,7 +85,7 @@ def event_records_view(request, event_name_slug):
             if variance > 0:
                 participant_overcontrib[p] = variance
             elif variance < 0:
-                participant_undercontrib[p] = -variance
+                participant_undercontrib[p] = abs(variance)
             else:
                 # zero variance
                 pass

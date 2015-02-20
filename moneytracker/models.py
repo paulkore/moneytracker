@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import models, transaction
 from django.template.defaultfilters import slugify
 
 
@@ -83,6 +83,12 @@ class MoneyRecord(models.Model):
 
     def allocations(self):
         return Allocation.objects.filter(money_record_id=self.id)
+
+    def deep_delete(self):
+        with transaction.atomic():
+            for allocation in self.allocations():
+                allocation.delete()
+            self.delete()
 
 
 class Allocation(models.Model):
