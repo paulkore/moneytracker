@@ -130,6 +130,18 @@ body {
     opacity: 0.75;
 }
 
+.button-warn {
+    background: #C2433D;
+}
+
+.button-warn:hover {
+    background: #C2433D;
+}
+
+.button-warn:active {
+    background: #ffb4b4;
+}
+
 .radio-button-selector {
     background: #3071A9;
     color: #FEFEFE;
@@ -140,4 +152,9 @@ body {
 .radio-button-selector:hover {
     background: #3071A9;
     opacity: 0.85;
+}
+
+#money-record-form #confirm-delete-text {
+    color: #3B3B3B;
+    white-space: nowrap;
 }

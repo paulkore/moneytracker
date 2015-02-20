@@ -209,6 +209,10 @@ form {
     margin: 0;
 }
 
+.button.button-short {
+    min-width: 50px;
+}
+
 .button.button-square {
     font-size: 20px;
     line-height: 35px;
@@ -269,7 +273,6 @@ form {
     font-size: 16px;
     vertical-align: top;
 }
-
 
 
 /* LOGIN FORM */
@@ -339,3 +342,30 @@ form {
 #money-record-form #field-participant2 select {
     min-width: 80px;
 }
+
+#money-record-form .button {
+    margin-top: 10px;
+}
+
+#money-record-form #record-delete-control {
+    display: inline-block;
+}
+
+#money-record-form #button-delete {
+
+}
+
+#money-record-form #confirm-delete {
+    /* initially hidden */
+    display: none;
+    padding-left: 5px;
+}
+
+#money-record-form #confirm-delete-text {
+    line-height: 38px;
+    font-size: 20px;
+    font-weight: bold;
+
+    margin-right: 10px;
+}
+
