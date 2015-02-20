@@ -19,7 +19,7 @@ class MoneyRecordData:
         self.participant2 = money_record.participant2
 
         self.contributions = {}
-        self.allocations = {}
+        self.debt_allocations = {}
 
         assert money_record.participant1
         if money_record.participant2 is None:
@@ -30,9 +30,9 @@ class MoneyRecordData:
 
             allocations = money_record.allocations()
             assert len(allocations) > 0
-            split_allocation = self.amount / len(allocations)
+            debt_allocation_amount = self.amount / len(allocations)
             for allocation in allocations:
-                self.allocations[allocation.participant] = split_allocation
+                self.debt_allocations[allocation.participant] = debt_allocation_amount
         else:
             # transfer record
 
@@ -59,11 +59,12 @@ def event_records_view(request, event_name_slug):
         money_records = event.money_records()
 
         event_total = Decimal(0)
+
         participant_contribution = {}
-        participant_allocation = {}
+        participant_debt_allocation = {}
         for p in participants:
             participant_contribution[p] = Decimal(0)
-            participant_allocation[p] = Decimal(0)
+            participant_debt_allocation[p] = Decimal(0)
 
         money_record_data_items = []
         for money_record in money_records:
@@ -72,15 +73,14 @@ def event_records_view(request, event_name_slug):
             event_total += money_record_data.total_amount
             for p in money_record_data.contributions:
                 participant_contribution[p] += money_record_data.contributions[p]
-            for p in money_record_data.allocations:
-                participant_allocation[p] += money_record_data.allocations[p]
+            for p in money_record_data.debt_allocations:
+                participant_debt_allocation[p] += money_record_data.debt_allocations[p]
 
-        event_split = event_total / len(participants)
         participant_variance = {}
         participant_overcontrib = {}
         participant_undercontrib = {}
         for p in participants:
-            variance = participant_contribution[p] - event_split
+            variance = participant_contribution[p] - participant_debt_allocation[p]
             participant_variance[p] = variance
             if variance > 0:
                 participant_overcontrib[p] = variance
@@ -95,9 +95,8 @@ def event_records_view(request, event_name_slug):
             'participants': participants,
             'money_records': money_record_data_items,
             'event_total': event_total,
-            'event_split': event_split,
             'participant_contribution': participant_contribution,
-            'participant_allocation': participant_allocation,
+            'participant_debt_allocation': participant_debt_allocation,
             'participant_variance': participant_variance,
             'participant_overcontrib': participant_overcontrib,
             'participant_undercontrib': participant_undercontrib,

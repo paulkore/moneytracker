@@ -42,7 +42,7 @@
                 <input type="radio" id="radio-1" name="radio" onchange="showParticipantContributionsView()" checked /><label for="radio-1">contribution view</label>
             </div>
             <div class="radio-button">
-                <input type="radio" id="radio-2" name="radio" onchange="showParticipantAllocationsView()" /><label for="radio-2">allocation view</label>
+                <input type="radio" id="radio-2" name="radio" onchange="showParticipantAllocationsView()" /><label for="radio-2">debt allocation view</label>
             </div>
             <div class="radio-button">
                 <input type="radio" id="radio-3" name="radio" onchange="hideParticipantsView()" /><label for="radio-3">hidden</label>
@@ -117,13 +117,13 @@
             <div class="records-cell records-header">{{ participant.get_name }}</div>
             {% for record in money_records %}
                 <div class="records-cell records-body">
-                    <div class="records-allocation-value">{{ record.allocations | get_item:participant | money_amount_hide_zero:'finance'}} </div>
+                    <div class="records-allocation-value">{{ record.debt_allocations | get_item:participant | money_amount_hide_zero:'finance'}} </div>
                     <div class="records-contribution-value">{{ record.contributions | get_item:participant | money_amount_hide_zero:'finance'}}</div>
                 </div>
             {% endfor %}
             <div class="records-cell records-body-last-row"></div>
             <div class="records-cell records-footer">
-                <div class="records-allocation-value">{{ participant_allocation | get_item:participant | money_amount:'finance'}}</div>
+                <div class="records-allocation-value">{{ participant_debt_allocation | get_item:participant | money_amount:'finance'}}</div>
                 <div class="records-contribution-value">{{ participant_contribution | get_item:participant | money_amount:'finance'}}</div>
             </div>
         </div>
@@ -170,18 +170,18 @@
 
         <div class="event-summary-top">
             <div class="event-summary-top-amount">Total event cost: {{ event_total | money_amount:'simple' }}</div>
-            <div class="event-summary-top-amount">Cost per person: {{ event_split | money_amount:'simple' }}</div>
         </div>
 
         {% for participant in participants %}
             <div class="event-summary-participant">
                 <div class="event-summary-participant-name">{{ participant.get_name }}</div>
-                <div class="event-summary-participant-amount">Contribution: {{ participant_contribution | get_item:participant | money_amount:'simple' }}</div>
+                <div class="event-summary-participant-amount">Total funds contributed: {{ participant_contribution | get_item:participant | money_amount:'simple' }}</div>
+                <div class="event-summary-participant-amount">Total debt allocated: {{ participant_debt_allocation | get_item:participant | money_amount:'simple' }}</div>
                 <div class="event-summary-participant-amount">
                     {% if participant in participant_overcontrib %}
-                        Over-contribution: {{ participant_overcontrib | get_item:participant | money_amount:'simple' }}
+                        Over-contribution (receivable): <span class="event-summary-balance-value">{{ participant_overcontrib | get_item:participant | money_amount:'simple' }}</span>
                     {% elif participant in participant_undercontrib %}
-                        Under-contribution: {{ participant_undercontrib | get_item:participant | money_amount:'simple' }}
+                        Under-contribution (payable): <span class="event-summary-balance-value">{{ participant_undercontrib | get_item:participant | money_amount:'simple' }}</span>
                     {% else %}
                         Balance owed: $0.00
                     {% endif %}
