@@ -5,11 +5,19 @@
 {% block content %}
 
 <script>
+    $( document ).ready(function() {
+        // default state
+        $('#radioShowContributionView').prop('checked', true)
+        $('#participant-cols').show()
+        $('.records-allocation-value').hide()
+        $('.records-contribution-value').show()
+    });
+
     function hideParticipantsView() {
         $('#participant-cols').fadeTo(400, 0)
     }
 
-    function showParticipantContributionsView() {
+    function showContributionView() {
          $('#participant-cols').fadeTo(200, 0, function() {
             $('.records-allocation-value').hide()
             $('.records-contribution-value').show()
@@ -18,7 +26,7 @@
          })
     }
 
-    function showParticipantAllocationsView() {
+    function showDebtAllocationView() {
         $('#participant-cols').fadeTo(200, 0, function() {
             $('.records-allocation-value').show()
             $('.records-contribution-value').hide()
@@ -39,13 +47,13 @@
                 Participant details (advanced):
             </div>
             <div class="radio-button">
-                <input type="radio" id="radio-1" name="radio" onchange="showParticipantContributionsView()" checked /><label for="radio-1">contribution view</label>
+                <input type="radio" id="radioShowContributionView" name="radio" onchange="showContributionView()" /><label for="radioShowContributionView">contribution view</label>
             </div>
             <div class="radio-button">
-                <input type="radio" id="radio-2" name="radio" onchange="showParticipantAllocationsView()" /><label for="radio-2">debt allocation view</label>
+                <input type="radio" id="radioShowAllocationView" name="radio" onchange="showDebtAllocationView()" /><label for="radioShowAllocationView">debt allocation view</label>
             </div>
             <div class="radio-button">
-                <input type="radio" id="radio-3" name="radio" onchange="hideParticipantsView()" /><label for="radio-3">hidden</label>
+                <input type="radio" id="radioHideParticipantsView" name="radio" onchange="hideParticipantsView()" /><label for="radioHideParticipantsView">hidden</label>
             </div>
         </div>
     </div>

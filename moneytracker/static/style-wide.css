@@ -95,6 +95,7 @@ body {
 
 .records-col.records-col-participant {
     text-align: right;
+    min-width: 95px;
 }
 
 .records-cell {
@@ -127,11 +128,11 @@ body {
 }
 
 .records-allocation-value {
-    display: none; /*default*/
+    display: block;
 }
 
 .records-contribution-value {
-    display: block; /*default*/
+    display: block;
 }
 
 
