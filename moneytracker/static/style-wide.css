@@ -18,30 +18,20 @@ body {
 /* EVENT MONEY RECORDS PAGE */
 
 #records-title-bar {
-    /*display: table;*/
-    /*width: 100%;*/
     display: block;
-
     margin-bottom: 25px;
 }
 
 #records-event-name {
-    /*display: table-cell;*/
-    /*width: 100%;*/
     display: block;
     margin-bottom: 20px;
 
     line-height: 40px;
     font-size: 28px;
     font-weight: bold;
-
 }
 
 #records-view-controls {
-    /*display: table-cell;*/
-    /*white-space: nowrap;*/
-    /*padding-left: 20px;*/
-
     display: block;
 }
 
