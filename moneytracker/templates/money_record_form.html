@@ -30,11 +30,13 @@
         {# Hidden input #}
         <div>{{ form.record_type_hidden }}</div>
 
+        {% if form.record_type == 'expense' or form.record_type == 'transfer' %}
         <div class="form-row" id="field-pub-date">
             <div class="form-row-item form-label">{{ form.date.label_tag }}</div>
             <div class="form-row-item form-field">{{ form.date }}</div>
             <div class="form-row-item form-field-errors">{{ form.date.errors }}</div>
         </div>
+        {% endif %}
 
         {% if form.record_type == 'expense' %}
         <div class="form-row" id="field-description">
@@ -44,17 +46,21 @@
         </div>
         {% endif %}
 
+        {% if form.record_type == 'expense' or form.record_type == 'transfer' %}
         <div class="form-row" id="field-amount">
             <div class="form-row-item form-label">{{ form.amount.label_tag }}</div>
             <div class="form-row-item form-field">{{ form.amount }}</div>
             <div class="form-row-item form-field-errors">{{ form.amount.errors }}</div>
         </div>
+        {% endif %}
 
+        {% if form.record_type == 'expense' or form.record_type == 'transfer' %}
         <div class="form-row" id="field-participant1">
             <div class="form-row-item form-label">{{ form.participant1.label_tag }}</div>
             <div class="form-row-item form-field">{{ form.participant1 }}</div>
             <div class="form-row-item form-field-errors">{{ form.participant1.errors }}</div>
         </div>
+        {% endif %}
 
         {% if form.record_type == 'transfer' %}
         <div class="form-row" id="field-participant2">
@@ -78,6 +84,7 @@
         </div>
         {% endif %}
 
+        {% if form.record_type == 'expense' or form.record_type == 'transfer' %}
         <div class="form-buttons">
             <input type="submit" class="button button-margin-right" name="form-submit-save" value="Save" />
             <input type="submit" class="button button-margin-right" name="form-submit-cancel" value="Cancel" />
@@ -94,6 +101,7 @@
                 </div>
             {% endif %}
         </div>
+        {% endif %}
 
     </form>
 
