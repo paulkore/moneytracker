@@ -1,18 +1,35 @@
-from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
+from django.db import transaction
 from django.http import HttpResponseRedirect
-from moneytracker.models import Event
+from moneytracker.models import Participant
 
 
 def landing_page_redirect(user):
-    # TODO: the landing page should be the following:
-    # - the user's account page (default, as this page always exists)
-    # - one of the user's events' pages (configurable from the account page)
 
-    events = Event.find_by_user(user)
-    if len(events) == 0:
+    participants = Participant.find_by_user(user)
+    if len(participants) == 0:
+        # user does not partake in any events
         return HttpResponseRedirect(reverse('account'))
 
-    # for now, the landing page is the newest event that the user is associated with
-    landing_event = events.latest('id')
-    return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': landing_event.name_slug}))
+    default = []
+    for participant in participants:
+        if participant.is_default:
+            default.append(participant)
+
+    if len(default) == 0:
+        # user has not designated any event as 'default'
+        # redirect to the user account page
+        return HttpResponseRedirect(reverse('account'))
+
+    if len(default) > 1:
+        # user has more than 1 'default' event designations.
+        # reset, and redirect to the user account page
+        with transaction.atomic():
+            for p in default:
+                p.is_default = False
+                p.save()
+
+        return HttpResponseRedirect(reverse('account'))
+
+    default_event = default[0].event
+    return HttpResponseRedirect(reverse('event-records', kwargs={'event_name_slug': default_event.name_slug}))

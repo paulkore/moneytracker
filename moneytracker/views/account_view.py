@@ -1,7 +1,9 @@
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.db import transaction
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
-from moneytracker.models import Participant, Event
+from moneytracker.models import Participant
 
 
 class EventData:
@@ -15,6 +17,9 @@ class EventData:
         self.participant_name = participant.name
         if not self.participant_name or not self.participant_name.strip():
             self.participant_name = 'N/A'
+
+        self.is_default = participant.is_default
+        self.url_make_default = reverse('account-event-make-default', kwargs={'participant_id': participant.id})
 
 
 def account_view(request):
@@ -42,3 +47,30 @@ def account_view(request):
         'last_name': last_name,
         'event_list': event_data_objects,
     })
+
+
+def account_event_make_default(request, participant_id):
+    user = request.user
+    if not user.is_authenticated():
+        return HttpResponseRedirect(reverse('login'))
+
+    # confirm that the participant id exists, and belongs to this user
+    par_check = Participant.objects.get(id=participant_id)
+    if not par_check:
+        raise Http404()
+    if not par_check.user_id == user.id:
+        raise PermissionDenied()
+
+    # apply the change
+    with transaction.atomic():
+        par_id = int(participant_id)
+        for participant in Participant.find_by_user(user):
+            if par_id == participant.id:
+                participant.is_default = True
+                participant.save()
+            else:
+                participant.is_default = False
+                participant.save()
+
+    # return to the account page
+    return HttpResponseRedirect(reverse('account'))

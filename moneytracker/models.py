@@ -48,6 +48,7 @@ class Participant(models.Model):
     user = models.ForeignKey(User)
     event = models.ForeignKey(Event)
     name = models.CharField(max_length=15, blank=False, null=True)
+    is_default = models.BooleanField(blank=False, null=False, default=False)
 
     class Meta:
         db_table = 'mt_participant'

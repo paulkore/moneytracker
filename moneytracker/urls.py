@@ -12,7 +12,12 @@ urlpatterns = patterns(
     url(r'^$', views.login_redirect_view),
     url(r'^login/$', views.login_view, name='login'),
     url(r'^logout/$', views.logout_view, name='logout'),
+
     url(r'^account/$', views.account_view, name='account'),
+    url(r'^account/event-make-default/(?P<participant_id>\d+)$',
+        views.account_event_make_default,
+        name='account-event-make-default'),
+
 
     url(r'^(?P<event_name_slug>[-\w]+)/$', views.event_records_view, name='event-records'),
 

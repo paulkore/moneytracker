@@ -36,10 +36,25 @@
         {% if event_list %}
             {% for event_list_item in event_list %}
                 <div class="account-event-list-item">
-                    <a class="action-link" href="{{ event_list_item.event_url }}">{{ event_list_item.event_name }}</a>
-                    (as "{{ event_list_item.participant_name }}")
+                    <div class="account-event-list-item-url">
+                        <a class="action-link" href="{{ event_list_item.event_url }}">{{ event_list_item.event_name }}</a>
+                        (as "{{ event_list_item.participant_name }}")
+                    </div>
+
+                    {% if event_list_item.is_default %}
+                        <div class="account-event-default">DEFAULT</div>
+                    {% else %}
+                        <button class="button button-small button-margin-left"
+                                onclick="window.location.href='{{ event_list_item.url_make_default }}';">make default</button>
+                    {% endif %}
                 </div>
             {% endfor %}
+
+
+            <div class="account-event-list-notes">
+                ● When an event is designated as "default", you will be taken to this event's page every time you log in
+            </div>
+
         {% else %}
             Not registered in any events yet
         {% endif %}

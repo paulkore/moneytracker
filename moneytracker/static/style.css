@@ -98,7 +98,27 @@ body {
 
 .account-event-list-item {
     display: block;
-    padding-bottom: 10px;
+    min-height: 35px;
+    margin-bottom: 5px;
+}
+
+.account-event-list-item-url {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.account-event-default {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.account-event-list-notes {
+    font-style: italic;
+    max-width: 500px;
+    margin-top: 30px;
+    margin-left: 20px;
 }
 
 /* EVENT MONEY RECORDS PAGE */
@@ -228,6 +248,7 @@ form {
 
 
 .button {
+    display: inline-block;
     font-size: 20px;
     line-height: 38px;
     min-width: 100px;
@@ -240,6 +261,11 @@ form {
 
 .button.button-short {
     min-width: 50px;
+}
+
+.button.button-small {
+    font-size: 16px;
+    line-height: 25px;
 }
 
 .button.button-square {
