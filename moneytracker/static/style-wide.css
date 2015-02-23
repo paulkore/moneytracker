@@ -2,6 +2,10 @@ body {
 
 }
 
+#site-header-user-greeting {
+    display: inline-block;
+}
+
 #main-wrapper {
     display: table;
 	margin: 0 auto;

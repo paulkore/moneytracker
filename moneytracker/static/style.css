@@ -29,7 +29,7 @@ body {
     text-align: left;
     vertical-align: top;
 
-    padding: 5px 0 0 20px;
+    padding: 5px 50px 0 15px;
     font-size: 34px;
     font-weight: bold;
 }
@@ -44,8 +44,17 @@ body {
     font-size: 18px;
 }
 
-#site-header-user-info a {
-    margin-left: 10px;
+#site-header-user-greeting {
+    display: inline-block;
+}
+
+#site-header-user-actions {
+    display: inline-block;
+}
+
+.site-header-user-action {
+    display: inline-block;
+    margin-left: 5px;
 }
 
 #main-wrapper {
@@ -71,12 +80,26 @@ body {
     margin: 20px;
 }
 
-.clear-float {
-    clear: both;
+
+/* ACCOUNT PAGE */
+
+
+#account-user-info {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
+#account-event-list {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
 
-
+.account-event-list-item {
+    display: block;
+    padding-bottom: 10px;
+}
 
 /* EVENT MONEY RECORDS PAGE */
 

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="form-wrapper">
+
+    <div class="form-title">My Account</div>
+
+    <div id="account-user-info">
+
+        <div class="form-row" id="field-username">
+            <div class="form-row-item form-label">Username:</div>
+            <div class="form-row-item form-field">{{ username }}</div>
+            <div class="form-row-item form-field-errors"></div>
+        </div>
+
+        <div class="form-row" id="field-first-name">
+            <div class="form-row-item form-label">First name:</div>
+            <div class="form-row-item form-field">{{ first_name }}</div>
+            <div class="form-row-item form-field-errors"></div>
+        </div>
+
+        <div class="form-row" id="field-last-name">
+            <div class="form-row-item form-label">Last name:</div>
+            <div class="form-row-item form-field">{{ last_name }}</div>
+            <div class="form-row-item form-field-errors"></div>
+        </div>
+
+    </div>
+
+
+    <div class="form-title">My Events</div>
+
+    <div id="account-event-list">
+        {% if event_list %}
+            {% for event_list_item in event_list %}
+                <div class="account-event-list-item">
+                    <a class="action-link" href="{{ event_list_item.event_url }}">{{ event_list_item.event_name }}</a>
+                    (as "{{ event_list_item.participant_name }}")
+                </div>
+            {% endfor %}
+        {% else %}
+            Not registered in any events yet
+        {% endif %}
+    </div>
+
+
+</div>
+{% endblock %}

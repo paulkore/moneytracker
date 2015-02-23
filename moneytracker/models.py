@@ -37,7 +37,7 @@ class Event(models.Model):
     @staticmethod
     def find_by_user(user):
         event_ids = set()
-        participants = Participant.objects.filter(user_id=user.id)
+        participants = Participant.find_by_user(user)
         for participant in participants:
             event_ids.add(participant.event_id)
         events = Event.objects.filter(id__in=event_ids).order_by('id')
@@ -68,6 +68,11 @@ class Participant(models.Model):
             return first_name
         else:
             return first_name + ' ' + last_name.strip()[0] + '.'
+
+    @staticmethod
+    def find_by_user(user):
+        return Participant.objects.filter(user_id=user.id).order_by('id')
+
 
 
 class MoneyRecord(models.Model):

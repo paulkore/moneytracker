@@ -11,8 +11,7 @@ def landing_page_redirect(user):
 
     events = Event.find_by_user(user)
     if len(events) == 0:
-        # User must be associated with at least one event to proceed
-        raise PermissionDenied()
+        return HttpResponseRedirect(reverse('account'))
 
     # for now, the landing page is the newest event that the user is associated with
     landing_event = events.latest('id')

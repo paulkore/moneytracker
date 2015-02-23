@@ -2,6 +2,10 @@ body {
 
 }
 
+#site-header-user-greeting {
+    display: none;
+}
+
 #main-wrapper {
     display: block;
     margin: 0;
