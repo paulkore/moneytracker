@@ -36,6 +36,9 @@ def money_amount_hide_zero(decimal_amount, number_format):
 
 @register.filter
 def user_name(user):
-    return user.first_name
+    if not user.first_name or not user.first_name.strip():
+        return user.username
+    else:
+        return user.first_name
 
 
