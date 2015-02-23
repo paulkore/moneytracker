@@ -62,9 +62,9 @@ class Participant(models.Model):
 
         first_name = self.user.first_name
         last_name = self.user.last_name
-        if not first_name and not first_name.strip():
+        if not first_name or not first_name.strip():
             return 'Anonymous'
-        elif not last_name and not last_name.strip():
+        elif not last_name or not last_name.strip():
             return first_name
         else:
             return first_name + ' ' + last_name.strip()[0] + '.'
