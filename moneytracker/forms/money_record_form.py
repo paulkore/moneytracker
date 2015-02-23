@@ -31,12 +31,12 @@ class MoneyRecordForm(forms.Form):
                                      choices=[(None, '')],
                                      required=False)
 
-    allocations_toggle = forms.ChoiceField(label='Covers',
-                                           choices=[(0, 'Entire group'), (1, 'Select participants')],
+    allocations_toggle = forms.ChoiceField(label='Applies to',
+                                           choices=[(0, 'Everyone'), (1, 'Select participants')],
                                            initial=0,
                                            required=True)
 
-    allocations = forms.MultipleChoiceField(label='Covers',
+    allocations = forms.MultipleChoiceField(label='Allocations',
                                             choices=[],
                                             required=False,
                                             widget=forms.CheckboxSelectMultiple())
