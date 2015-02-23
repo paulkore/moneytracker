@@ -61,3 +61,8 @@ def login_redirect_view(request):
     return HttpResponseRedirect(reverse('login'))
 
 
+def landing_view(request):
+    if request.user.is_authenticated():
+        return landing_page_redirect(request.user)
+    else:
+        return HttpResponseRedirect(reverse('login'))
