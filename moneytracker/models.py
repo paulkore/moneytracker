@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 
 class Event(models.Model):
     name = models.CharField(max_length=100)
-    name_slug = models.SlugField(max_length=100)
+    name_slug = models.SlugField(max_length=100, default='this-value-is-auto-generated')
 
     class Meta:
         db_table = 'mt_event'
