@@ -90,7 +90,7 @@ def money_record_view(request, event_name_slug, record_id=None):
     else:
         raise Exception('HTTP method not allowed: ' + request.method)
 
-    return render(request, 'money_record_form.html',
+    return render(request, 'money_record.html',
                   {
                       'form': form,
                       'existing_record': existing_record,

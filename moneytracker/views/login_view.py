@@ -49,7 +49,7 @@ def login_view(request):
     else:
         raise Exception('HTTP method not allowed: ' + request.method)
 
-    return render(request, 'login_form.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
 
 def logout_view(request):
