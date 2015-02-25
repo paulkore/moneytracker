@@ -176,24 +176,37 @@
 {# EVENT SUMMARY IS VISIBLE ALWAYS #}
 <div id="event-summary">
 
-        <div class="event-summary-top">
-            <div class="event-summary-top-amount">Total event cost: {{ event_total | money_amount:'simple' }}</div>
+        <div class="summary-top">
+            <div class="summary-top-amount">Total event cost: {{ event_total | money_amount:'simple' }}</div>
         </div>
 
         {% for participant in participants %}
-            <div class="event-summary-participant">
-                <div class="event-summary-participant-name">{{ participant.get_name }}</div>
-                <div class="event-summary-participant-amount">Total funds contributed: {{ participant_contribution | get_item:participant | money_amount:'simple' }}</div>
-                <div class="event-summary-participant-amount">Total debt allocated: {{ participant_debt_allocation | get_item:participant | money_amount:'simple' }}</div>
-                <div class="event-summary-participant-amount">
+            <div class="summary-participant">
+                <div class="summary-participant-row">
+                    <div class="summary-participant-name">{{ participant.get_name }}</div>
+                </div>
+                <div class="summary-participant-row">
+                    <div class="summary-participant-left">Total funds contributed:</div>
+                    <div class="summary-participant-right summary-value">{{ participant_contribution | get_item:participant | money_amount:'simple' }}</div>
+                </div>
+                <div class="summary-participant-row">
+                    <div class="summary-participant-left">Total expenses allocated:</div>
+                    <div class="summary-participant-right summary-value">{{ participant_debt_allocation | get_item:participant | money_amount:'simple' }}</div>
+                </div>
+                <div class="summary-participant-row">
                     {% if participant in participant_overcontrib %}
-                        Over-contribution (receivable): <span class="event-summary-balance-value">{{ participant_overcontrib | get_item:participant | money_amount:'simple' }}</span>
+                        <div class="summary-participant-left">Over-contribution (receivable):</div>
+                        <div class="summary-participant-right summary-balance-value">{{ participant_overcontrib | get_item:participant | money_amount:'simple' }}</div>
                     {% elif participant in participant_undercontrib %}
-                        Under-contribution (payable): <span class="event-summary-balance-value">{{ participant_undercontrib | get_item:participant | money_amount:'simple' }}</span>
+                        <div class="summary-participant-left">Under-contribution (payable):</div>
+                        <div class="summary-participant-right summary-balance-value">{{ participant_undercontrib | get_item:participant | money_amount:'simple' }}</div>
                     {% else %}
-                        Balance owed: $0.00
+                        <div class="summary-participant-left">Balance owed:</div>
+                        <div class="summary-participant-right summary-balance-value">{{ participant_variance | get_item:participant | money_amount:'simple' }}</div>
+                        {# should be zero variance here #}
                     {% endif %}
                 </div>
+
             </div>
         {% endfor %}
 </div>
