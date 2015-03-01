@@ -13,7 +13,7 @@ class MoneyRecordData:
 
         self.record_id = money_record.id
         self.description = money_record.description
-        self.pub_date = money_record.pub_date
+        self.date = money_record.pub_date
         self.amount = money_record.amount
         self.participant1 = money_record.participant1
         self.participant2 = money_record.participant2
