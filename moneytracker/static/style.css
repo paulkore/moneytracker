@@ -397,8 +397,17 @@ form {
     width: 180px;
 }
 
-#money-record-form #field-pub-date input {
+#money-record-form #field-date .form-field {
+    width: 150px;
+}
+
+#money-record-form #field-date input {
     width: 80px;
+}
+
+#money-record-form #field-date a#field-date-action-today {
+    vertical-align: middle;
+    margin-left: 10px;
 }
 
 #money-record-form #field-description .form-field {
