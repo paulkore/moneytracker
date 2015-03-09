@@ -56,7 +56,7 @@ def event_records_view(request, event_name_slug):
             raise PermissionDenied()
 
         participants = event.participants()
-        money_records = event.money_records()
+        money_records = event.money_records().reverse()
 
         event_total = Decimal(0)
 
