@@ -35,27 +35,18 @@ body {
 }
 
 #site-header-user-info {
-    display: table-cell;
-    width: 100%;
-    text-align: right;
-    vertical-align: top;
-
-    padding: 10px 15px 0 0;
-    font-size: 18px;
+    display: none;
 }
 
-#site-header-user-greeting {
-    display: inline-block;
+#site-header-mobile-actions {
+    display: none;
 }
 
-#site-header-user-actions {
-    display: inline-block;
-}
 
-.site-header-user-action {
-    display: inline-block;
-    margin-left: 5px;
-}
+
+
+
+
 
 #main-wrapper {
     box-sizing: border-box;

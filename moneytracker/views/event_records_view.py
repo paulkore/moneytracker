@@ -90,6 +90,9 @@ def event_records_view(request, event_name_slug):
                 # zero variance
                 pass
 
+        url_add_expense = reverse('create-expense', kwargs={'event_name_slug': event_name_slug})
+        url_add_transfer = reverse('create-transfer', kwargs={'event_name_slug': event_name_slug})
+
         return render(request, 'event_records.html', {
             'event': event,
             'participants': participants,
@@ -100,6 +103,19 @@ def event_records_view(request, event_name_slug):
             'participant_variance': participant_variance,
             'participant_overcontrib': participant_overcontrib,
             'participant_undercontrib': participant_undercontrib,
-            'url_add_expense': reverse('create-expense', kwargs={'event_name_slug': event_name_slug}),
-            'url_add_transfer': reverse('create-transfer', kwargs={'event_name_slug': event_name_slug}),
+            'url_add_expense': url_add_expense,
+            'url_add_transfer': url_add_transfer,
+            'mobile_actions': [
+                MobileAction(display_name='record an expense', url=url_add_expense),
+                MobileAction(display_name='record a transfer', url=url_add_transfer),
+            ]
         })
+
+
+class MobileAction:
+    def __init__(self, display_name, url):
+        assert type(display_name) is str
+        assert type(url) is str
+
+        self.display_name = display_name
+        self.url = url

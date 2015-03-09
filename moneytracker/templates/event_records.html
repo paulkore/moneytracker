@@ -7,31 +7,31 @@
 <script>
     $( document ).ready(function() {
         // default state
-        $('#radioShowContributionView').prop('checked', true)
-        $('#participant-cols').show()
-        $('.records-allocation-value').hide()
-        $('.records-contribution-value').show()
+        $('#radioShowContributionView').prop('checked', true);
+        $('#participant-cols').show();
+        $('.records-allocation-value').hide();
+        $('.records-contribution-value').show();
     });
 
     function hideParticipantsView() {
-        $('#participant-cols').fadeTo(400, 0)
+        $('#participant-cols').fadeTo(400, 0);
     }
 
     function showContributionView() {
          $('#participant-cols').fadeTo(200, 0, function() {
-            $('.records-allocation-value').hide()
-            $('.records-contribution-value').show()
+            $('.records-allocation-value').hide();
+            $('.records-contribution-value').show();
 
-            $('#participant-cols').fadeTo(400, 1)
+            $('#participant-cols').fadeTo(400, 1);
          })
     }
 
     function showDebtAllocationView() {
         $('#participant-cols').fadeTo(200, 0, function() {
-            $('.records-allocation-value').show()
-            $('.records-contribution-value').hide()
+            $('.records-allocation-value').show();
+            $('.records-contribution-value').hide();
 
-            $('#participant-cols').fadeTo(400, 1)
+            $('#participant-cols').fadeTo(400, 1);
         })
     }
 </script>
@@ -40,8 +40,8 @@
     <div id="records-event-name">{{ event.name }}</div>
 
     <div id="records-view-controls">
-        <button class="button button-margin-right" onclick="window.location.href='{{ url_add_expense }}';">+ add expense</button>
-        <button class="button button-no-margin" onclick="window.location.href='{{ url_add_transfer }}';">+ add transfer</button>
+        <button id="button-add-expense" class="button button-margin-right" onclick="window.location.href='{{ url_add_expense }}';">record an expense</button>
+        <button id="button-add-transfer" class="button button-no-margin" onclick="window.location.href='{{ url_add_transfer }}';">record a transfer</button>
         <div id="participants-view-toggle" class="radio-button-selector">
             <div class="radio-buttons-title">
                 Participant details (advanced):

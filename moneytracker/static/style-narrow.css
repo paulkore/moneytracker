@@ -2,8 +2,44 @@ body {
 
 }
 
-#site-header-user-greeting {
-    display: none;
+#site-header-mobile-actions {
+    display: table-cell;
+    width: 100%;
+    text-align: right;
+    vertical-align: top;
+
+    padding: 5px 5px 0 0;
+}
+
+#mobile-actions-button {
+    font-size: 40px;
+    padding: 0 8px;
+    min-width: 0;
+    border-radius: 3px;
+}
+
+#mobile-actions-menu {
+    z-index: 10;
+    position: fixed;
+    right: 0;
+    top: 55px;
+}
+
+.mobile-action {
+    padding: 0 20px 5px 10px;
+    font-size: 25px;
+    line-height: 35px;
+    text-align: left;
+}
+
+.mobile-action-separator {
+
+}
+
+.mobile-action-separator-inner {
+    width: 75%;
+    height: 1px;
+    margin: 5px auto;
 }
 
 #main-wrapper {
@@ -37,6 +73,14 @@ body {
 
 #records-view-controls {
     display: block;
+}
+
+#button-add-expense {
+
+}
+
+#button-add-transfer {
+    display: none;
 }
 
 #participants-view-toggle {

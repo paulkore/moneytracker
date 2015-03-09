@@ -16,7 +16,23 @@ body {
 }
 
 #site-header-user-info a {
-    color: #F7EF99
+    color: #F7EF99;
+}
+
+#mobile-actions-button {
+    color: #F7EF99;
+}
+
+#mobile-actions-menu {
+    background: #1E90FF;
+}
+
+.mobile-action {
+    color: #FEFEFE;
+}
+
+.mobile-action-separator-inner {
+    background: #FEFEFE;
 }
 
 #main-wrapper {
