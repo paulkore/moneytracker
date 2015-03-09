@@ -148,8 +148,10 @@
     }
 
     function setDateToday() {
-        $('#id_date').val('{{ form.today_date }}')
+        var today = $.datepicker.formatDate('mm/dd/yy', new Date());
+        $('#id_date').val(today)
     }
+
 </script>
 
 {% endblock %}

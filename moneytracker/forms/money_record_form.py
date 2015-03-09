@@ -1,5 +1,3 @@
-import datetime
-
 from django import forms
 
 from functools import partial
@@ -62,7 +60,6 @@ class MoneyRecordForm(forms.Form):
 
         # record type: expense (default) or transfer
         self.record_type = 'expense'
-        self.today_date = datetime.date.today().strftime("%m/%d/%Y")
 
         if args and type(args[0]) is QueryDict:
             # the form is populated from POST data
