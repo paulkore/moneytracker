@@ -389,16 +389,21 @@ form {
 }
 
 #money-record-form #field-date .form-field {
-    width: 150px;
+    width: 180px;
 }
 
 #money-record-form #field-date input {
     width: 80px;
 }
 
-#money-record-form #field-date a#field-date-action-today {
-    vertical-align: middle;
+#money-record-form #field-date #field-date-button-today {
+    display: inline-block;
     margin-left: 10px;
+    margin-top: 0;
+    padding: 0 15px;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 24px;
 }
 
 #money-record-form #field-description .form-field {

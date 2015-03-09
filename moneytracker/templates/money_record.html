@@ -34,7 +34,7 @@
         <div class="form-row" id="field-date">
             <div class="form-row-item form-label">{{ form.date.label_tag }}</div>
             <div class="form-row-item form-field">{{ form.date }}
-                <a id="field-date-action-today" class="action-link" href="#" onclick="setDateToday(); return false;">Today</a>
+                <button id="field-date-button-today" class="button button-small" onclick="setDateToday(); return false;">TODAY</button>
             </div>
 
             <div class="form-row-item form-field-errors">{{ form.date.errors }}</div>
