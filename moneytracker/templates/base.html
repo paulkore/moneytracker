@@ -25,7 +25,7 @@
         });
 
         function toggleMobileMenu() {
-            $('#mobile-actions-menu').fadeToggle();
+            $('#mobile-actions-menu-wrapper').fadeToggle();
         }
 
     </script>
@@ -51,20 +51,22 @@
         <div id="site-header-mobile-actions">
             {% if user.is_authenticated %}
                 <button id="mobile-actions-button" class="button" onclick="toggleMobileMenu(); return false;">≡</button>
-                <div id="mobile-actions-menu">
-                    {# Custom actions, configured on a per-page basis #}
-                    {% if mobile_actions %}
-                        {% for action in mobile_actions %}
-                            <div class="mobile-action" onclick="window.location.href='{{ action.url }}';">{{ action.display_name }}</div>
-                        {% endfor %}
-                        <div class="mobile-action-separator">
-                            <div class="mobile-action-separator-inner"></div>
-                        </div>
-                    {% endif %}
+                <div id="mobile-actions-menu-wrapper" onclick="toggleMobileMenu(); return false;">
+                    <div id="mobile-actions-menu">
+                        {# Custom actions, configured on a per-page basis #}
+                        {% if mobile_actions %}
+                            {% for action in mobile_actions %}
+                                <div class="mobile-action" onclick="window.location.href='{{ action.url }}';">{{ action.display_name }}</div>
+                            {% endfor %}
+                            <div class="mobile-action-separator">
+                                <div class="mobile-action-separator-inner"></div>
+                            </div>
+                        {% endif %}
 
-                    {# These actions are always there #}
-                    <div class="mobile-action" onclick="window.location.href='{% url 'account' %}';">my account</div>
-                    <div class="mobile-action" onclick="window.location.href='{% url 'logout' %}';">log out</div>
+                        {# These actions are always there #}
+                        <div class="mobile-action" onclick="window.location.href='{% url 'account' %}';">my account</div>
+                        <div class="mobile-action" onclick="window.location.href='{% url 'logout' %}';">log out</div>
+                    </div>
                 </div>
             {% endif %}
         </div>
