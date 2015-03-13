@@ -5,30 +5,53 @@
 {% block content %}
 
 <script>
+
+    var participant_details_cookie = "participant_details_{{ user.id }}";
+
     $( document ).ready(function() {
-        // default state
-        $('#radioShowContributionView').prop('checked', true);
-        $('#participant-cols').show();
-        $('.records-allocation-value').hide();
-        $('.records-contribution-value').show();
+        // restore participant details setting from cookie
+        var participant_details = $.cookie(participant_details_cookie);
+        if (participant_details === "contrib") {
+            $('#radioShowContributionView').prop('checked', true);
+            showContribValues();
+        }
+        else if (participant_details === "alloc") {
+            $('#radioShowAllocationView').prop('checked', true);
+            showAllocValues();
+        }
+        else {
+            // default
+            $.cookie(participant_details_cookie, "contrib");
+
+            $('#radioShowContributionView').prop('checked', true);
+            showContribValues();
+        }
     });
 
-    function showContributionView() {
-         $('#participant-cols').fadeTo(200, 0, function() {
-            $('.records-allocation-value').hide();
-            $('.records-contribution-value').show();
-
-            $('#participant-cols').fadeTo(400, 1);
-        })
+    function showContribValues() {
+        $('.records-contribution-value').show();
+        $('.records-allocation-value').hide();
     }
 
-    function showDebtAllocationView() {
-        $('#participant-cols').fadeTo(200, 0, function() {
-            $('.records-allocation-value').show();
-            $('.records-contribution-value').hide();
+    function showAllocValues() {
+        $('.records-contribution-value').hide();
+        $('.records-allocation-value').show();
+    }
 
+    function showContributionView() {
+        $('#participant-cols').fadeTo(200, 0, function() {
+            showContribValues();
             $('#participant-cols').fadeTo(400, 1);
         })
+        $.cookie(participant_details_cookie, "contrib");
+    }
+
+    function showExpenseAllocationView() {
+        $('#participant-cols').fadeTo(200, 0, function() {
+            showAllocValues();
+            $('#participant-cols').fadeTo(400, 1);
+        })
+        $.cookie(participant_details_cookie, "alloc");
     }
 </script>
 
@@ -46,7 +69,7 @@
                 <input type="radio" id="radioShowContributionView" name="radio" onchange="showContributionView()" /><label for="radioShowContributionView">individual contribution view</label>
             </div>
             <div class="radio-button">
-                <input type="radio" id="radioShowAllocationView" name="radio" onchange="showDebtAllocationView()" /><label for="radioShowAllocationView">expense allocation view</label>
+                <input type="radio" id="radioShowAllocationView" name="radio" onchange="showExpenseAllocationView()" /><label for="radioShowAllocationView">expense allocation view</label>
             </div>
         </div>
     </div>
