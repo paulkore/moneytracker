@@ -13,17 +13,13 @@
         $('.records-contribution-value').show();
     });
 
-    function hideParticipantsView() {
-        $('#participant-cols').fadeTo(400, 0);
-    }
-
     function showContributionView() {
          $('#participant-cols').fadeTo(200, 0, function() {
             $('.records-allocation-value').hide();
             $('.records-contribution-value').show();
 
             $('#participant-cols').fadeTo(400, 1);
-         })
+        })
     }
 
     function showDebtAllocationView() {
@@ -44,16 +40,13 @@
         <button id="button-add-transfer" class="button button-no-margin" onclick="window.location.href='{{ url_add_transfer }}';">record a transfer</button>
         <div id="participants-view-toggle" class="radio-button-selector">
             <div class="radio-buttons-title">
-                Participant details (advanced):
+                Participant details:
             </div>
             <div class="radio-button">
                 <input type="radio" id="radioShowContributionView" name="radio" onchange="showContributionView()" /><label for="radioShowContributionView">individual contribution view</label>
             </div>
             <div class="radio-button">
                 <input type="radio" id="radioShowAllocationView" name="radio" onchange="showDebtAllocationView()" /><label for="radioShowAllocationView">expense allocation view</label>
-            </div>
-            <div class="radio-button">
-                <input type="radio" id="radioHideParticipantsView" name="radio" onchange="hideParticipantsView()" /><label for="radioHideParticipantsView">hidden</label>
             </div>
         </div>
     </div>
