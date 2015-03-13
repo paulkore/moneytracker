@@ -25,7 +25,7 @@ class MoneyRecordData:
         if money_record.participant2 is None:
             # expense record
 
-            self.total_amount = self.amount
+            self.amount_towards_total = self.amount
             self.contributions[money_record.participant1] = self.amount
 
             allocations = money_record.allocations()
@@ -36,7 +36,7 @@ class MoneyRecordData:
         else:
             # transfer record
 
-            self.total_amount = Decimal(0)
+            self.amount_towards_total = Decimal(0)
             self.contributions[money_record.participant1] = +self.amount
             self.contributions[money_record.participant2] = -self.amount
 
@@ -70,7 +70,7 @@ def event_records_view(request, event_name_slug):
         for money_record in money_records:
             money_record_data = MoneyRecordData(money_record)
             money_record_data_items.append(money_record_data)
-            event_total += money_record_data.total_amount
+            event_total += money_record_data.amount_towards_total
             for p in money_record_data.contributions:
                 participant_contribution[p] += money_record_data.contributions[p]
             for p in money_record_data.debt_allocations:

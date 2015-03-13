@@ -97,11 +97,6 @@ body {
     white-space: nowrap;
 }
 
-.records-col.records-col-effective-amount {
-    text-align: right;
-    white-space: nowrap;
-}
-
 .records-col.records-col-payer {
 
 }
@@ -137,7 +132,6 @@ body {
     height: 24px;
     line-height: 24px;
     font-size: 16px;
-
 }
 
 .records-allocation-value {
