@@ -162,8 +162,7 @@ class MoneyRecordForm(forms.Form):
                     participant1 = Participant.objects.get(pk=participant1_id)
                     participant2 = Participant.objects.get(pk=participant2_id)
                     assert participant1 and participant2
-                    cleaned_data['description'] = 'Transfer from ' + participant1.get_name() \
-                                                  + ' to ' + participant2.get_name()
+                    cleaned_data['description'] = 'Transfer of funds'
 
         else:
             raise Exception('Invalid: ' + self.record_type)

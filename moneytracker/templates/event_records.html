@@ -102,7 +102,13 @@
     <div class="records-col records-col-description">
         <div class="records-cell records-header">Description</div>
         {% for record in money_records %}
-            <div class="records-cell records-body">{{ record.description }}</div>
+            <div class="records-cell records-body">
+                {% if record.participant2 %}
+                    Transfer of funds ({{ record.participant1.get_name }} ⇨ {{ record.participant2.get_name }})
+                {% else %}
+                    {{ record.description }}
+                {% endif %}
+            </div>
         {% endfor %}
         <div class="records-cell records-body-last-row"></div>
         <div class="records-cell records-footer"></div>
@@ -154,11 +160,7 @@
                     <div class="record-list-item-right-line1">
                         <div class="record-list-item-amount">{{ record.amount | money_amount:'simple' }}</div>
                         <div class="record-list-item-description">
-                            {% if record.participant2 %}
-                                Transfer of funds
-                            {% else %}
-                                {{ record.description }}
-                            {% endif %}
+                            {% if record.participant2 %} Transfer of funds {% else %} {{ record.description }} {% endif %}
                         </div>
                     </div>
                     <div class="record-list-item-right-line2">
