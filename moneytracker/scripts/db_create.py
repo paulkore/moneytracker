@@ -32,8 +32,10 @@ def create_record(event, date_str, description, amount, participant1, participan
     assert type(amount) is float
     assert participant1
     if participant2 and not description:
-        description = 'Transfer from ' + participant1.get_name() + ' to ' + participant2.get_name()
+        # transfer
+        description = 'Transfer of funds'
     else:
+        # expense
         assert description and not participant2
 
     money_record = MoneyRecord.objects.create(
@@ -105,9 +107,9 @@ def create_data():
     create_record(revy, '2014/12/08', 'Gas (3 - Kelowna)', 8.50, revy_jeremy)
     create_record(revy, '2014/12/08', 'Car rental - second payment', 126.00, revy_jules)
     create_record(revy, '2014/12/08', 'Taxi ride from Pearson Airport', 65.00, revy_jeremy)
-    # create_record(revy, '2014/12/15', 'End of trip settlement', 183.50, revy_jeremy, revy_jules)
-    # create_record(revy, '2014/12/15', 'End of trip settlement', 20.50, revy_valdis, revy_jules)
-    # create_record(revy, '2014/12/15', 'End of trip settlement', 77.00, revy_valdis, revy_paul)
+    create_record(revy, '2014/12/15', None, 183.50, revy_jeremy, revy_jules)
+    create_record(revy, '2014/12/15', None, 20.50, revy_valdis, revy_jules)
+    create_record(revy, '2014/12/15', None, 77.00, revy_valdis, revy_paul)
 
     print()
 
