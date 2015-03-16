@@ -75,7 +75,6 @@ class Participant(models.Model):
         return Participant.objects.filter(user_id=user.id).order_by('id')
 
 
-
 class MoneyRecord(models.Model):
     event = models.ForeignKey(Event)
     pub_date = models.DateTimeField('date published')
