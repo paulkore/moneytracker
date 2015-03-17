@@ -45,7 +45,7 @@
                         <div class="account-event-default">DEFAULT</div>
                     {% else %}
                         <button class="button button-small button-margin-left"
-                                onclick="window.location.href='{{ event_list_item.url_make_default }}';">make default</button>
+                                onclick="goto('{{ event_list_item.url_make_default }}');">make default</button>
                     {% endif %}
                 </div>
             {% endfor %}

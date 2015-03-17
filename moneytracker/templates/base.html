@@ -17,6 +17,7 @@
     <script src="{% static 'js/jquery-ui-1.11.2/jquery-ui.js' %}"></script>
     <script src="{% static 'js/jquery-cookie-v.1.4.1/jquery.cookie.js' %}"></script>
 
+    <script src="{% static 'js/common.js' %}"></script>
 
     <script>
 
@@ -36,7 +37,7 @@
 <body>
 
     <div id="site-header">
-        <div id="site-header-logo" onclick="window.location.href='{% url 'landing' %}';">trakr</div>
+        <div id="site-header-logo" onclick="goto('{% url 'landing' %}');">trakr</div>
 
         {# Visible in wide view #}
         <div id="site-header-user-info">
@@ -58,7 +59,7 @@
                         {# Custom actions, configured on a per-page basis #}
                         {% if mobile_actions %}
                             {% for action in mobile_actions %}
-                                <div class="mobile-action" onclick="window.location.href='{{ action.url }}';">{{ action.display_name }}</div>
+                                <div class="mobile-action" onclick="goto('{{ action.url }}');">{{ action.display_name }}</div>
                             {% endfor %}
                             <div class="mobile-action-separator">
                                 <div class="mobile-action-separator-inner"></div>
@@ -66,8 +67,8 @@
                         {% endif %}
 
                         {# These actions are always there #}
-                        <div class="mobile-action" onclick="window.location.href='{% url 'account' %}';">my account</div>
-                        <div class="mobile-action" onclick="window.location.href='{% url 'logout' %}';">log out</div>
+                        <div class="mobile-action" onclick="goto('{% url 'account' %}');">my account</div>
+                        <div class="mobile-action" onclick="goto('{% url 'logout' %}');">log out</div>
                     </div>
                 </div>
             {% endif %}
