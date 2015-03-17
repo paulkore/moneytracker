@@ -8,7 +8,15 @@ body {
 }
 
 #site-header-logo {
+    background: #1E90FF;
     color: #F7EF99;
+
+    transition: all 0.3s ease 0s;
+}
+
+#site-header-logo:active {
+    background: #4BAFFF;
+    opacity: 0.75;
 }
 
 #site-header-user-info {
@@ -29,11 +37,22 @@ body {
 
 .mobile-action {
     color: #FEFEFE;
+    background: #1E90FF;
+    transition: all 0.3s ease 0s;
+    opacity: 1;
+}
+
+.mobile-action:active {
+    background: #4BAFFF;
+    opacity: 0.75;
 }
 
 .mobile-action-separator-inner {
     background: #FEFEFE;
 }
+
+
+
 
 #main-wrapper {
     background: #FEFEFE;

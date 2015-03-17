@@ -25,11 +25,10 @@ body {
 
 #site-header-logo {
     display: table-cell;
-    width: 120px;
     text-align: left;
     vertical-align: top;
 
-    padding: 5px 50px 0 15px;
+    padding: 5px 20px 0 15px;
     font-size: 34px;
     font-weight: bold;
 }
