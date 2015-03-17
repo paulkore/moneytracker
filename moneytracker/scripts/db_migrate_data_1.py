@@ -11,7 +11,7 @@ assuming that all expense records apply to the entire group.
 """
 from django.db import transaction
 
-from moneytracker.models import Event, Participant, Allocation, MoneyRecordType
+from moneytracker.models import Event, Participant, Allocation, MoneyRecordType, AllocationType
 
 
 def run():
@@ -44,7 +44,11 @@ def migrate_data():
                 else:
                     expenses += 1
                     for participant in participants:
-                        allocation = Allocation.objects.create(money_record=money_record, participant=participant)
+                        allocation = Allocation.objects.create(
+                            money_record=money_record,
+                            participant=participant,
+                            type=AllocationType.EQUAL,
+                            amount=None)
                         allocation.save()
                         allocations += 1
 

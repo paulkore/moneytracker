@@ -6,7 +6,7 @@ from django.http import QueryDict
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
-from moneytracker.models import MoneyRecord, Event, Participant, Allocation, MoneyRecordType
+from moneytracker.models import MoneyRecord, Event, Participant, Allocation, MoneyRecordType, AllocationType
 
 
 class MoneyRecordForm(forms.Form):
@@ -198,7 +198,12 @@ class MoneyRecordForm(forms.Form):
                 assert len(allocation_participant_ids) > 0
 
                 for participant_id in allocation_participant_ids:
-                    new_allocation = Allocation.objects.create(money_record=new_record, participant_id=participant_id)
+                    new_allocation = Allocation.objects.create(
+                        money_record=new_record,
+                        participant_id=participant_id,
+                        type=AllocationType.EQUAL,
+                        amount=None,
+                    )
                     new_allocation.save()
 
     def update_existing(self, money_record):
@@ -227,7 +232,12 @@ class MoneyRecordForm(forms.Form):
 
             # add new allocations that do not exist yet
             for participant_id in allocation_participant_ids:
-                new_allocation = Allocation.objects.create(money_record=money_record, participant_id=participant_id)
+                new_allocation = Allocation.objects.create(
+                    money_record=money_record,
+                    participant_id=participant_id,
+                    type=AllocationType.EQUAL,
+                    amount=None,
+                )
                 new_allocation.save()
 
 

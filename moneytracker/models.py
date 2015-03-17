@@ -104,9 +104,16 @@ class MoneyRecord(models.Model):
             self.delete()
 
 
+class AllocationType(enum.Enum):
+    EQUAL = 1
+    CUSTOM = 2
+
+
 class Allocation(models.Model):
     participant = models.ForeignKey(Participant)
     money_record = models.ForeignKey(MoneyRecord)
+    type = enum.EnumField(AllocationType)
+    amount = models.DecimalField(decimal_places=2, max_digits=10, null=True)
 
     class Meta:
         db_table = 'mt_allocation'
