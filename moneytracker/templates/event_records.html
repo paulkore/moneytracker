@@ -103,10 +103,10 @@
         <div class="records-cell records-header">Description</div>
         {% for record in money_records %}
             <div class="records-cell records-body">
-                {% if record.participant2 %}
-                    Transfer of funds ({{ record.participant1.get_name }} ⇨ {{ record.participant2.get_name }})
-                {% else %}
+                {% if record.type == 'expense' %}
                     {{ record.description }}
+                {% elif record.type == 'transfer' %}
+                    Transfer of funds ({{ record.participant1.get_name }} ⇨ {{ record.participant2.get_name }})
                 {% endif %}
             </div>
         {% endfor %}
@@ -138,7 +138,7 @@
             <div class="records-cell records-header">{{ participant.get_name }}</div>
             {% for record in money_records %}
                 <div class="records-cell records-body">
-                    <div class="records-allocation-value">{{ record.debt_allocations | get_item:participant | money_amount_hide_zero:'finance'}} </div>
+                    <div class="records-allocation-value">{{ record.expense_allocations | get_item:participant | money_amount_hide_zero:'finance'}} </div>
                     <div class="records-contribution-value">{{ record.contributions | get_item:participant | money_amount_hide_zero:'finance'}}</div>
                 </div>
             {% endfor %}
@@ -160,14 +160,18 @@
                     <div class="record-list-item-right-line1">
                         <div class="record-list-item-amount">{{ record.amount | money_amount:'simple' }}</div>
                         <div class="record-list-item-description">
-                            {% if record.participant2 %} Transfer of funds {% else %} {{ record.description }} {% endif %}
+                            {% if record.type == 'expense' %}
+                                {{ record.description }}
+                            {% elif record.type == 'transfer' %}
+                                Transfer of funds
+                            {% endif %}
                         </div>
                     </div>
                     <div class="record-list-item-right-line2">
                         <div class="record-list-item-date">{{ record.date | date:"l, M j" }}</div>
                         <div class="record-list-item-participant">
                             {{ record.participant1.get_name }}
-                            {% if record.participant2 %} ⇨ {{ record.participant2.get_name }}{% endif %}
+                            {% if record.type == 'transfer' %} ⇨ {{ record.participant2.get_name }}{% endif %}
                         </div>
                     </div>
                 </div>
@@ -197,7 +201,7 @@
                 </div>
                 <div class="summary-participant-row">
                     <div class="summary-participant-left">Total expenses allocated:</div>
-                    <div class="summary-participant-right summary-value">{{ participant_debt_allocation | get_item:participant | money_amount:'simple' }}</div>
+                    <div class="summary-participant-right summary-value">{{ participant_expense_allocation | get_item:participant | money_amount:'simple' }}</div>
                 </div>
                 <div class="summary-participant-row">
                     {% if participant in participant_overcontrib %}

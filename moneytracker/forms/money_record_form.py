@@ -6,7 +6,7 @@ from django.http import QueryDict
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
-from moneytracker.models import MoneyRecord, Event, Participant, Allocation
+from moneytracker.models import MoneyRecord, Event, Participant, Allocation, MoneyRecordType
 
 
 class MoneyRecordForm(forms.Form):
@@ -106,14 +106,12 @@ class MoneyRecordForm(forms.Form):
         assert type(money_record) is MoneyRecord
         assert money_record.event_id is self.event.id
 
-        assert money_record.pub_date
-        assert money_record.amount
-        assert money_record.description
-        assert money_record.participant1
-        if money_record.participant2:
+        if money_record.type == MoneyRecordType.EXPENSE:
+            self.set_record_type('expense')
+        elif money_record.type == MoneyRecordType.TRANSFER:
             self.set_record_type('transfer')
         else:
-            self.set_record_type('expense')
+            raise Exception('Unhandled enum value')
 
         self.fields['date'].initial = money_record.pub_date
         self.fields['amount'].initial = money_record.amount

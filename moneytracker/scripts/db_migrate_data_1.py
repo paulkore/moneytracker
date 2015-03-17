@@ -11,7 +11,7 @@ assuming that all expense records apply to the entire group.
 """
 from django.db import transaction
 
-from moneytracker.models import Event, Participant, Allocation
+from moneytracker.models import Event, Participant, Allocation, MoneyRecordType
 
 
 def run():
@@ -38,8 +38,7 @@ def migrate_data():
             allocations = 0
 
             for money_record in money_records:
-                assert money_record.participant1
-                if money_record.participant2:
+                if money_record.type == MoneyRecordType.TRANSFER:
                     # skip transfer
                     transfers += 1
                 else:

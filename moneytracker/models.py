@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models, transaction
 from django.template.defaultfilters import slugify
 
+from django_enumfield import enum
+
 
 class Event(models.Model):
     name = models.CharField(max_length=100)
@@ -75,11 +77,17 @@ class Participant(models.Model):
         return Participant.objects.filter(user_id=user.id).order_by('id')
 
 
+class MoneyRecordType(enum.Enum):
+    EXPENSE = 1
+    TRANSFER = 2
+
+
 class MoneyRecord(models.Model):
     event = models.ForeignKey(Event)
     pub_date = models.DateTimeField('date published')
     description = models.CharField(max_length=200)
     amount = models.DecimalField(decimal_places=2, max_digits=10)
+    type = enum.EnumField(MoneyRecordType)
     participant1 = models.ForeignKey(Participant, related_name='%(class)s_participant1')
     participant2 = models.ForeignKey(Participant, related_name='%(class)s_participant2', blank=True, null=True)
 
