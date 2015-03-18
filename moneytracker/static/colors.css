@@ -5,17 +5,23 @@ body {
 
 #site-header {
     background: #1E90FF;
+    color: #FEFEFE;
 }
 
 #site-header-logo {
-    background: #1E90FF;
     color: #F7EF99;
-
-    transition: all 0.3s ease 0s;
 }
 
-#site-header-logo:active {
-    background: #4BAFFF;
+.site-header-clickable {
+    background: #1E90FF;
+    transition: all 0.3s ease 0s;
+    opacity: 1;
+
+    cursor: pointer;
+}
+
+.site-header-clickable:active {
+    background: #c8e6ff;
     opacity: 0.75;
 }
 
@@ -42,7 +48,7 @@ body {
 }
 
 .mobile-action:active {
-    background: #4BAFFF;
+    background: #c8e6ff;
 }
 
 .mobile-action-separator-inner {

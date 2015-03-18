@@ -37,7 +37,7 @@
 <body>
 
     <div id="site-header">
-        <div id="site-header-logo" onclick="goto('{% url 'landing' %}'); return false;">trakr</div>
+        <div id="site-header-logo" class="site-header-clickable" onclick="goto('{% url 'landing' %}'); return false;">trakr</div>
 
         {# Visible in wide view #}
         <div id="site-header-user-info">
@@ -53,7 +53,7 @@
         {# Visible in mobile view #}
         <div id="site-header-mobile-actions">
             {% if user.is_authenticated %}
-                <button id="mobile-actions-button" class="button" onclick="toggleMobileMenu(); return false;">&#9776;</button>
+                <div id="mobile-actions-button" class="site-header-clickable" onclick="toggleMobileMenu(); return false;">&#9776;</div>
                 <div id="mobile-actions-menu-wrapper" onclick="toggleMobileMenu(); return false;">
                     <div id="mobile-actions-menu">
                         {# Custom actions, configured on a per-page basis #}
