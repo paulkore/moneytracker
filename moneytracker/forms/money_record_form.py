@@ -275,6 +275,7 @@ class MoneyRecordForm(forms.Form):
                 pub_date=self.cleaned_data['date'],
                 description=self.cleaned_data['description'],
                 amount=self.cleaned_data['amount'],
+                type=MoneyRecordType.from_string(self.record_type),
                 participant1_id=self.cleaned_data['participant1'],
                 participant2_id=self.cleaned_data['participant2'],
             )
@@ -282,6 +283,7 @@ class MoneyRecordForm(forms.Form):
 
             if self.record_type == 'expense':
                 # Create allocations for expense record
+
                 allocation_type, allocations = self._get_allocations()
                 assert len(allocations) > 0
 
@@ -299,6 +301,7 @@ class MoneyRecordForm(forms.Form):
     def update_existing(self, money_record):
         assert self.is_valid(), 'Form validation is a pre-requisite to this function'
         assert type(money_record) is MoneyRecord
+        assert money_record.type == MoneyRecordType.from_string(self.record_type), 'record type assumed to be constant'
 
         with transaction.atomic():
             assert money_record.event_id is self.event.id
@@ -309,28 +312,31 @@ class MoneyRecordForm(forms.Form):
             money_record.participant2_id = self.cleaned_data['participant2']
             money_record.save()
 
-            allocation_type, allocations = self._get_allocations()
-            assert len(allocations) > 0
+            if self.record_type == 'expense':
+                # deal with allocations for expense record
 
-            # delete existing allocations that no longer hold, and update modified fields
-            existing_allocations = money_record.allocations()
-            for existing_allocation in existing_allocations:
-                if existing_allocation.participant_id in allocations:
-                    amount = allocations.pop(existing_allocation.participant_id)
-                    existing_allocation.type = allocation_type
-                    existing_allocation.amount = amount
-                    existing_allocation.save()
-                else:
-                    existing_allocation.delete()
+                allocation_type, allocations = self._get_allocations()
+                assert len(allocations) > 0
 
-            # add new allocations that do not exist yet (the ones that remain in the dictionary)
-            for participant_id in allocations:
-                new_allocation = Allocation.objects.create(
-                    money_record=money_record,
-                    participant_id=participant_id,
-                    type=allocation_type,
-                    amount=allocations[participant_id],
-                )
-                new_allocation.save()
+                # delete existing allocations that no longer hold, and update modified fields
+                existing_allocations = money_record.allocations()
+                for existing_allocation in existing_allocations:
+                    if existing_allocation.participant_id in allocations:
+                        amount = allocations.pop(existing_allocation.participant_id)
+                        existing_allocation.type = allocation_type
+                        existing_allocation.amount = amount
+                        existing_allocation.save()
+                    else:
+                        existing_allocation.delete()
+
+                # add new allocations that do not exist yet (the ones that remain in the dictionary)
+                for participant_id in allocations:
+                    new_allocation = Allocation.objects.create(
+                        money_record=money_record,
+                        participant_id=participant_id,
+                        type=allocation_type,
+                        amount=allocations[participant_id],
+                    )
+                    new_allocation.save()
 
         pass

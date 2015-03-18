@@ -82,6 +82,15 @@ class MoneyRecordType(enum.Enum):
     EXPENSE = 1
     TRANSFER = 2
 
+    @staticmethod
+    def from_string(s):
+        if s == 'expense':
+            return MoneyRecordType.EXPENSE
+        elif s == 'transfer':
+            return MoneyRecordType.TRANSFER
+        else:
+            raise Exception("Can't convert to enum value: " + str(s))
+
 
 class MoneyRecord(models.Model):
     event = models.ForeignKey(Event)
