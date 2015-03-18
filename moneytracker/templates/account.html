@@ -9,12 +9,6 @@
 
     <div id="account-user-info">
 
-        <div class="form-row" id="field-username">
-            <div class="form-row-item form-label">Username:</div>
-            <div class="form-row-item form-field">{{ username }}</div>
-            <div class="form-row-item form-field-errors"></div>
-        </div>
-
         <div class="form-row" id="field-first-name">
             <div class="form-row-item form-label">First name:</div>
             <div class="form-row-item form-field">{{ first_name }}</div>
@@ -36,23 +30,27 @@
         {% if event_list %}
             {% for event_list_item in event_list %}
                 <div class="account-event-list-item">
-                    <div class="account-event-list-item-url">
-                        <a class="action-link" href="{{ event_list_item.event_url }}">{{ event_list_item.event_name }}</a>
-                        (as "{{ event_list_item.participant_name }}")
+                    <div class="account-event-default-control">
+                        {% if event_list_item.is_default %}
+                            <div class="account-event-default">default event ⇨</div>
+                        {% else %}
+                            <button class="button button-small"
+                                    onclick="goto('{{ event_list_item.url_make_default }}');">make default</button>
+                        {% endif %}
                     </div>
 
-                    {% if event_list_item.is_default %}
-                        <div class="account-event-default">DEFAULT</div>
-                    {% else %}
-                        <button class="button button-small button-margin-left"
-                                onclick="goto('{{ event_list_item.url_make_default }}');">make default</button>
-                    {% endif %}
+                    <div class="account-event-list-item-url">
+                        <a class="action-link" href="{{ event_list_item.event_url }}">{{ event_list_item.event_name }}</a>
+{#                        (as "{{ event_list_item.participant_name }}")#}
+                    </div>
                 </div>
             {% endfor %}
 
 
             <div class="account-event-list-notes">
-                * When an event is designated as "default", you will be taken to this event's page every time you log in
+                <p>When an event is designated as "default", you will be taken to this event's page:</p>
+                - when you log in<br/>
+                - when you click on the "trakr" logo<br/>
             </div>
 
         {% else %}
