@@ -425,8 +425,16 @@ form {
     min-width: 80px;
 }
 
+#money-record-form #field-participant1 .form-field-errors {
+    min-width: 300px;
+}
+
 #money-record-form #field-participant2 select {
     min-width: 80px;
+}
+
+#money-record-form #field-participant2 .form-field-errors {
+    min-width: 300px;
 }
 
 #money-record-form #field-allocations-toggle .form-field {
