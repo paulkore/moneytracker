@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from moneytracker.auth import has_event_access
-from moneytracker.models import Event, MoneyRecord, Participant, MoneyRecordType
+from moneytracker.models import Event, MoneyRecord, Participant, MoneyRecordType, AllocationType
 
 
 class MoneyRecordData:
@@ -29,9 +29,21 @@ class MoneyRecordData:
 
             allocations = money_record.allocations()
             assert len(allocations) > 0
-            allocation_amount = self.amount / len(allocations)
-            for allocation in allocations:
-                self.expense_allocations[allocation.participant] = allocation_amount
+
+            allocation_type = money_record.allocation_type()
+            if allocation_type == AllocationType.EQUAL:
+                equal_amount = money_record.equal_allocation_amount()
+                for allocation in allocations:
+                    assert allocation.amount is None, 'corrupt data'
+                    self.expense_allocations[allocation.participant] = equal_amount
+
+            elif allocation_type == AllocationType.CUSTOM:
+                for allocation in allocations:
+                    assert allocation.amount, 'corrupt data'
+                    self.expense_allocations[allocation.participant] = allocation.amount
+
+            else:
+                raise Exception('Unhandled enum value')
 
         elif money_record.type == MoneyRecordType.TRANSFER:
             self.type = 'transfer'

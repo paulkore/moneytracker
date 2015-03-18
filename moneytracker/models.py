@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models, transaction
 from django.template.defaultfilters import slugify
@@ -96,6 +97,25 @@ class MoneyRecord(models.Model):
 
     def allocations(self):
         return Allocation.objects.filter(money_record_id=self.id)
+
+    def allocation_type(self):
+        allocation_type = None
+        for allocation in self.allocations():
+            assert allocation.type
+            if allocation_type is None:
+                allocation_type = allocation.type
+            else:
+                assert allocation_type == allocation.type, 'Mixed allocation types are not supported (corrupt data)'
+        return allocation_type
+
+    def equal_allocation_amount(self):
+        assert self.allocation_type() == AllocationType.EQUAL, 'Operation supported only for equal allocations'
+        equal_amount = self.amount / Decimal(len(self.allocations()))
+
+        # Round the value to two decimal places;
+        # The little bit accuracy loss is acceptable (at most one cent per expense... I think...) TODO: verify
+        two_places = Decimal('0.01')
+        return equal_amount.quantize(two_places)
 
     def deep_delete(self):
         with transaction.atomic():

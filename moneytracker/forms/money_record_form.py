@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django import forms
 
 from functools import partial
@@ -31,8 +32,12 @@ class MoneyRecordForm(forms.Form):
                                      choices=[(None, '')],
                                      required=False)
 
-    allocations_toggle = forms.ChoiceField(label='Applies to',
-                                           choices=[(0, 'Everyone'), (1, 'Select participants')],
+    allocations_toggle = forms.ChoiceField(label='Shared by',
+                                           choices=[
+                                               (0, 'Everyone (equal amounts)'),
+                                               (1, 'Not everyone (equal amounts)'),
+                                               (2, 'Custom amounts'),
+                                           ],
                                            initial=0,
                                            required=True)
 
@@ -49,7 +54,8 @@ class MoneyRecordForm(forms.Form):
 
         participant_choices = []
         self._event_participant_ids = []
-        for participant in event.participants():
+        participants = event.participants()
+        for participant in participants:
             participant_choices.append((participant.id, participant.get_name()))
             self._event_participant_ids.append(participant.id)
 
@@ -58,8 +64,28 @@ class MoneyRecordForm(forms.Form):
         self.fields['allocations'].choices += participant_choices
         self.fields['allocations'].initial = self._event_participant_ids
 
-        # record type: expense (default) or transfer
-        self.record_type = 'expense'
+        self._custom_amount_fields = []
+        self._custom_amount_fields_by_field_name = {}
+        self._custom_amount_fields_by_participant_id = {}
+
+        for participant in participants:
+            field = forms.DecimalField(
+                label=participant.get_name(),
+                decimal_places=2,
+                required=False,
+                initial=None,
+            )
+            # using participant id in the field name to guarantee uniqueness
+            field_name = 'custom_amount_par_' + str(participant.id)
+            field.participant_id = participant.id
+
+            self.fields[field_name] = field
+            self._custom_amount_fields.append(field)
+            self._custom_amount_fields_by_field_name[field_name] = field
+            self._custom_amount_fields_by_participant_id[participant.id] = field
+
+        # 'expense' or 'transfer'; set by set_record_type() method
+        self.record_type = None
 
         if args and type(args[0]) is QueryDict:
             # the form is populated from POST data
@@ -67,6 +93,11 @@ class MoneyRecordForm(forms.Form):
             assert 'record_type_hidden' in query_dict, 'Could not find record type in POST data'
             rec_type = query_dict['record_type_hidden']
             self.set_record_type(rec_type)
+
+    def custom_amount_fields(self):
+        for name in self.fields:
+            if name.startswith('custom_amount_par_'):
+                yield(self[name])
 
     def set_record_type(self, record_type):
         assert record_type == 'expense' or record_type == 'transfer', 'Invalid: ' + record_type
@@ -122,15 +153,39 @@ class MoneyRecordForm(forms.Form):
             self.fields['participant2'].initial = None
 
             allocations = money_record.allocations()
-            if len(self._event_participant_ids) == len(allocations):
-                self.fields['allocations_toggle'].initial = 0
-                self.fields['allocations'].initial = self._event_participant_ids
-            else:
-                self.fields['allocations_toggle'].initial = 1
-                allocation_participant_ids = []
-                for allocation in allocations:
-                    allocation_participant_ids.append(allocation.participant_id)
+            allocation_type = money_record.allocation_type()
+            allocation_participant_ids = []
+            allocation_amounts = {}
+            for allocation in allocations:
+                allocation_participant_ids.append(allocation.participant_id)
+                allocation_amounts[allocation.participant_id] = allocation.amount
+
+            if allocation_type == AllocationType.EQUAL:
+                equal_amount = money_record.equal_allocation_amount()
+
+                if len(self._event_participant_ids) == len(allocations):
+                    # everyone, equal amounts
+                    self.fields['allocations_toggle'].initial = 0
+                    self.fields['allocations'].initial = self._event_participant_ids
+                    for field in self._custom_amount_fields:
+                        field.initial = equal_amount
+
+                else:
+                    # not everyone, equal amounts
+                    self.fields['allocations_toggle'].initial = 1
+                    self.fields['allocations'].initial = allocation_participant_ids
+                    for participant_id in allocation_amounts:
+                        self._custom_amount_fields_by_participant_id[participant_id].initial = equal_amount
+
+            elif allocation_type == AllocationType.CUSTOM:
+                # custom amounts
+                self.fields['allocations_toggle'].initial = 2
                 self.fields['allocations'].initial = allocation_participant_ids
+                for participant_id in allocation_amounts:
+                    self._custom_amount_fields_by_participant_id[participant_id].initial = allocation_amounts[participant_id]
+
+            else:
+                raise Exception('Unhandled enum value')
 
         elif self.record_type == 'transfer':
             self.fields['description'].initial = None
@@ -138,7 +193,7 @@ class MoneyRecordForm(forms.Form):
             self.fields['participant2'].initial = money_record.participant2.id
 
         else:
-            raise Exception('Invalid: ' + self.record_type)
+            raise Exception('Invalid: ' + str(self.record_type))
 
     # custom validation of fields
     def clean(self):
@@ -147,15 +202,30 @@ class MoneyRecordForm(forms.Form):
         if self.record_type == 'expense':
             allocations = cleaned_data.get('allocations')
             if len(allocations) < 1:
-                self.add_error('allocations', "Must select at least one")
+                self.add_error('allocations', 'Must select at least one')
+
+            expense_amount = cleaned_data.get('amount')
+            assert expense_amount
+            if expense_amount == 0:
+                self.add_error('amount', 'Must be non-zero')
+
+            custom_amount_total = Decimal(0)
+            for field_name in self._custom_amount_fields_by_field_name:
+                custom_amount = cleaned_data.get(field_name)
+                if custom_amount:
+                    custom_amount_total += custom_amount
+            delta = abs(expense_amount - custom_amount_total)
+            if delta > 0.01:
+                self.add_error('allocations_toggle',
+                               'Amounts must add up to ' + str(expense_amount) + ' (off by ' + str(delta) + ')')
 
         elif self.record_type == 'transfer':
             participant1_id = cleaned_data.get('participant1')
             participant2_id = cleaned_data.get('participant2')
             if participant1_id and participant2_id:
                 if participant1_id == participant2_id:
-                    self.add_error('participant1', "Must be different")
-                    self.add_error('participant2', "Must be different")
+                    self.add_error('participant1', 'Must be different from the choice below')
+                    self.add_error('participant2', 'Must be different from the choice above')
                 else:
                     participant1 = Participant.objects.get(pk=participant1_id)
                     participant2 = Participant.objects.get(pk=participant2_id)
@@ -163,20 +233,38 @@ class MoneyRecordForm(forms.Form):
                     cleaned_data['description'] = 'Transfer of funds'
 
         else:
-            raise Exception('Invalid: ' + self.record_type)
+            raise Exception('Invalid: ' + str(self.record_type))
 
-    def _get_allocation_participant_ids(self):
+    def _get_allocations(self):
         assert self.record_type == 'expense', 'Unsupported operation'
 
         allocations_toggle = self.cleaned_data['allocations_toggle']
         assert allocations_toggle
 
+        allocations = {}
+
         if allocations_toggle == '0':
-            return self._event_participant_ids
+            allocation_type = AllocationType.EQUAL
+            for participant_id in self._event_participant_ids:
+                allocations[participant_id] = None
+
         elif allocations_toggle == '1':
-            return self.cleaned_data['allocations']
+            allocation_type = AllocationType.EQUAL
+            for participant_id in self.cleaned_data['allocations']:
+                allocations[participant_id] = None
+
+        elif allocations_toggle == '2':
+            allocation_type = AllocationType.CUSTOM
+            for field_name in self._custom_amount_fields_by_field_name:
+                field = self._custom_amount_fields_by_field_name[field_name]
+                custom_amount = self.cleaned_data[field_name]
+                if custom_amount and custom_amount != 0:
+                    allocations[field.participant_id] = custom_amount
+
         else:
             raise Exception('Unhandled value: ' + str(allocations_toggle))
+
+        return allocation_type, allocations
 
     def save_as_new_record(self):
         assert self.is_valid(), 'Form validation is a pre-requisite'
@@ -194,17 +282,19 @@ class MoneyRecordForm(forms.Form):
 
             if self.record_type == 'expense':
                 # Create allocations for expense record
-                allocation_participant_ids = self._get_allocation_participant_ids()
-                assert len(allocation_participant_ids) > 0
+                allocation_type, allocations = self._get_allocations()
+                assert len(allocations) > 0
 
-                for participant_id in allocation_participant_ids:
+                for participant_id in allocations:
                     new_allocation = Allocation.objects.create(
                         money_record=new_record,
                         participant_id=participant_id,
-                        type=AllocationType.EQUAL,
-                        amount=None,
+                        type=allocation_type,
+                        amount=allocations[participant_id],
                     )
                     new_allocation.save()
+
+        pass
 
     def update_existing(self, money_record):
         assert self.is_valid(), 'Form validation is a pre-requisite to this function'
@@ -219,26 +309,28 @@ class MoneyRecordForm(forms.Form):
             money_record.participant2_id = self.cleaned_data['participant2']
             money_record.save()
 
-            allocation_participant_ids = self._get_allocation_participant_ids()
-            assert len(allocation_participant_ids) > 0
+            allocation_type, allocations = self._get_allocations()
+            assert len(allocations) > 0
 
-            # delete existing allocations that no longer hold
+            # delete existing allocations that no longer hold, and update modified fields
             existing_allocations = money_record.allocations()
             for existing_allocation in existing_allocations:
-                if existing_allocation.participant_id in allocation_participant_ids:
-                    allocation_participant_ids.remove(existing_allocation.participant_id)
+                if existing_allocation.participant_id in allocations:
+                    amount = allocations.pop(existing_allocation.participant_id)
+                    existing_allocation.type = allocation_type
+                    existing_allocation.amount = amount
+                    existing_allocation.save()
                 else:
                     existing_allocation.delete()
 
-            # add new allocations that do not exist yet
-            for participant_id in allocation_participant_ids:
+            # add new allocations that do not exist yet (the ones that remain in the dictionary)
+            for participant_id in allocations:
                 new_allocation = Allocation.objects.create(
                     money_record=money_record,
                     participant_id=participant_id,
-                    type=AllocationType.EQUAL,
-                    amount=None,
+                    type=allocation_type,
+                    amount=allocations[participant_id],
                 )
                 new_allocation.save()
 
-
-
+        pass

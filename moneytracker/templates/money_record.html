@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load custom_filters %}
 
 {% block content %}
 
@@ -85,6 +86,18 @@
             <div class="form-row-item form-field">{{ form.allocations }}</div>
             <div class="form-row-item form-field-errors">{{ form.allocations.errors }}</div>
         </div>
+
+        <div id="custom-amount-fields">
+            {% for field in form.custom_amount_fields %}
+                <div class="form-row field-custom-amount">
+                    <div class="form-row-item form-label">{# do not display label here #}</div>
+                    <div class="form-row-item form-field">
+                        <div class="custom-amount-participant-name">{{ field.label }}</div> {{ field }}
+                    </div>
+                    <div class="form-row-item form-field-errors">{{ field.errors }}</div>
+                </div>
+            {% endfor %}
+        </div>
         {% endif %}
 
         {% if form.record_type == 'expense' or form.record_type == 'transfer' %}
@@ -119,12 +132,19 @@
 
     function toggleAllocations(toggleValue) {
         if (toggleValue === '0') {
-            // entire group
-            $('#field-allocations').hide()
+            // everyone (equally)
+            $('#field-allocations').hide();
+            $('#custom-amount-fields').hide();
         }
         else if (toggleValue === '1') {
             // select participants
-            $('#field-allocations').show()
+            $('#field-allocations').show();
+            $('#custom-amount-fields').hide();
+        }
+        else if (toggleValue === '2') {
+            // custom amounts
+            $('#field-allocations').hide();
+            $('#custom-amount-fields').show();
         }
         else {
             console.log('Unhandled value: ' + this.value)
@@ -133,7 +153,7 @@
 
     $('#id_allocations_toggle').change(function() {
         toggleAllocations(this.value)
-    })
+    });
 
     function confirmDelete() {
         $('#button-delete').fadeOut(function() {

@@ -429,9 +429,26 @@ form {
     width: 220px;
 }
 
+#money-record-form #field-allocations-toggle .form-field-errors {
+    width: 350px;
+}
+
 #money-record-form #field-allocations .form-field {
     min-width: 160px;
     max-width: 220px;
+}
+
+#money-record-form .field-custom-amount .form-field {
+    width: 200px;
+}
+
+#money-record-form .field-custom-amount .custom-amount-participant-name {
+    display: inline-block;
+    width: 90px;
+}
+
+#money-record-form .field-custom-amount .form-field input {
+    width: 80px;
 }
 
 #money-record-form .button {
