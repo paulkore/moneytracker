@@ -37,7 +37,7 @@
 <body>
 
     <div id="site-header">
-        <div id="site-header-logo" onclick="goto('{% url 'landing' %}');">trakr</div>
+        <div id="site-header-logo" onclick="goto('{% url 'landing' %}'); return false;">trakr</div>
 
         {# Visible in wide view #}
         <div id="site-header-user-info">

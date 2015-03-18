@@ -31,6 +31,8 @@ body {
     padding: 5px 20px 0 15px;
     font-size: 34px;
     font-weight: bold;
+
+    cursor: pointer;
 }
 
 #site-header-user-info {
