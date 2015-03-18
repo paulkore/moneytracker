@@ -199,25 +199,33 @@ class MoneyRecordForm(forms.Form):
     def clean(self):
         cleaned_data = super(MoneyRecordForm, self).clean()
 
+        allocations_toggle = self.cleaned_data['allocations_toggle']
+        assert allocations_toggle in ('0', '1', '2')
+
         if self.record_type == 'expense':
             allocations = cleaned_data.get('allocations')
             if len(allocations) < 1:
                 self.add_error('allocations', 'Must select at least one')
 
             expense_amount = cleaned_data.get('amount')
-            assert expense_amount
-            if expense_amount == 0:
+            if expense_amount and expense_amount == 0:
                 self.add_error('amount', 'Must be non-zero')
 
-            custom_amount_total = Decimal(0)
-            for field_name in self._custom_amount_fields_by_field_name:
-                custom_amount = cleaned_data.get(field_name)
-                if custom_amount:
-                    custom_amount_total += custom_amount
-            delta = abs(expense_amount - custom_amount_total)
-            if delta > 0.01:
-                self.add_error('allocations_toggle',
-                               'Amounts must add up to ' + str(expense_amount) + ' (off by ' + str(delta) + ')')
+            if allocations_toggle == '2':
+                # custom allocation amounts
+                if expense_amount:
+                    custom_amount_total = Decimal(0)
+                    for field_name in self._custom_amount_fields_by_field_name:
+                        custom_amount = cleaned_data.get(field_name)
+                        if custom_amount:
+                            custom_amount_total += custom_amount
+                    delta = abs(expense_amount - custom_amount_total)
+                    if delta > 0.01:
+                        self.add_error('allocations_toggle',
+                                       'Amounts must add up to ' + str(expense_amount) + ' (off by ' + str(delta) + ')')
+
+                else:
+                    self.add_error('allocations_toggle', 'Custom amounts must add up to equal the Amount value')
 
         elif self.record_type == 'transfer':
             participant1_id = cleaned_data.get('participant1')
