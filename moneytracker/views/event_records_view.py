@@ -114,7 +114,7 @@ def event_records_view(request, event_name_slug):
                 # zero variance
                 pass
             variance_sum += variance
-        assert variance_sum == 0, 'Variances must cancel each other'
+        assert abs(variance_sum) < 1, 'Variances must cancel each other (tolerance of $1)'
 
         participant_settlement = {}
         for p in participants:
