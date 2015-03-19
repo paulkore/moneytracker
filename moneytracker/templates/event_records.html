@@ -73,6 +73,15 @@
             </div>
         </div>
     </div>
+
+    <div id="records-view-notes" class="form-notes">
+        {% if money_records %}
+            * The records below are arranged by date (newest first):
+        {% else %}
+            * There is no data to show yet. Try adding some expenses!
+        {% endif %}
+    </div>
+
 </div>
 
 

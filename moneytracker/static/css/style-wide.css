@@ -42,10 +42,10 @@ body {
 
 #records-title-bar {
     display: block;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
-#records-event-name {
+#records-title-bar #records-event-name {
     display: block;
     margin-bottom: 20px;
 
@@ -54,14 +54,27 @@ body {
     font-weight: bold;
 }
 
-#records-view-controls {
+#records-title-bar #records-view-controls {
     display: block;
 }
 
-#participants-view-toggle {
+#records-title-bar #button-add-expense {
+    display: inline-block;
+}
+
+#records-title-bar #button-add-transfer {
+    display: inline-block;
+}
+
+#records-title-bar #participants-view-toggle {
     display: inline-block;
     margin-left: 10px;
 }
+
+#records-title-bar #records-view-notes {
+    margin-top: 20px;
+}
+
 
 #records-table {
     /* table view is displayed */
