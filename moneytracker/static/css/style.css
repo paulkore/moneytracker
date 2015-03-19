@@ -109,7 +109,6 @@ body {
 }
 
 .account-event-list-notes {
-    font-style: italic;
     max-width: 500px;
     margin-top: 30px;
 }
@@ -260,6 +259,10 @@ form {
     margin-top: 25px;
 }
 
+.form-notes {
+    font-style: italic;
+}
+
 
 /* BUTTONS */
 
@@ -369,7 +372,10 @@ form {
     padding-left: 175px;
 }
 
-
+#login-form .form-notes {
+    margin-top: 50px;
+    max-width: 400px;
+}
 
 
 
