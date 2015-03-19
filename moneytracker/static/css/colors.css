@@ -129,7 +129,7 @@ body {
     color: #3071A9;
 }
 
-#event-summary {
+.summary-section {
     background: #1E90FF;
     color: #FEFEFE;
 }

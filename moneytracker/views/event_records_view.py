@@ -1,13 +1,14 @@
+import copy
 from decimal import Decimal
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from moneytracker.auth import has_event_access
-from moneytracker.models import Event, MoneyRecord, Participant, MoneyRecordType, AllocationType
+from moneytracker.models import Event, MoneyRecord, MoneyRecordType, AllocationType
 
 
-class MoneyRecordData:
+class MoneyRecordItem:
     def __init__(self, money_record):
         assert type(money_record) is MoneyRecord
 
@@ -59,6 +60,13 @@ class MoneyRecordData:
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
+class SettlementItem:
+    def __init__(self, participant_from, participant_to, amount):
+        self.participant_from = participant_from
+        self.participant_to = participant_to
+        self.amount = amount
+
+
 def event_records_view(request, event_name_slug):
         user = request.user
         if not user.is_authenticated():
@@ -83,7 +91,7 @@ def event_records_view(request, event_name_slug):
 
         money_record_data_items = []
         for money_record in money_records:
-            money_record_data = MoneyRecordData(money_record)
+            money_record_data = MoneyRecordItem(money_record)
             money_record_data_items.append(money_record_data)
             event_total += money_record_data.amount_towards_total
             for p in money_record_data.contributions:
@@ -94,6 +102,7 @@ def event_records_view(request, event_name_slug):
         participant_variance = {}
         participant_overcontrib = {}
         participant_undercontrib = {}
+        variance_sum = Decimal(0)
         for p in participants:
             variance = participant_contribution[p] - participant_expense_allocation[p]
             participant_variance[p] = variance
@@ -104,6 +113,68 @@ def event_records_view(request, event_name_slug):
             else:
                 # zero variance
                 pass
+            variance_sum += variance
+        assert variance_sum == 0, 'Variances must cancel each other'
+
+        participant_settlement = {}
+        for p in participants:
+            participant_settlement[p] = []
+
+        participant_receivable = copy.deepcopy(participant_overcontrib)
+        participant_payable = copy.deepcopy(participant_undercontrib)
+        while participant_receivable and participant_payable:
+            # find biggest payable amount
+            payable_amount = None
+            paying_participant = None
+            for p in participant_payable:
+                if payable_amount is None or payable_amount < participant_payable[p]:
+                    payable_amount = participant_payable[p]
+                    paying_participant = p
+            participant_payable.pop(paying_participant)
+
+            # Repeat, until the payable amount is fully settled (1 or more iterations)
+            while True:
+                assert payable_amount > 0
+
+                # find highest receivable amount
+                receivable_amount = None
+                receiving_participant = None
+                for p in participant_receivable:
+                    if receivable_amount is None or receivable_amount < participant_receivable[p]:
+                        receivable_amount = participant_receivable[p]
+                        receiving_participant = p
+                    if receivable_amount == payable_amount:
+                        # special case: exact match
+                        break
+                assert receivable_amount
+                assert receiving_participant
+
+                if receivable_amount > payable_amount:
+                    participant_settlement[paying_participant].append((receiving_participant, payable_amount))
+                    receivable_amount -= payable_amount
+                    participant_receivable[receiving_participant] = receivable_amount
+                    # payable amount was fully settled
+                    break
+
+                elif receivable_amount < payable_amount:
+                    participant_receivable.pop(receiving_participant)
+                    participant_settlement[paying_participant].append((receiving_participant, receivable_amount))
+                    payable_amount -= receivable_amount
+                    # payable amount is not fully settled; continue to the next iteration
+                    continue
+
+                else:
+                    # special case
+                    assert receivable_amount == payable_amount
+                    participant_receivable.pop(receiving_participant)
+                    participant_settlement[paying_participant].append((receiving_participant, receivable_amount))
+                    # payable amount was fully settled (and receivable amount, too)
+                    break
+
+        suggested_settlements = []
+        for p in participant_settlement:
+            for s in participant_settlement[p]:
+                suggested_settlements.append(SettlementItem(participant_from=p, participant_to=s[0], amount=s[1]))
 
         url_add_expense = reverse('create-expense', kwargs={'event_name_slug': event_name_slug})
         url_add_transfer = reverse('create-transfer', kwargs={'event_name_slug': event_name_slug})
@@ -118,6 +189,7 @@ def event_records_view(request, event_name_slug):
             'participant_variance': participant_variance,
             'participant_overcontrib': participant_overcontrib,
             'participant_undercontrib': participant_undercontrib,
+            'suggested_settlements': suggested_settlements,
             'url_add_expense': url_add_expense,
             'url_add_transfer': url_add_transfer,
             'mobile_actions': [

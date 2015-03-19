@@ -117,18 +117,8 @@ body {
 
 
 #records-title-bar {
-
+    /* this component is styled differently in the narrow and wide views */
 }
-
-#records-title-bar #records-event-name {
-
-}
-
-#records-title-bar #records-view-controls {
-
-}
-
-
 
 #records-table {
     /* activated by media query dependent stylesheet */
@@ -142,15 +132,15 @@ body {
 
 
 
+/* SUMMARIES */
 
-#event-summary {
-    max-width: 800px;
+
+.summary-section {
+    display: inline-block;
+    vertical-align: top;
+    padding: 20px 10px 25px;
     margin-top: 20px;
-
-    padding-top: 20px;
-    padding-bottom: 25px;
-    padding-left: 10px;
-
+    margin-right: 5px;
 }
 
 .summary-top {
@@ -158,42 +148,61 @@ body {
     font-size: 18px;
 }
 
-.summary-participant {
+
+
+#event-summary {
+    max-width: 700px;
+}
+
+#event-summary .summary-participant {
     display: inline-block;
-    margin-right: 30px;
+    margin-right: 20px;
     margin-bottom: 20px;
 }
 
-.summary-participant-row {
+#event-summary .summary-participant-row {
     display: block;
 }
 
-.summary-participant-left {
+#event-summary .summary-participant-left {
     display: inline-block;
-    width: 240px;
+    width: 235px;
 }
 
-.summary-participant-right {
+#event-summary .summary-participant-right {
     display:inline-block;
     width: 80px;
     text-align: right;
     box-sizing: border-box;
 }
 
-.summary-participant-name {
+#event-summary .summary-participant-name {
     font-weight: bold;
     font-size: 18px;
 }
 
-.summary-value {
-    padding: 1px 0px;
+#event-summary .summary-value {
+    padding: 1px 0;
     border: none;
 }
 
-.summary-balance-value {
+#event-summary .summary-balance-value {
     padding: 0 1px;
     border: 2px solid;
 }
+
+
+
+#suggested-settlements {
+    max-width: 700px;
+}
+
+#suggested-settlements .settlement-item {
+    display: block;
+    width: 315px;
+    margin-bottom: 5px;
+}
+
 
 
 

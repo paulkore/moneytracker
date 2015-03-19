@@ -193,10 +193,10 @@
 </div>
 
 {# EVENT SUMMARY IS VISIBLE ALWAYS #}
-<div id="event-summary">
+<div id="event-summary" class="summary-section">
 
         <div class="summary-top">
-            <div class="summary-top-amount">Total event cost: {{ event_total | money_amount:'simple' }}</div>
+            <div class="summary-top-amount">Total spent: {{ event_total | money_amount:'simple' }}</div>
         </div>
 
         {% for participant in participants %}
@@ -230,5 +230,20 @@
         {% endfor %}
 </div>
 
+{% if suggested_settlements %}
+    <div id="suggested-settlements" class="summary-section">
+        <div class="summary-top">
+            Suggested transactions to settle the event:
+        </div>
+
+        {% for settlement in suggested_settlements %}
+            <div class="settlement-item">
+                * {{ settlement.participant_to.get_name }}
+                to receive {{ settlement.amount | money_amount:'simple' }}
+                from {{ settlement.participant_from.get_name }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
 {% endblock %}
