@@ -134,7 +134,10 @@ def event_records_view(request, event_name_slug):
 
             # Repeat, until the payable amount is fully settled (1 or more iterations)
             while True:
-                assert payable_amount > 0
+                assert payable_amount >= 0
+                if payable_amount < 1:
+                    # tolerance of $1
+                    break
 
                 # find highest receivable amount
                 receivable_amount = None
@@ -146,6 +149,7 @@ def event_records_view(request, event_name_slug):
                     if receivable_amount == payable_amount:
                         # special case: exact match
                         break
+
                 assert receivable_amount
                 assert receiving_participant
 
@@ -153,7 +157,6 @@ def event_records_view(request, event_name_slug):
                     participant_settlement[paying_participant].append((receiving_participant, payable_amount))
                     receivable_amount -= payable_amount
                     participant_receivable[receiving_participant] = receivable_amount
-                    # payable amount was fully settled
                     break
 
                 elif receivable_amount < payable_amount:
