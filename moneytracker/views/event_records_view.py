@@ -1,5 +1,5 @@
 import copy
-from decimal import Decimal
+from decimal import Decimal, ROUND_05UP
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
@@ -64,8 +64,10 @@ class SettlementItem:
     def __init__(self, participant_from, participant_to, amount):
         self.participant_from = participant_from
         self.participant_to = participant_to
+
         # round settlements to the nearest dollar
-        self.amount = round(amount, 0)
+        self.amount = Decimal(amount.quantize(Decimal('0'), rounding=ROUND_05UP))
+
 
 def event_records_view(request, event_name_slug):
         user = request.user
