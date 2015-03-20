@@ -2,11 +2,16 @@
 {% load custom_filters %}
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" media="(max-width: 750px)" href="{% static 'css/style-narrow.css' %}">
-    <link rel="stylesheet" media="(min-width: 751px)" href="{% static 'css/style-wide.css' %}">
+
+    {% if responsive_view_enabled %}
+        <link rel="stylesheet" media="(max-width: 750px)" href="{% static 'css/style-narrow.css' %}">
+        <link rel="stylesheet" media="(min-width: 751px)" href="{% static 'css/style-wide.css' %}">
+        <link rel="stylesheet" media="(min-width: 751px)" href="{% static 'css/style-wide-responsive.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/style-wide.css' %}">
+    {% endif %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/colors.css' %}" />
 
@@ -26,10 +31,28 @@
             // - enable all date picker inputs on the page, where applicable
             // - make the underlying fields read-only to prevent direct text input (must use datepicker widget)
             $('.datepicker').datepicker().prop('readonly', true);
+
         });
 
         function toggleMobileMenu() {
             $('#mobile-actions-menu-wrapper').fadeToggle();
+        }
+
+        function toggleResponsiveView() {
+            var expiryDate = new Date();
+            var minutes = 30;
+            expiryDate.setTime(expiryDate.getTime() + (minutes * 60 * 1000));
+
+            var responsive_view_toggle = $.cookie('responsive_view_toggle');
+            if (responsive_view_toggle === undefined || responsive_view_toggle === 'enabled') {
+                $.cookie('responsive_view_toggle', 'disabled', { path: '/', expires: expiryDate });
+            }
+            else {
+                $.cookie('responsive_view_toggle', 'enabled', { path: '/', expires: expiryDate });
+            }
+
+            // reload from server
+            location.reload(true);
         }
 
     </script>
@@ -86,7 +109,15 @@
         </div>
 
         <div id="site-footer">
-            {# TODO: provide footer content #}
+            <div id="responsiveViewToggle">
+                <a class="action-link" href="#" onclick="toggleResponsiveView(); return false;">
+                    {% if responsive_view_enabled %}
+                        View full site
+                    {% else %}
+                        View mobile site
+                    {% endif %}
+                </a>
+            </div>
         </div>
     </div>
 </body>

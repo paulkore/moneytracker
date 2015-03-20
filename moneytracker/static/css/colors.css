@@ -66,6 +66,9 @@ body {
     background: #666666;
     color: #CCCCCC;
 }
+#site-footer .action-link {
+    color: #F7EF99;
+}
 
 .http-error-message {
     color: #8B0000;
