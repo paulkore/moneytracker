@@ -1,6 +1,5 @@
 def default_processor(request):
     responsive_view_toggle = request.COOKIES.get('responsive_view_toggle')
-    print('responsive_view_toggle: ' + str(responsive_view_toggle))
 
     if responsive_view_toggle is None:
         # cookie not set... responsive behaviour is on by default
