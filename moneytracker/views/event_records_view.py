@@ -64,8 +64,8 @@ class SettlementItem:
     def __init__(self, participant_from, participant_to, amount):
         self.participant_from = participant_from
         self.participant_to = participant_to
-        self.amount = amount
-
+        # round settlements to the nearest dollar
+        self.amount = round(amount, 0)
 
 def event_records_view(request, event_name_slug):
         user = request.user
@@ -154,14 +154,14 @@ def event_records_view(request, event_name_slug):
                 assert receiving_participant
 
                 if receivable_amount > payable_amount:
-                    participant_settlement[paying_participant].append((receiving_participant, payable_amount))
+                    participant_settlement[receiving_participant].append((paying_participant, payable_amount))
                     receivable_amount -= payable_amount
                     participant_receivable[receiving_participant] = receivable_amount
                     break
 
                 elif receivable_amount < payable_amount:
                     participant_receivable.pop(receiving_participant)
-                    participant_settlement[paying_participant].append((receiving_participant, receivable_amount))
+                    participant_settlement[receiving_participant].append((paying_participant, receivable_amount))
                     payable_amount -= receivable_amount
                     # payable amount is not fully settled; continue to the next iteration
                     continue
@@ -170,14 +170,14 @@ def event_records_view(request, event_name_slug):
                     # special case
                     assert receivable_amount == payable_amount
                     participant_receivable.pop(receiving_participant)
-                    participant_settlement[paying_participant].append((receiving_participant, receivable_amount))
+                    participant_settlement[receiving_participant].append((paying_participant, receivable_amount))
                     # payable amount was fully settled (and receivable amount, too)
                     break
 
         suggested_settlements = []
         for p in participant_settlement:
             for s in participant_settlement[p]:
-                suggested_settlements.append(SettlementItem(participant_from=p, participant_to=s[0], amount=s[1]))
+                suggested_settlements.append(SettlementItem(participant_from=s[0], participant_to=p, amount=s[1]))
 
         url_add_expense = reverse('create-expense', kwargs={'event_name_slug': event_name_slug})
         url_add_transfer = reverse('create-transfer', kwargs={'event_name_slug': event_name_slug})

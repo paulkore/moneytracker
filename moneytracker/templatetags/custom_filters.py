@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.template.defaulttags import register
 
 
@@ -8,7 +9,13 @@ def get_item(dictionary, key):
 
 @register.filter
 def money_amount(decimal_amount, number_format):
-    assert number_format == 'simple' or number_format == 'finance', 'unknown format: ' + str(number_format)
+    assert number_format in ('no-cents', 'simple', 'finance'), 'unknown format: ' + str(number_format)
+
+    if number_format == 'no-cents':
+        if decimal_amount >= 0:
+            return "${0:.0f}".format(decimal_amount)
+        else:
+            return "-${0:.0f}".format(-decimal_amount)
 
     if number_format == 'simple':
         if decimal_amount >= 0:

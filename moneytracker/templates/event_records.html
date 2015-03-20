@@ -239,7 +239,7 @@
         {% for settlement in suggested_settlements %}
             <div class="settlement-item">
                 * {{ settlement.participant_to.get_name }}
-                to receive {{ settlement.amount | money_amount:'simple' }}
+                to receive {{ settlement.amount | money_amount:'no-cents' }}
                 from {{ settlement.participant_from.get_name }}
             </div>
         {% endfor %}
