@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_DOWN
 from django.contrib.auth.models import User
 from django.db import models, transaction
 from django.template.defaultfilters import slugify
@@ -122,9 +122,8 @@ class MoneyRecord(models.Model):
         equal_amount = self.amount / Decimal(len(self.allocations()))
 
         # Round the value to two decimal places;
-        # The little bit accuracy loss is acceptable (at most one cent per expense... I think...) TODO: verify
-        two_places = Decimal('0.01')
-        return equal_amount.quantize(two_places)
+        # The little bit accuracy loss is acceptable for the time being (less than one cent per participant)
+        return equal_amount.quantize(Decimal('0.01'), ROUND_DOWN)
 
     def deep_delete(self):
         with transaction.atomic():
