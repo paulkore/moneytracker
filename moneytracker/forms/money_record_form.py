@@ -35,7 +35,7 @@ class MoneyRecordForm(forms.Form):
     allocations_toggle = forms.ChoiceField(label='Shared by',
                                            choices=[
                                                (0, 'Everyone (equal amounts)'),
-                                               (1, 'Not everyone (equal amounts)'),
+                                               (1, 'Select (equal amounts)'),
                                                (2, 'Custom amounts'),
                                            ],
                                            initial=0,
