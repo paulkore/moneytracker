@@ -333,7 +333,7 @@ form {
 .radio-button-selector {
     display: inline-block;
     vertical-align: top;
-    padding: 5px;
+    padding: 5px 10px 5px 5px;
 }
 
 .radio-button-selector:hover {

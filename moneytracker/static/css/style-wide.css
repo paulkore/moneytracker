@@ -68,6 +68,7 @@ body {
 
 #records-title-bar #participants-view-toggle {
     display: inline-block;
+    float: right;
     margin-left: 10px;
 }
 

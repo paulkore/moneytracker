@@ -23,8 +23,8 @@
             // default
             $.cookie(participant_details_cookie, "contrib");
 
-            $('#radioShowContributionView').prop('checked', true);
-            showContribValues();
+            $('#radioShowAllocationView').prop('checked', true);
+            showAllocValues();
         }
     });
 
@@ -62,14 +62,14 @@
         <button id="button-add-expense" class="button button-margin-right" onclick="goto('{{ url_add_expense }}');">record an expense</button>
         <button id="button-add-transfer" class="button button-no-margin" onclick="goto('{{ url_add_transfer }}');">record a transfer</button>
         <div id="participants-view-toggle" class="radio-button-selector">
-            <div class="radio-buttons-title">
-                Participant details:
-            </div>
-            <div class="radio-button">
-                <input type="radio" id="radioShowContributionView" name="radio" onchange="showContributionView()" /><label for="radioShowContributionView">individual contribution view</label>
-            </div>
+{#            <div class="radio-buttons-title">#}
+{#                Participant section:#}
+{#            </div>#}
             <div class="radio-button">
                 <input type="radio" id="radioShowAllocationView" name="radio" onchange="showExpenseAllocationView()" /><label for="radioShowAllocationView">expense allocation view</label>
+            </div>
+            <div class="radio-button">
+                <input type="radio" id="radioShowContributionView" name="radio" onchange="showContributionView()" /><label for="radioShowContributionView">contribution view</label>
             </div>
         </div>
     </div>
