@@ -1,12 +1,12 @@
 import copy
-from decimal import Decimal, ROUND_05UP
+from decimal import Decimal
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from moneytracker.auth import has_event_access
 from moneytracker.models import Event, MoneyRecord, MoneyRecordType, AllocationType
-
+from moneytracker.money import round_to_dollar
 
 class MoneyRecordItem:
     def __init__(self, money_record):
@@ -64,9 +64,8 @@ class SettlementItem:
     def __init__(self, participant_from, participant_to, amount):
         self.participant_from = participant_from
         self.participant_to = participant_to
-
         # round settlements to the nearest dollar
-        self.amount = Decimal(amount.quantize(Decimal('0'), rounding=ROUND_05UP))
+        self.amount = round_to_dollar(amount)
 
 
 def event_records_view(request, event_name_slug):
