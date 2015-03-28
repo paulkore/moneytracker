@@ -1,4 +1,4 @@
-MoneyTracker is a simple Django app, to help keep track of communal expenses during group events (such as ski trips).
+"trakr" is a simple Django app, to help keep track of communal expenses during group events (such as ski trips).
 
 It must be noted that Excel / Google Docs spreadsheets have been adequate to achieve this task.
 This web-app exercise if for the sole purpose of playing around with Django and a handful of other technologies! :)
