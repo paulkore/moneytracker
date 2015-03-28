@@ -224,13 +224,17 @@ class MoneyRecordForm(forms.Form):
                         custom_amount = cleaned_data.get(field_name)
                         if custom_amount:
                             custom_amount_total += custom_amount
-                    delta = abs(expense_amount - custom_amount_total)
-                    if delta > 0.01:
-                        self.add_error('allocations_toggle',
-                                       'Amounts must add up to ' + str(expense_amount) + ' (off by ' + str(delta) + ')')
+                    delta = custom_amount_total - expense_amount
+                    if abs(delta) > 0.01:
+                        error_msg = 'These must add up to ' + str(expense_amount)
+                        if delta > 0:
+                            error_msg += ' (over by ' + str(abs(delta)) + ')'
+                        else:
+                            error_msg += ' (under by ' + str(abs(delta)) + ')'
 
+                        self.add_error('allocations_toggle', error_msg)
                 else:
-                    self.add_error('allocations_toggle', 'Custom amounts must add up to equal the Amount value')
+                    self.add_error('allocations_toggle', 'These must add up to equal the Amount value')
 
         elif self.record_type == 'transfer':
             participant1_id = cleaned_data.get('participant1')
