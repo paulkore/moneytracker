@@ -2,7 +2,7 @@ from datetime import datetime as dt
 from django.utils import timezone as tz
 from django.contrib.auth.models import User
 
-from moneytracker.models import Event, Participant, MoneyRecord, MoneyRecordType
+from moneytracker.models import Event, Participant, MoneyRecord, MoneyRecordType, Allocation, AllocationType
 from moneytracker.scripts import db
 
 
@@ -27,7 +27,7 @@ def create_participant(event, user):
 
 
 def create_expense(event, date_str, description, amount, participant):
-    money_record = MoneyRecord.objects.create(
+    expense = MoneyRecord.objects.create(
         event=event,
         pub_date=date_from_str(date_str),
         description=description,
@@ -36,12 +36,22 @@ def create_expense(event, date_str, description, amount, participant):
         participant1=participant,
         participant2=None,
     )
-    MoneyRecord.save(money_record)
-    return money_record
+    MoneyRecord.save(expense)
+
+    for participant in event.participants():
+        new_allocation = Allocation.objects.create(
+            money_record=expense,
+            participant_id=participant.id,
+            type=AllocationType.EQUAL,
+            amount=None,
+        )
+        new_allocation.save()
+
+    return expense
 
 
 def create_transfer(event, date_str, amount, participant_from, participant_to):
-    money_record = MoneyRecord.objects.create(
+    transfer = MoneyRecord.objects.create(
         event=event,
         pub_date=date_from_str(date_str),
         description='Transfer of funds',
@@ -50,8 +60,8 @@ def create_transfer(event, date_str, amount, participant_from, participant_to):
         participant1=participant_from,
         participant2=participant_to,
     )
-    MoneyRecord.save(money_record)
-    return money_record
+    MoneyRecord.save(transfer)
+    return transfer
 
 
 def date_from_ymd(year, month, day):
