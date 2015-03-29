@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 secretKeyEnvVar = 'TRAKR_SECRET_KEY'
-assert secretKeyEnvVar in os.environ, 'Required environment variable not set' + secretKeyEnvVar
+assert secretKeyEnvVar in os.environ, 'Required environment variable not set: ' + secretKeyEnvVar
 SECRET_KEY = os.environ[secretKeyEnvVar]
 
 # SECURITY WARNING: don't run with debug turned on in production!
