@@ -199,8 +199,6 @@ class MoneyRecordForm(forms.Form):
     def clean(self):
         cleaned_data = super(MoneyRecordForm, self).clean()
 
-
-
         if self.record_type == 'expense':
 
             expense_amount = cleaned_data.get('amount')
