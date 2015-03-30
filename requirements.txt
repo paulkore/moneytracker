@@ -5,7 +5,7 @@ django-enumfield==1.2
 django-extensions==1.4.8
 django-postgrespool==0.3.0
 gunicorn==19.2.1
-psycopg2==2.5.4
+psycopg2==2.6
 python-dateutil==1.5
 pytz==2014.10
 whitenoise==1.0.6
