@@ -71,9 +71,8 @@ import dj_database_url
 
 DATABASES = {
     # [Heroku]
-    # Parse database configuration from $DATABASE_URL
+    # Parse database configuration from $DATABASE_URL (if not provided, default to local dev configuration)
     'default': dj_database_url.config(default='postgres://moneytracker:moneytracker@localhost:5432/moneytracker')
-    # 'default': dj_database_url.config()
 }
 
 # [Heroku] Enable Connection Pooling
