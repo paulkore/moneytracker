@@ -7,8 +7,11 @@ from django.shortcuts import render
 from moneytracker.auth import has_event_access
 from moneytracker.models import Event, MoneyRecord, MoneyRecordType, AllocationType
 from moneytracker.money import round_to_dollar
+from moneytracker.views.common import MobileAction
 
-class MoneyRecordItem:
+
+class ExpandedMoneyRecord:
+
     def __init__(self, money_record):
         assert type(money_record) is MoneyRecord
 
@@ -60,12 +63,15 @@ class MoneyRecordItem:
                                 kwargs={'event_name_slug': money_record.event.name_slug, 'record_id': money_record.id})
 
 
-class SettlementItem:
+
+class Settlement:
+
     def __init__(self, participant_from, participant_to, amount):
         self.participant_from = participant_from
         self.participant_to = participant_to
         # round settlements to the nearest dollar
         self.amount = round_to_dollar(amount)
+
 
 
 def event_records_view(request, event_name_slug):
@@ -82,40 +88,63 @@ def event_records_view(request, event_name_slug):
         participants = event.participants()
         money_records = event.money_records().reverse()
 
-        event_total = Decimal(0)
 
+        # TODO: the procedure below is too long; it needs to be split up and unit-tested piece by piece
+
+
+        # Step 1: process all money records, and aggregate various totals
+        #   - total expense amount in event
+        #   - total contribution per participant (the sum of their payments / credits within the group)
+        #   - total expense allocation per participant (the total value of what they consumed)
+
+        event_total = Decimal(0)
+        expanded_money_records = []
         participant_contribution = {}
         participant_expense_allocation = {}
         for p in participants:
             participant_contribution[p] = Decimal(0)
             participant_expense_allocation[p] = Decimal(0)
 
-        money_record_data_items = []
-        for money_record in money_records:
-            money_record_data = MoneyRecordItem(money_record)
-            money_record_data_items.append(money_record_data)
-            event_total += money_record_data.amount_towards_total
-            for p in money_record_data.contributions:
-                participant_contribution[p] += money_record_data.contributions[p]
-            for p in money_record_data.expense_allocations:
-                participant_expense_allocation[p] += money_record_data.expense_allocations[p]
+        for m in money_records:
+            em = ExpandedMoneyRecord(m)
+            expanded_money_records.append(em)
+            event_total += em.amount_towards_total
+            for p in em.contributions:
+                participant_contribution[p] += em.contributions[p]
+            for p in em.expense_allocations:
+                participant_expense_allocation[p] += em.expense_allocations[p]
 
-        participant_variance = {}
+
+        # Step 2: calculate participant variances based on the above
+        #   - a positive variance is an over-contribution (the participant is to be reimbursed this amount)
+        #   - a negative variance is an under-contribution (the participant owes this amount)
+
         participant_overcontrib = {}
         participant_undercontrib = {}
         variance_sum = Decimal(0)
         for p in participants:
             variance = participant_contribution[p] - participant_expense_allocation[p]
-            participant_variance[p] = variance
+            variance_sum += variance
             if variance > 0:
                 participant_overcontrib[p] = variance
             elif variance < 0:
                 participant_undercontrib[p] = abs(variance)
             else:
-                # zero variance
+                # zero variance... do nothing
                 pass
-            variance_sum += variance
+
         assert abs(variance_sum) < 1, 'Variances must cancel each other (tolerance of $1)'
+
+
+
+        # Step 3: produce suggested settlement transactions
+        #
+        # These will list the amounts that under-contributing participants may transfer to
+        # over-contributing participants, in order to even out the balances.
+        #
+        # Mathematically, there are infinitely many ways in which this can be done.
+        # The algorithm below strives to produce a reasonably-optimal solution.
+        # (least number of transactions)
 
         participant_settlement = {}
         for p in participants:
@@ -175,38 +204,36 @@ def event_records_view(request, event_name_slug):
                     # payable amount was fully settled (and receivable amount, too)
                     break
 
+        # convert the settlement data to list form for display purposes
         suggested_settlements = []
         for p in participant_settlement:
             for s in participant_settlement[p]:
-                suggested_settlements.append(SettlementItem(participant_from=s[0], participant_to=p, amount=s[1]))
+                suggested_settlements.append(Settlement(participant_from=s[0], participant_to=p, amount=s[1]))
 
         url_add_expense = reverse('create-expense', kwargs={'event_name_slug': event_name_slug})
         url_add_transfer = reverse('create-transfer', kwargs={'event_name_slug': event_name_slug})
 
-        return render(request, 'event_records.html', {
+        context_data = {
             'event': event,
             'participants': participants,
-            'money_records': money_record_data_items,
+            'money_records': expanded_money_records,
             'event_total': event_total,
+
             'participant_contribution': participant_contribution,
             'participant_expense_allocation': participant_expense_allocation,
-            'participant_variance': participant_variance,
             'participant_overcontrib': participant_overcontrib,
             'participant_undercontrib': participant_undercontrib,
             'suggested_settlements': suggested_settlements,
+
             'url_add_expense': url_add_expense,
             'url_add_transfer': url_add_transfer,
             'mobile_actions': [
                 MobileAction(display_name='record an expense', url=url_add_expense),
                 MobileAction(display_name='record a transfer', url=url_add_transfer),
             ]
-        })
+        }
+
+        return render(request, 'event_records.html', context_data)
 
 
-class MobileAction:
-    def __init__(self, display_name, url):
-        assert type(display_name) is str
-        assert type(url) is str
 
-        self.display_name = display_name
-        self.url = url

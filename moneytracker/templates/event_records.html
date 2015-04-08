@@ -221,8 +221,7 @@
                         <div class="summary-participant-right summary-balance-value">{{ participant_undercontrib | get_item:participant | money_amount:'simple' }}</div>
                     {% else %}
                         <div class="summary-participant-left">Balance owed:</div>
-                        <div class="summary-participant-right summary-balance-value">{{ participant_variance | get_item:participant | money_amount:'simple' }}</div>
-                        {# should be zero variance here #}
+                        <div class="summary-participant-right summary-balance-value">{{ 0.00 | money_amount:'simple' }}</div>
                     {% endif %}
                 </div>
 
