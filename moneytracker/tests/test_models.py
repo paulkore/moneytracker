@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from moneytracker.models import Event, Participant, MoneyRecord, MoneyRecordType
+from moneytracker.models import Event, Participant, MoneyRecord
 from moneytracker.scripts.db_create import create_expense
 
 
