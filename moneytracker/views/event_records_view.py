@@ -10,7 +10,7 @@ from moneytracker.money import round_to_dollar
 from moneytracker.views.common import MobileAction
 
 
-class ExpandedMoneyRecord:
+class ProcessedMoneyRecord:
 
     def __init__(self, money_record):
         assert type(money_record) is MoneyRecord
@@ -98,7 +98,7 @@ def event_records_view(request, event_name_slug):
         #   - total expense allocation per participant (the total value of what they consumed)
 
         event_total = Decimal(0)
-        expanded_money_records = []
+        processed_money_records = []
         participant_contribution = {}
         participant_expense_allocation = {}
         for p in participants:
@@ -106,13 +106,13 @@ def event_records_view(request, event_name_slug):
             participant_expense_allocation[p] = Decimal(0)
 
         for m in money_records:
-            em = ExpandedMoneyRecord(m)
-            expanded_money_records.append(em)
-            event_total += em.amount_towards_total
-            for p in em.contributions:
-                participant_contribution[p] += em.contributions[p]
-            for p in em.expense_allocations:
-                participant_expense_allocation[p] += em.expense_allocations[p]
+            pm = ProcessedMoneyRecord(m)
+            processed_money_records.append(pm)
+            event_total += pm.amount_towards_total
+            for p in pm.contributions:
+                participant_contribution[p] += pm.contributions[p]
+            for p in pm.expense_allocations:
+                participant_expense_allocation[p] += pm.expense_allocations[p]
 
 
         # Step 2: calculate participant variances based on the above
@@ -216,7 +216,7 @@ def event_records_view(request, event_name_slug):
         context_data = {
             'event': event,
             'participants': participants,
-            'money_records': expanded_money_records,
+            'money_records': processed_money_records,
             'event_total': event_total,
 
             'participant_contribution': participant_contribution,
