@@ -52,6 +52,7 @@ class Participant(models.Model):
     event = models.ForeignKey(Event)
     name = models.CharField(max_length=15, blank=False, null=True)
     is_default = models.BooleanField(blank=False, null=False, default=False)
+    weight = models.DecimalField(max_digits=10, decimal_places=3, null=True, default=None)
 
     class Meta:
         db_table = 'mt_participant'

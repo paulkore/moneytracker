@@ -114,6 +114,11 @@ def event_records_view(request, event_name_slug):
             for p in pm.expense_allocations:
                 participant_expense_allocation[p] += pm.expense_allocations[p]
 
+        # Apply expense weights, if applicable (experimental feature)
+        for p in participants:
+            if p.weight:
+                participant_expense_allocation[p] = p.weight * event_total
+
 
         # Step 2: calculate participant variances based on the above
         #   - a positive variance is an over-contribution (the participant is to be reimbursed this amount)
