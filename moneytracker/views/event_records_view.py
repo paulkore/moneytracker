@@ -115,9 +115,11 @@ def event_records_view(request, event_name_slug):
                 participant_expense_allocation[p] += pm.expense_allocations[p]
 
         # Apply expense weights, if applicable (experimental feature)
+        weights_applied = False
         for p in participants:
             if p.weight:
                 participant_expense_allocation[p] = p.weight * event_total
+                weights_applied = True
 
 
         # Step 2: calculate participant variances based on the above
@@ -223,6 +225,7 @@ def event_records_view(request, event_name_slug):
             'participants': participants,
             'money_records': processed_money_records,
             'event_total': event_total,
+            'weights_applied': weights_applied,
 
             'participant_contribution': participant_contribution,
             'participant_expense_allocation': participant_expense_allocation,

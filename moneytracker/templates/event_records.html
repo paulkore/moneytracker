@@ -229,7 +229,7 @@
         {% endfor %}
 </div>
 
-{% if suggested_settlements %}
+{% if suggested_settlements and not weights_applied %}
     <div id="suggested-settlements" class="summary-section">
         <div class="summary-top">
             Suggested transactions to settle the event:
