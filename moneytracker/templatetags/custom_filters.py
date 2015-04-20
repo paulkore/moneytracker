@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.template.defaulttags import register
 
 
