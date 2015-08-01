@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('moneytracker', '0005_moneyrecord_type'),
+        ('trakr', '0005_moneyrecord_type'),
     ]
 
     operations = [

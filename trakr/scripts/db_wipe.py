@@ -1,4 +1,4 @@
-from moneytracker.scripts import db
+from trakr.scripts import db
 
 
 def run():

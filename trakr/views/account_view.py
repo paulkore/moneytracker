@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
-from moneytracker.models import Participant
+from trakr.models import Participant
 
 
 class EventData:

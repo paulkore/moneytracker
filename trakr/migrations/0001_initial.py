@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('pub_date', models.DateTimeField(verbose_name='date published')),
                 ('description', models.CharField(max_length=200)),
                 ('amount', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('event', models.ForeignKey(to='moneytracker.Event')),
+                ('event', models.ForeignKey(to='trakr.Event')),
             ],
             options={
                 'db_table': 'mt_money_record',
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
                 ('name', models.CharField(null=True, max_length=15)),
-                ('event', models.ForeignKey(to='moneytracker.Event')),
+                ('event', models.ForeignKey(to='trakr.Event')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -54,13 +54,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='moneyrecord',
             name='participant1',
-            field=models.ForeignKey(to='moneytracker.Participant', related_name='moneyrecord_participant1'),
+            field=models.ForeignKey(to='trakr.Participant', related_name='moneyrecord_participant1'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='moneyrecord',
             name='participant2',
-            field=models.ForeignKey(null=True, to='moneytracker.Participant', blank=True, related_name='moneyrecord_participant2'),
+            field=models.ForeignKey(null=True, to='trakr.Participant', blank=True, related_name='moneyrecord_participant2'),
             preserve_default=True,
         ),
     ]

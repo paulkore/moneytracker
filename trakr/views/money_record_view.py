@@ -3,9 +3,9 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 
-from moneytracker.auth import has_event_access
-from moneytracker.forms import MoneyRecordForm
-from moneytracker.models import Event, MoneyRecord
+from trakr.auth import has_event_access
+from trakr.forms import MoneyRecordForm
+from trakr.models import Event, MoneyRecord
 
 
 def money_record_view(request, event_name_slug, record_id=None):

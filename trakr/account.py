@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.http import HttpResponseRedirect
-from moneytracker.models import Participant
+from trakr.models import Participant
 
 
 def landing_page_redirect(user):

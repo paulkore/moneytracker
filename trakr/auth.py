@@ -1,4 +1,4 @@
-from moneytracker.models import Event
+from trakr.models import Event
 
 
 def has_event_access(user, event):

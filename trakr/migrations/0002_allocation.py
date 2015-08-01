@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('moneytracker', '0001_initial'),
+        ('trakr', '0001_initial'),
     ]
 
     operations = [
@@ -15,8 +15,8 @@ class Migration(migrations.Migration):
             name='Allocation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('money_record', models.ForeignKey(to='moneytracker.MoneyRecord')),
-                ('participant', models.ForeignKey(to='moneytracker.Participant')),
+                ('money_record', models.ForeignKey(to='trakr.MoneyRecord')),
+                ('participant', models.ForeignKey(to='trakr.Participant')),
             ],
             options={
                 'db_table': 'mt_allocation',

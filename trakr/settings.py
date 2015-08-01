@@ -1,5 +1,5 @@
 """
-Django settings for moneytracker project.
+Django settings for trakr project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'moneytracker',
+    'trakr',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,12 +56,12 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'moneytracker.context_processors.default_processor',
+    'trakr.context_processors.default_processor',
 )
 
-ROOT_URLCONF = 'moneytracker.urls'
+ROOT_URLCONF = 'trakr.urls'
 
-WSGI_APPLICATION = 'moneytracker.wsgi.application'
+WSGI_APPLICATION = 'trakr.wsgi.application'
 
 
 # Database

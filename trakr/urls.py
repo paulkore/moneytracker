@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 from django.contrib import admin
 
-from moneytracker import views
+from trakr.import views
 
 urlpatterns = patterns(
     '',

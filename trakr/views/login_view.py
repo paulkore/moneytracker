@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from moneytracker.account import landing_page_redirect
-from moneytracker.forms import LoginForm
+from trakr.account import landing_page_redirect
+from trakr.forms import LoginForm
 
 
 def login_view(request):

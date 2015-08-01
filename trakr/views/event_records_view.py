@@ -4,10 +4,10 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
-from moneytracker.auth import has_event_access
-from moneytracker.models import Event, MoneyRecord, MoneyRecordType, AllocationType
-from moneytracker.money import round_to_dollar
-from moneytracker.views.common import MobileAction
+from trakr.auth import has_event_access
+from trakr.models import Event, MoneyRecord, MoneyRecordType, AllocationType
+from trakr.money import round_to_dollar
+from trakr.views.common import MobileAction
 
 
 class ProcessedMoneyRecord:

@@ -1,3 +1,3 @@
-from moneytracker.forms.money_record_form import MoneyRecordForm
-from moneytracker.forms.login_form import LoginForm
+from trakr.forms.money_record_form import MoneyRecordForm
+from trakr.forms.login_form import LoginForm
 

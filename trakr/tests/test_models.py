@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from moneytracker.models import Event, Participant, MoneyRecord
-from moneytracker.scripts.db_create import create_expense
+from trakr.models import Event, Participant, MoneyRecord
+from trakr.scripts.db_create import create_expense
 
 
 class EventModelTests(TestCase):

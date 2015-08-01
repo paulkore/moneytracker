@@ -7,7 +7,7 @@ from django.http import QueryDict
 
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
-from moneytracker.models import MoneyRecord, Event, Participant, Allocation, MoneyRecordType, AllocationType
+from trakr.models import MoneyRecord, Event, Participant, Allocation, MoneyRecordType, AllocationType
 
 
 class MoneyRecordForm(forms.Form):

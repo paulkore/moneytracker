@@ -2,8 +2,8 @@ from datetime import datetime as dt
 from django.utils import timezone as tz
 from django.contrib.auth.models import User
 
-from moneytracker.models import Event, Participant, MoneyRecord, MoneyRecordType, Allocation, AllocationType
-from moneytracker.scripts import db
+from trakr.models import Event, Participant, MoneyRecord, MoneyRecordType, Allocation, AllocationType
+from trakr.scripts import db
 
 
 def create_event(name):

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from moneytracker.models import Event, Participant, MoneyRecord
+from trakr.models import Event, Participant, MoneyRecord
 
-from moneytracker.scripts.common import str_date, str_money, str_q
+from trakr.scripts.common import str_date, str_money, str_q
 
 
 def wipe_all():

@@ -11,7 +11,7 @@ assuming that all expense records apply to the entire group.
 """
 from django.db import transaction
 
-from moneytracker.models import Event, Participant, Allocation, MoneyRecordType, AllocationType
+from trakr.models import Event, Participant, Allocation, MoneyRecordType, AllocationType
 
 
 def run():
