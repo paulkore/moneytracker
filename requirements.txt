@@ -1,4 +1,4 @@
-Django==1.8
+Django==1.11.23
 SQLAlchemy==0.9.8
 dj-database-url==0.3.0
 django-enumfield==1.2
