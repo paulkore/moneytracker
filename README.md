@@ -20,3 +20,4 @@ Functionality outline:
 - calculation of each participant's expense allocation (participation in an an expense)
 - calculation of each participant's variance (overpayment or underpayment), to establish debt payable or receivable. 
 - generation of suggested transactions within the group, to help the participants settle the variances at the end of the event
+
